@@ -1,0 +1,156 @@
+Type Script Non-Primitive Types
+- Array
+- Object
+- JSON
+- RegularExpression
+- DateType
+
+	         TypeScript Date Type
+- Date is a literal with date and time values.
+- In typescript you can store date value in memory and use it as a part of any expression.
+- The data type to store date value is "any".
+- Date value is stored in memory by using a date constructor. [ Date() ].
+- The default format for storing date value will be
+	"year-month-day"
+
+Syntax: Storing a Date Value
+
+    let mfd : any = new Date();   // load current date
+    let mfd : any = new Date("year-month-day");
+
+- To read the date value from memory we need date functions
+
+ Function		Description
+ ==========================================
+ getHours()	returns the hour number
+		in 24 hr format.
+		ex: 18:30
+ getMinutes()	returns the minute number
+ getSeconds()	returns the seconds number
+ getDay()		returns the weekday numner
+		ex:
+		0- Sunday
+		1- Monday
+ getDate()		returns the date number
+		ex:
+		19
+ getMonth()	return the month number
+		ex:
+		0-January
+ getYear()		return year number as per Y2K
+		99, 100, 101
+		not in use anymore.
+ getFullYear()	returns the year number in 4 digit
+		ex: 2020
+ toLocaleDateString() returns the date format in long
+		  form.
+ toDateString()	 returns date 
+ toTimeString()	 returns time
+
+Ex:
+let mfd:any = new Date();
+let weekdays:string[] = ["Sunday","Monday","Tuesday","WednesDay","Thursday","Friday","Saturday"];
+let months:string[] = ["Jan","Feb","March","Apr"];
+console.log(`
+  WeekDay : ${weekdays[mfd.getDay()]} \n
+  Date    : ${mfd.getDate()} \n
+  Month   : ${months[mfd.getMonth()]} \n
+  Year    : ${mfd.getFullYear()}
+`);
+
+Ex: Time
+
+let currenttime:any = new Date();
+let hourNumber:number = currenttime.getHours();
+if(hourNumber>1 && hourNumber<13) {
+  console.log("Good Morning");
+} else if(hourNumber>13 && hourNumber<17) {
+    console.log("Good Afternoon");
+} else if(hourNumber>17 && hourNumber<=23) {
+    console.log("Good Evening");
+}
+
+Enum Type 
+- Enumeration
+- Set of numeric constants
+- You can store a set of numeric constants and access them by using reference.
+- You can store multiple constants under one name.
+- What is issue with array of numbers
+      let errorCodes:number[] = [404, 200];
+      
+      errorCodes[0] = 404
+- What is advantage with Enum is it allows to access number by using a simple string reference.
+
+     Enum  Name {
+            value1 = number;
+            value2 = number;
+     }
+     Name.value1;
+
+- You can create an enum type by using
+     
+    let variableName: EnumName = EnumName.value1
+
+Ex:
+enum ErrorCodes {
+    NotFound = 404,
+    OK = 200
+}
+let notfound:ErrorCodes = ErrorCodes.NotFound;
+
+console.log(`The error status code for Notfound is ${notfound} `);
+console.log(`The status for OK is ${ErrorCodes.OK}`)
+
+- Enum is a collection of numeric constants that update the gap value by using step reference automatically.
+
+Syntax:
+	enum  Numbers {
+		A,
+		B
+	 }
+	Numbers.A;	= 0
+	Numbers.B; 	= 1
+
+Syntax:
+	enum Numbers {
+	   A=102,
+	   B
+	}
+	Numbers.A	= 102
+	Numbers.B	= 103
+
+Note: The step value for the next occurance in enum will according to the previous value, which is incremente by 1.
+
+Syntax:
+enum Codes {
+    A = 10,
+    B = 20,
+    C,
+    D = 40
+}
+console.log(`C=${Codes.C}`);            C=21
+Codes.A= 20;    // Invalid bcouse , A is readonly
+
+- You can also use Enum for String constants.
+
+Ex:
+enum Directions {
+    Up = "Towards Up",
+    Down = "Towards Down",
+}
+console.log(`up means ${Directions.Up}`);
+
+- String Enums can't be incremented hence every value must be initialized
+
+Syntax:
+enum Directions {
+    Up = "Towards Up",
+    Left,			// Invalid
+    Down = "Towards Down",
+}
+console.log(`up means ${Directions.Up}`);
+
+- Enum can be heterogeneous Enums mixed with various types of constants.
+
+
+
