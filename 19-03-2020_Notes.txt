@@ -152,5 +152,10 @@ console.log(`up means ${Directions.Up}`);
 
 - Enum can be heterogeneous Enums mixed with various types of constants.
 
-
+enum bool {
+    false = 0,
+    true = "True"
+}
+console.log(`False is ${bool.false}`);
+console.log(`True is ${bool.true}`);
 
