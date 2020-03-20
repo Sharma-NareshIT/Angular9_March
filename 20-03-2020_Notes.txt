@@ -1,0 +1,248 @@
+Summary of DataTypes
+1. The Root Type is "any"
+2. Primitive Types
+	- number
+	- string
+	- boolean
+	- null
+	- undefined
+3. Non Primitive Types
+	- Array
+	- Object
+	- Regular Expession
+	- JSON 
+	- Date
+	- Enum
+	- Map
+Map Type:
+- It is a new Data Structure like JSON
+- It is introduced into ES6 
+- Map is a collection of key and values.
+- It is to overcome the issues we are facing with object type.
+- It can strongly typed with keys and values.
+
+Syntax:
+ let  variableName = new Map();
+
+Map Methods/Properties	Description
+============================================
+set()		It is used to add a new value into
+		map.
+get()		It is used to retreive value from
+		map.
+
+has()		It is used to verify any specific
+		key availablity and return true
+		if it is available.
+
+delete()		It is used to remove any value
+		from map.
+clear()		It is used to remove all values 
+		from map.
+
+keys()		It returns the array of all keys in
+		a map.
+
+values()		It returns the array of all values
+		in map.
+
+entries()		It returns an array of complete
+		key and value.
+
+size		It returns the size of map i.e
+		total no of records.
+
+Adding Records into Map:
+======================
+
+Syntax:
+          mapName.set("key", "value");
+          Key : any
+          Value: any
+
+Ex:
+let productdata = new Map();
+productdata.set(1, "Samsung TV");
+productdata.set(2, "Nike Casuals");
+
+
+let productsDescription = new Map();
+productsDescription.set("TV", "something about tv..");
+productsDescription.set("Shoe", "Something about shoe..");
+
+Add by using Chain Technique:
+==========================
+
+let productdata = new Map()
+                             .set(1, "Samsung TV")
+                             .set(2, "Nike Casuals");
+
+Add by using Array Technique: (Initilization)
+====================================
+
+let productdata = new Map([
+    [1, "Samsung TV"],
+    [2, "Nike Casuals"]
+]);
+
+
+Read Values from Map:  (get)
+========================
+
+  mapName.get("Key");
+
+Ex:
+let productdata = new Map([
+    [1, "Samsung TV"],
+    [2, "Nike Casuals"]
+]);
+console.log(productdata.get(1));
+console.log(productdata.get(2));
+
+Check for Keys in Map:
+===================
+       mapName.has(key);     // true or false
+
+Ex:
+let productdata = new Map([
+    [1, "Samsung TV"],
+    [2, "Nike Casuals"]
+]);
+let productid:number = 2;
+if(productdata.has(productid)) {
+    console.log(productdata.get(productid));
+} else {
+    console.log("Product Not Found");
+}
+
+Remove Records from Map:
+=======================
+
+  mapName.delete(key);
+
+Ex:
+let productdata = new Map([
+    [1, "Samsung TV"],
+    [2, "Nike Casuals"]
+]);
+productdata.delete(2);
+let productid:number = 2;
+if(productdata.has(productid)) {
+    console.log(productdata.get(productid));
+} else {
+    console.log("Product Not Found");
+}
+
+Remove All records from Map:
+=========================
+     mapName.clear();
+
+Ex:
+let productdata = new Map([
+    [1, "Samsung TV"],
+    [2, "Nike Casuals"]
+]);
+productdata.clear();
+let productid:number = 1;
+if(productdata.has(productid)) {
+    console.log(productdata.get(productid));
+} else {
+    console.log("Product Not Found");
+}
+
+Size of Map:
+==========
+
+ mapName.size;
+
+Ex:
+let productdata = new Map([
+    [1, "Samsung TV"],
+    [2, "Nike Casuals"]
+]);
+console.log(`Total No of Products : ${productdata.size}`);
+
+Accessing all Keys from Map:
+========================
+         mapName.keys()
+
+Ex:
+let productdata = new Map([
+    [1, "Samsung TV"],
+    [2, "Nike Casuals"]
+]);
+console.log(productdata.keys());
+
+
+Accessing all Values from Map:
+==========================
+
+let productdata = new Map([
+    [1, "Samsung TV"],
+    [2, "Nike Casuals"]
+]);
+console.log(productdata.values());
+
+Accessing all Entries:
+==================
+
+   mapName.entries()
+
+EX:
+let productdata = new Map([
+    [1, "Samsung TV"],
+    [2, "Nike Casuals"]
+]);
+console.log(productdata.entries());
+
+
+Set  type in TypeScript
+===================
+- It is similar to a Map()
+- It contains only collection of keys
+- When we have to access all keys from a map and store in a reference then we can use set.
+
+Function		Description
+==========================================
+set()		It is used to set value
+add()		It is used to add value
+has()		It is used to verify value
+delete()		It is used to remove value
+clear()		Delete all values
+size		Get the size of value
+
+Add by using set, array, chain method
+
+Ex:
+let data = new Set();
+data.add("Samsung TV");
+data.add("Nike Shoe");
+
+let data1 = new Set(['TV','Mobile']);
+
+data.delete("TV");
+data.clear();
+data.size
+data.entries()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
