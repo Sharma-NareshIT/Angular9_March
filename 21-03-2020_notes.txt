@@ -1,0 +1,146 @@
+Type assertions
+- Same like type convertions in other languages
+- Converting one type into another.
+- It is like in other languages "Type Casting"
+- Type assertions are required to tell the compiler that we exaclty know what type of data we are dealing with.
+- Developers usually use type assertions to tell compiler about the data type. 
+- Two ways of using type assertions
+	a) by using generic type represention with
+	      angle bracket < >
+	b) by using "as" key word
+
+Generic Type Assertion using angle bracket:
+====================================
+- Define the datatype in < > angle bracket
+- followed by the variable that contains value.
+
+ Syntax:
+	(<string> variableName)
+	(<number> variableName)
+	(<boolean> variableName)
+
+Ex:
+let msg:any = "Welcome to TypeScript";
+
+let count:number = (<string>msg).length;
+
+console.log("Total No of Chars : " + count);
+
+Type assertion by using "as"  Keyword:
+================================
+- Define the data type for variable by using "as" keyword.
+- VariableName "as" DataTypeName
+
+Syntax:
+	(variableName as dataTypeName)
+
+Ex:
+let msg:any = "Welcome to TypeScript Tutorial";
+
+let count:number = (msg as string).length;
+
+console.log("Total No of Chars : " + count);
+
+Note: We often use "as" for type assertion specially when we are working with  JSX. JavaScript Asynchronous Requests.
+
+	      Operators in Type Script
+- Operator is an object in computer programming.
+- Object contains data and functionality.
+- Operator is an object that evaluates a value and returns the value.
+- Operator access data in operands and perform any specific functionality.
+	           x  +  y
+              x and y  are operands that contain data
+              + is an operator that evalues an value and
+	returns the value.
+- Based on how many operands an operator an handle, the operators are majorly classified into
+	a) Unary Operator
+	          - it uses one operand
+	          ex:  x++
+	b) Binary Operator
+	          - it uses two operand
+	          ex: x + y
+	c) Ternary Operator
+	          - It uses three operands
+	          ex:
+		(condition)?true:false
+- Based on what type of value an operator returns the operators are classified into following types.
+	Number	- Arithematic Operator
+	Boolean	- Logical, Relational
+	Binary	- Bitwise Operators
+
+1. Arithmetic Operators
+2. Comparison (Relational) Operators
+3. Bitwise Operators
+4. Logical Operators
+5. Assignment Operators
+6. Special Operators
+
+
+	Special Operators in TypeScript
+
+1. Ternary Operator  ( ?: )
+    - It uses an expression and return values based on boolean result i.e true or false.
+    - It is similar to "if..else"
+
+  Syntax:
+        (boolExpression)?value_true:value_false
+
+Ex:
+let isInStock:boolean = false;
+console.log(`Stock Status : ${(isInStock==true)?"Available":"Out of Stock"}`);
+
+2. delete operator
+   - It is used to delete any property of an object.
+   - You can't delete if property is readonly.
+
+ Syntax:
+              delete  objectName.Property;
+
+Ex:
+let product:any = {
+    Name: "Samsung TV",
+    Price: 45000.55
+};
+delete product.Price;
+console.log(`Name=${product.Name} \n Price=${product.Price}`);
+
+FAQ:
+         delete  Math.PI ;            // invalid  Math is a built
+		                in object and all 			properties of buit in
+			object are readonly.
+
+3. instanceof  operator [true or false]
+
+  - It is used to verify the class from where the object is derived from.
+  - It returns true or false
+  - It returns true if it is derived from specified class.
+
+Syntax:
+            (objectName  instanceof  className)
+
+Ex:
+class Employee {
+
+}
+let emp:any = new Employee();
+let products:any = new Array();
+
+console.log(`Emp is an Array : ${(emp instanceof Array)}`);
+console.log(`Emp is an Employee : ${(emp instanceof Employee)}`);
+console.log(`Products is an Array : ${(products instanceof Array)}`);
+console.log(`Products is an Employee : ${(products instanceof Employee)}`);
+
+4. typeof  operator
+    - It is used to identify the datatype of any reference.
+    - It returns the data type of value present in a
+      reference.
+
+Ex:
+let obj:any = {
+    Name : "TV",
+    Price: 45000.42,
+    InStock:true
+};
+console.log(`Name is ${(typeof obj.Name)} type`);
+console.log(`Price is ${(typeof obj.Price)} type`);
+console.log(`InStock is ${(typeof obj.InStock)} type`);
