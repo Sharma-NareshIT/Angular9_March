@@ -1,0 +1,180 @@
+Special Operators in Angular
+1. Ternary Operator [ ?: ]
+2. typeof
+3. instanceof
+4. delete
+5. in  
+
+5. "in" operator :
+     ============
+ It is used to verify whether the given property in present in an object.
+
+ It returns boolean true or false. It property is present then it returns true else it returns false.
+
+Syntax:
+              "PropertyName"  in  ObjectName
+
+Ex:
+let prod:any = {
+    Name: "TV",
+    Price: 45000.55
+};
+console.log("Is Stock Available in Prod object : " + ("Stock" in prod));
+console.log("Is Price Available in Prod object : " + ("Price" in prod));
+
+
+You can use the in operator over an iteration to read all properties of an object.
+
+Ex:
+let prod:any = {
+    Name: "TV",
+    Price: 45000.55,
+    IsInStock:true
+};
+for(var property in prod) {
+    console.log(property + ":" + prod[property]);
+}
+
+for..in  : It is used to create an iterator that can read
+              all properties of an object.
+
+6. "of" operator :  The of operator is used to verify and read values from a collection over an iteration.
+
+Ex:
+let normalArray:string[] = ["TV","Shoe"];
+let jsonArray:any[] = [
+    {Name: "TV", Price: 45000.55},
+    {Name: "Shoe", Price:2400.55}
+];
+for(var values of normalArray) {
+    console.log(values);
+}
+for(var products of jsonArray) {
+    console.log(products);
+}
+
+Summary:
+  in - for reading properties
+  of - for reading values 
+
+7. new  operator:
+    It is a special operator that allocates memory dynamically for a class in order to load its members into memory.
+    It is know as Dynamic Memory allocating operator.
+    It allocates a new memory every time.
+
+Ex:
+let now:any = new Date();
+console.log(now.toLocaleDateString());
+let collection:any[] = new Array();
+console.log(collection.length);
+
+Special Operators:
+- ternary
+- in
+- of
+- typeof 
+- instanceof
+- new
+- delete
+
+Types of Statements:
+ A statement is an program instruction used to control the execution flow.
+ The statements are classified into following types
+
+ 1. Selection Statements
+      if, else, switch, case, default
+ 2. Iteration and Looping Statements
+      for, while, do while
+ 3. Jump Statements
+      break, continue, return
+ 4. Exception Handling Statements
+      try, catch, throw, finally
+
+TypeScript Topics till date:
+1. TypeScript Architecture
+2. Variables
+3. DataTypes
+4. Operators
+5. Statements
+
+	       TypeScript  OOP
+- In real world applicaition development we use 3 major programming systems
+	a) POPS [Process Oriented Programming]
+	b) OBPS [Object Based Programming]
+	c) OOPS [Object Oriented Programming]
+
+
+POPS:
+- It supports low level features.
+- It can directly interact with hardware services.
+- It is faster
+- It needs very less memory to operate.
+
+DrawBacks:
+- Code reusability issues
+- Code speration issues
+- No  dynamic memory allocation.
+
+Ex:  C, PASCAL, COBOL
+
+
+OBPS:
+- It supports re-usability but by using objects
+- It supports dynamic memory allocation
+- It can embeded into existing applications
+
+DrawBacks:
+- Code Extensibility issues
+- Less Secured
+- No Dynamic Polymorphism.
+
+Ex:  JavaScript, Visual Basic [VB]
+
+
+OOPS: Object Oriented Programming System
+- Object was introduced into computer programming in early 1950's by "Alan Kay".
+- Object contains data and logic.
+- Data is present in properties.
+- Logic is present in methods.
+- In ealy 1960's "Johan Olay & Kristian Nygaard" introduced re-usability of object by inventing a concept called class. 
+- Class is an entity that contains logic and data which can be access and used from objects.
+- The first OOP language was "SIMULA 67" introduced by Johan Olay and Kristian Nygaard
+- Object Oriented Programming started with "Code-Reusability".
+- In early 1970's "Trygve" introduced a new framework for computer programming called "MVC"
+- It supports code re-usability and seperation.
+	M	- Model  - Data
+	V	- View    - UI
+	C	- Controller - Logic
+- Every technology is using MVC framework
+     Java		Spring
+     PHP		Cake PHP, Code Igniter
+     Perl		Catalyst, Dancer
+     Python		Django, Flask, Grock
+     Ruby		Ruby on Rails
+     .NET		ASP.NET MVC
+     JavaScript	SPINE, Angular JS
+- It was first formulated with a language called
+	"Small Talk"
+
+Features of OOP:
+- Code reusability
+- Code speration
+- Code Extensibility
+- Loosely coupled
+- Maintainability
+- Testability
+
+DrawBacks of OOP:
+- It will not support low level features
+- It can't directly interact with hardware services
+- It requires more memory
+- It is slow
+- It is more complex in configuration.
+
+Characterstics of OOP:
+1. Class
+2. Object
+3. Inheritence
+4. Polymorphism
+5. Encapsulation
+6. Abstraction
