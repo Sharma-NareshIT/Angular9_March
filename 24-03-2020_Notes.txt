@@ -1,0 +1,51 @@
+	        Contracts in OOP
+- In real world development process to design any component we have to follow certain rules.
+- Every component is designed as per specified rules.
+- In Object Oriented Programming the rules are defined by using a contract.
+- In OOP "Interface" is known as contract.
+- Interface is a contract which defines a set of rules for designing any component.
+- Interface is a contract designed by using "interface" keyword
+  Syntax:
+               interface Iname 
+               {
+                  //rules
+               }
+- Rules in interface are nothing but "Properties" and "Methods".
+- Properties are defined as rule for storing data.
+- Methods are defined as rule for defining functionality.
+- Interface contains rules for data and functionality.
+- Interface rules are by default public in access. You should not define any access modifier like : public, private, protected.
+- Interface rules must contain only declaration. No initialization and no-rendering or assigning of value.
+- Rules can't contain definition or value.
+- Properties requires value.
+- Methods require definition.
+- Properties and Methods in an interface should not contain value or definition.
+
+Syntax:
+               interface  Iname 
+               {
+                   propertyName:DataType; 
+                   methodName():returnType;
+               }
+               interface IName {
+	 propertyName:dataType = 10; // invalid
+                   methodName():returnType 
+                   {                                                  // invalid
+                    }
+               }
+
+Ex:
+interface IProduct
+{
+   ProductId:number;
+   Name:string;
+   Price:number;
+   IsInStock:boolean;
+}
+let product:IProduct = {
+    ProductId:1,
+    Name: "Samsung TV",
+    Price: 45000.53,
+    IsInStock: true
+}
+console.log(`Id=${product.ProductId} \n Name=${product.Name}\n Price=${product.Price}\n InStock=${product.IsInStock}`)
