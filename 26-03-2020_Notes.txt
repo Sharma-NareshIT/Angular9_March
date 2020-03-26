@@ -1,0 +1,92 @@
+	             TypeScript OOP
+Optional Rules in Contract
+======================
+- Every rule defined in a contract is by default mandatory.
+- We can define optional rules in a contract.
+- In an interface every property and method that you define is by default mandatory to implement.
+- You can defines properties and methods as optional by using a null reference character "?".
+
+Syntax:
+             propertyName? : DataType;
+             methodName?(): DataType;
+
+             ? = null reference character
+                   allows to ignore this property in                   	 implementation.
+
+Ex:
+interface IProduct 
+{
+    Id:number;
+    Name:string;
+    Price:number;
+    IsInStock?:boolean;
+}
+let tv: IProduct = {
+    Id:1,
+    Name: "Samsung TV",
+    Price: 45000.55,
+    IsInStock: false
+}
+let shoe: IProduct = {
+    Id:2,
+    Name: "Nike Casuals",
+    Price: 4200.44,
+    IsInStock: true
+};
+function PrintProduct(productName) {
+   if(productName.IsInStock==undefined) {
+    console.log(`Id=${productName.Id}\nName=${productName.Name}\nPrice=${productName.Price}\n`);
+   } else {
+    console.log(`Id=${productName.Id}\nName=${productName.Name}\nPrice=${productName.Price}\nIsInStock=${productName.IsInStock}`);
+   }
+}
+PrintProduct(tv);
+console.log(`-----------------`);
+PrintProduct(shoe);
+
+Readonly Rules in Contract:
+=======================
+- Every rule that you define in a contract can be assiged with a value or defined with a functionality.
+- Rules are allowed to render and override the value or functionality.
+- After implementing a specific functionality you can re-define the functionality.
+- Rules must be defined in such a way that they can't be redefined.
+- You can restrict the properties and methods from re-defining by using "readonly" modifier.
+
+Syntax:
+         interface  IName {
+              readonly  property:dataType;
+         }
+
+Ex:
+interface IProduct {
+    Name: string;
+    readonly Price: number;
+}
+let product:IProduct = {
+    Name: "Samsung TV",
+    Price: 45000.55
+};
+product.Price = 52000.44;  // invalid
+console.log(`Name=${product.Name}\nPrice=${product.Price}`);
+
+Indexable Properties in Interface
+===========================
+- Indexable property have an index signature that describes the types we use to index into an object.
+- It contains a dictionary type representation for properties. i.e "Key and Value".
+
+Syntax:
+              interface  IName {
+                      [indexProperty:Indextype] : valueType 
+              }
+
+Ex:
+interface IstringArray 
+{
+  [index:number]:string;
+}
+let products:IstringArray;
+products = ["Samsung TV", "Nike Casual"];
+
+console.log(products[0]);
+
+Interface Methods:
