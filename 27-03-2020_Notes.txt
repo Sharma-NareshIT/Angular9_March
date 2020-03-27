@@ -1,0 +1,170 @@
+Methods in contract:
+- Function always intended to return a value
+- Method will not return a value always.
+   [ with or without return value ]
+- Methods are required to define a functionality for any component.
+- In contract methods can declared but can't be defined with functionality.
+
+            method();          // declaration
+            method(){ 	   //  definition
+
+            }
+Syntax:
+         interface IName
+         {
+           method():returnType;
+         }
+         let obj : IName = {
+             method: function() {
+                    return value;
+             }
+          }
+
+Ex:
+interface IProduct 
+{
+  Name:string;
+  Price:number;
+  Quantity:number;
+  TotalAmount():number;
+  PrintProduct():void;
+}
+let tv:IProduct = {
+  Name: "Samsung TV",
+  Price: 45000.55,
+  Quantity: 2,
+  TotalAmount: function() {
+    return this.Quantity * this.Price;
+  },
+  PrintProduct: function(){
+    console.log(`Name=${this.Name}\nPrice=${this.Price}\nQuantity=${this.Quantity}\nTotal Amount=${this.TotalAmount()}`);
+  }
+}
+tv.PrintProduct();
+
+Note: A contract can be defined with optional methods by using null reference character.
+
+	   interface  IName {
+                        method?():returnType;   //optional
+	   }
+
+Extending Contracts:
+==================
+- A contract can be extended with rules.
+- It is not recomended to extend rules directly in existing contract.
+- You can create a new contract and extend the rules of existing contract.
+- The newly created contract can extend existing contract by using "extends" keyword.
+
+      interface Contract1 {
+
+      }
+      interface Contract2 extends Contract1 {
+ 
+      }
+
+- Any object can implement the new contract and access the members of both contracts.
+
+            let obj : Contract2 = {
+                 contract1 members;
+                 contract2 members;
+            }
+
+- You can extend contracts using
+	a) Single Hierarchy
+	b) Multi Level Hierarchy
+	c) Multiple Hierarchy
+
+Ex: Single Hierarchy
+interface IProductProperties 
+{
+  Name:string;
+  Price:number;
+  Quantity:number;
+}
+interface IProductMethods extends IProductProperties
+{
+   TotalAmount():number;
+   PrintProduct():void;
+}
+let product: IProductMethods = {
+  Name : "Samsung TV",
+  Price: 42000.44,
+  Quantity:2,
+  TotalAmount: function(){
+    return this.Quantity * this.Price;
+  },
+  PrintProduct: function(){
+    console.log(`Name=${this.Name}\nPrice=${this.Price}\nQuantity=${this.Quantity}\nTotal Amount=${this.TotalAmount()}`);
+  }
+}
+product.PrintProduct();
+
+
+Ex: Multi Level Hierarchy of Contracts
+===============================
+interface IPersonalDetails 
+{
+  Name:string;
+  Age:number;
+}
+interface ICourseDetails extends IPersonalDetails
+{
+    CourseName:string;
+}
+interface IFeeDetails extends ICourseDetails
+{
+    FeePaid:number;
+    Balance:number;
+}
+interface IStudentContract extends IFeeDetails {
+    Print():void;
+}
+let student: IStudentContract = {
+    Name: "John",
+    Age: 23,
+    CourseName: "Angular",
+    FeePaid: 3000,
+    Balance: 1000,
+    Print: function (){
+        console.log(`Name=${this.Name}\nAge=${this.Age}\nCourse=${this.CourseName}\nFeePaid=${this.FeePaid}\nBalance=${this.Balance}`);
+    }
+}
+student.Print();
+
+Multiple Hierarchy : 
+=================
+we don't want any inter relation between contracts, We need a single contract that can implement all other contracts and gives access to all members.
+
+interface  FinalContract extents Contract1, Contract2
+{
+}
+
+Ex:
+interface IPersonalDetails 
+{
+  Name:string;
+  Age:number;
+}
+interface ICourseDetails
+{
+    CourseName:string;
+}
+interface IFeeDetails
+{
+    FeePaid:number;
+    Balance:number;
+}
+interface IStudentContract extends IPersonalDetails, ICourseDetails, IFeeDetails {
+    Print():void;
+}
+let student: IStudentContract = {
+    Name: "John",
+    Age: 23,
+    CourseName: "Angular",
+    FeePaid: 3000,
+    Balance: 1000,
+    Print: function (){
+        console.log(`Name=${this.Name}\nAge=${this.Age}\nCourse=${this.CourseName}\nFeePaid=${this.FeePaid}\nBalance=${this.Balance}`);
+    }
+}
+student.Print();
