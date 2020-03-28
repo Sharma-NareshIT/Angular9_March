@@ -1,0 +1,91 @@
+	             Class in TypeScript
+- Class is a program template in OOP.
+- A class contains data and logic which you can customize and implement according to the application requirements.
+- Data is present in properties
+- Logic is defined in methods.
+- Class is an Logical Entity.
+- Entity represents some set of members that define the business requirements.
+- It contains all members that are required for designing a component.
+- Class is a model or blue-print for objects.
+- Classes in typescript are created by using "class" keyword
+- Class is a template and the rules for class come from a contract.
+- Class implements a contract 
+- Class is designed by following rules provided by a contract.
+- Class will implement the contract by using the keyword "implements"
+Syntax:
+      class ClassName implement  ContractName
+      {
+      }
+- You can load the members of class into memory by using "new" operator.
+  Syntax:
+	new className;
+- The members loaded into memory are assigned to a reference of refernce of memory called a object.
+- Object is a physical representation of its logical entity.
+           let object = new ClassName;
+           object.Property;
+           object.Method();
+
+Ex:
+interface IProduct 
+{
+    Name:string;
+    Price:number;
+    Quantity:number;
+    Total():number;
+    Print():void;
+}
+class Product implements IProduct
+{
+    Name:string = "TV";
+    Price:number = 45000.42;
+    Quantity:number = 2;
+    Total():number {
+        return this.Quantity * this.Price;
+    }
+    Print():void {
+        console.log(`Name=${this.Name}\nPrice=${this.Price}\nQuantity=${this.Quantity}\nTotal=${this.Total()}`);
+    }
+}
+let tv = new Product;
+tv.Print();
+console.log(`--------------`);
+let shoe = new Product;
+shoe.Name = "Nike Casuals";
+shoe.Price = 3400.44;
+shoe.Quantity = 3;
+shoe.Print();
+
+Class Members can be restricted in Accessbility
+=======================================
+- Class in TypeScript have 3 access modifiers for its members.
+	a) public
+	b) private
+	c) protected
+
+public  : 
+- It is accessible from any location and by any reference
+- you can access within the class
+- you can access directly by using an object of the class
+- you can access indirectly by using an object of its derived class.
+
+private:
+- It is a accessible only within the class.
+
+protected:
+- It is accessible within the class.
+- It is accessible by using an object of its derived class within the derived class.
+
+
+Ex:
+class Base 
+{
+    public Id;
+    private Name;
+    protected Price;
+}
+class Derived extends Base {
+   public Print(obj:Derived){
+      obj.Id=1;		// public
+      obj.Price = 3000;		// protected
+   }
+}
