@@ -1,0 +1,63 @@
+Access Modifiers
+- public
+- private
+- protected
+
+Static and Non-Static [dynamic] Members
+
+- The terms "static" and "dynamic" are related to memory.
+- Static memory
+- Dynamic memory
+
+Static:
+- It refers to static memory.
+- Static memory is continous memory.
+- The memory allocated for first object will be  continued for other objects.
+- In Type script static members are defined by using the keyword "static".
+- The static members are accessed within the class or outside the class by using class name.
+- Static occupies more memory.
+- Static members can't be safe as they are still in memory.
+
+Syntax:
+	class Demo {
+	     static s = 0;
+	}
+	Demo.s;
+
+Non-Static [Dynamic]:
+- It refers to dynamic memory.
+- It is discreet memory, not continous memory.
+- The memory allocated for first object will reset after the object finished using memory.
+- Everytime memory is newly allocated.
+- By default all members in a class are non-static.
+- You can access non-static member within the class by using "this" keyword and outside the class by using any object reference.
+- It leads to round-trips as memory need to be allocated everytime newly.
+- This will effect in the perfomance of application.
+
+Syntax:
+	class Demo {
+	      n=0;
+	      this.n;
+	}
+	let obj = new Demo;
+	obj.n
+
+Ex:
+class Demo
+{
+    public static s=0;
+    public n=0;
+    constructor(){
+        Demo.s = Demo.s + 1;
+        this.n = this.n + 1;
+    }
+    public Print():void {
+        console.log(`s=${Demo.s} n=${this.n}`);
+    }
+}
+let obj1 = new Demo;
+obj1.Print();
+let obj2 = new Demo;
+obj2.Print();
+let obj3 = new Demo;
+obj3.Print();
