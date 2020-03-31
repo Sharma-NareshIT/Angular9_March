@@ -1,0 +1,84 @@
+Access Modifiers
+Static and Non Static Members
+	
+	   Members in a Class
+A class in TypeScript OOP comprises of following members:
+1. Constructor
+2. Properties
+3. Methods
+4. Accessors
+
+Constructor:
+==========
+- It is a special type of method in a class. In JavaScript terminology its is a special type of function.
+- A general method is explicit, you have to call the method in order to execute and return functionality.
+- A constructor method is implicit, it executes 
+automatically.
+- Constructor loads into memory when ever the memory allocated for class and excutes automatically.
+- When we want any functionality to perform implicitly every time without manually calling it, then define the functionality using constructor.
+- Every class is having an implicit constructor, which is also called as default constructor. A constructor is defined internally for every class.
+- Default constructor usually identifies the type and initializes default value into those types.
+
+	public price:number;
+	console.log(price);       // undefined
+			       [constructor]
+- You can create an explicit constructor to defines the tasks to be peformed automatically.
+- TypeScript constructor is created by using the keyword "constructor".
+- Constructor methods are anonymous methods hence a name is not required. Usually the class name is used for constructor name implicitly.
+
+Syntax:
+	class  ClassName
+	{
+	   constructor()
+	   {
+	   }
+	}
+	let  obj = new ClassName();  
+
+	 ()-> to pass params into constructor
+
+- Every constructor method is by default public in access.
+- Every constructor method executes only once for an object.
+
+Ex:
+class Database {
+     constructor(){
+        console.log("Connected to Database..");
+    }
+    public Insert():void {
+        console.log("Record Inserted");
+    }
+    public Delete():void {
+        console.log("Record Deleted");
+    }
+}
+let oracle = new Database;
+oracle.Insert();
+oracle.Delete();
+let mysql = new Database;
+mysql.Delete();
+mysql.Insert();
+
+- Constructor can be parameter less or parameterized.
+- If constructor is parameterized then we have to pass values into parameter while allocating memory for class.
+           let obj = new className(param);
+- If constructor parameter is optional parameter then you can ignore the parameters while allocating memory.
+
+Ex:
+class Database {
+     constructor(dbname: string){
+        console.log(`Connected to ${dbname} Database..`);
+    }
+    public Insert():void {
+        console.log("Record Inserted");
+    }
+    public Delete():void {
+        console.log("Record Deleted");
+    }
+}
+let oracle = new Database("Oracle");
+oracle.Insert();
+oracle.Delete();
+let mysql = new Database("MySql");
+mysql.Delete();
+mysql.Insert();
