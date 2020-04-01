@@ -1,0 +1,74 @@
+- Multiple constructor implementations are not allowed in a class.
+- Constructor can't overload.
+
+2. Properties: 
+- Properties in a class are used to store data.
+- You can restrict the accessibility of property by using access modifiers.
+- A property can be static or non-static.
+
+Syntax:
+   accessModifier  propertyName:dataType = value;
+Ex:
+   public  Name:string;
+   this.Name="TV";
+
+   public static Id:number = 1;
+   ClassName.Id;
+
+- Every property you defined in a class can be rendered with a new value.
+- You can restrict by using "readonly".
+- A property can be readonly. It will not allow to re-define the value.
+
+Ex:
+class Sample {
+    public static id:number=1;
+    public name:string = "TV";
+    public readonly price:number = 40000.44;
+}
+let obj = new Sample;
+Sample.id = 101;
+obj.name = "Samsung TV";
+console.log(`Id=${Sample.id}\nName=${obj.name}\nPrice=${obj.price}`);
+
+3. Accessors
+- TypeScript supports getters/setters as a way of intercepting accessess to a member of an object.
+- Accessors will give more control over the property so that we can set or set value.
+- Accessors are defined by using "get" and "set".
+- Accessors will give more control over property so that you can even authorize properties.
+- Authorizing is restricting accessibility to only specific type of users or specific state.
+
+Syntax:
+    public property:type;
+    get  propertyName() {
+           return this.property;
+    }
+    set  propertyName(newValue:type) {
+            this.property = newValue;
+    }  
+
+Ex:
+let username:string = "admin";
+let password:string = "admin123";
+class Student {
+    public name:string = "John";
+    public course:string = "Angular"; 
+    //accessor
+    get courseName():string {
+        return this.course;
+    }
+    set courseName(newCourseName:string){
+        if(username=="admin" && password=="admin123") {
+            this.course = newCourseName;
+        } else {
+            console.log("Error: User is not authorized to Update Course");
+        }
+    }
+}
+let student = new Student();
+student.name = "David";
+student.courseName = "React JS";
+console.log(`Name=${student.name}\nCourse=${student.courseName}`); 
+
+Note : Try changing the user name and password. If it is not matching the required user name and password, then it will use the default course "angular".
+
+4. Methods:
