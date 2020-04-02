@@ -1,0 +1,74 @@
+Constructor
+Properties
+Accessors
+	             Functions
+	             [Method]
+- In computer programming Logic is defined by using methods, functions, procedures.
+- Functions always intended to return a value.
+- Methods are  intended not to return a value but define a functionality.
+- Procedure may or may not return value.
+- JavaScript based environment have only "functions" that resemble : a function, method, procedure.
+- TypeScript logic is defined by using "Functions"
+
+Syntax:
+   accessModifier functionName(params): dataType
+   {
+
+   }
+
+- Functions without any return value are defined as "void". 
+- void is an special operator
+- void operator allows evaluating expressions that produces a value into places where an expression that evaluates to "undefined".
+
+Ex:
+<body>
+    <!--Home link not implemented-->
+    <a>Home</a>
+    <!--Link URL/Href Can't be empty-->
+    <a href="">About</a>
+    <!--contact not found-->
+    <a href="contact.html">Contact</a>
+    <!--Link defined with functionality that does nothing-->
+    <a href="javascript:void(0)">Help</a>
+    <!--Link with void and evaluating expression-->
+    <a href="javascript:void(document.body.style.backgroundColor='yellow')">
+Bg Color</a>
+
+</body>
+
+
+Ex:
+class Product {
+    public name:string;
+    constructor(){
+        this.name = "TV";
+    }
+    public Print():void {
+        console.log(`Name = ${this.name}`);
+    }
+}
+let obj = new Product();
+obj.Print();
+
+Function with Parameters:
+======================
+- function can be parameter less or parameterized
+- Parameters are used to modify the functionality.
+- Parameters in function signature are known as Formal Parameters.
+- Parameters in function calling are known as Actual Parameters
+- By default every parameter defines in function signature is madatory and have order dependecy.
+
+Ex:
+class Product {
+    public name:string;
+    constructor(){
+        this.name = "TV";
+    }
+    public Print(newName:string):void {
+        this.name= newName;
+        console.log(`Name = ${this.name}`);
+    }
+}
+let obj = new Product();
+obj.Print("Samsung TV");
+obj.Print("Nike Casual Shoe");
