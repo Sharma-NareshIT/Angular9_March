@@ -1,0 +1,101 @@
+Optional Parameters in Functions:
+============================
+- Every parameter defined in a function is madatory.
+- Optional parameters are specified by using null reference character "?".
+- You can verify the parameter using "undefined" type
+
+Ex:
+class Product {
+    public Print(name:string, price?:number):void {
+        if(price){
+        console.log(`Name=${name}\nPrice=${price}`);
+        } else {
+            console.log(`Name=${name}`);
+        }
+    }
+}
+let obj = new Product();
+obj.Print("Samsung TV", 45000.55);
+console.log(`-------------`);
+obj.Print("Nike Casuals");
+
+Array Parameters:
+===============
+- Function parameter can be array type.
+- Values are passed into array parameter
+         a)   Function([val1, val2,]);
+         b)   Function(new Array(val1, val2..));
+         c)   Create and pass an array into function.
+	
+	  let array:string[] = [val1, val2..];
+	  Function(array);
+Ex:
+class Demo {
+    public PrintList(list:string[]):void {
+        for(var item of list) {
+            console.log(item);
+        }
+    }
+}
+let obj = new Demo();
+obj.PrintList(["TV","Mobile"]);
+obj.PrintList(new Array("T-Shirt","Shoe"));
+let categories:string[] = ["Electronics","Fashion"];
+obj.PrintList(categories);
+
+- You can define multiple array parameters in function.
+          Function(param1:string[], param2:number:[])
+           {
+           }
+
+Ex:
+class Demo {
+    public PrintList(strList:string[], numList:number[]):void {
+        for(var s of strList) {
+            console.log(s);
+        }
+        for(var n of numList) {
+            console.log(n);
+        }
+    }
+}
+let obj = new Demo();
+obj.PrintList(["TV","Mobile"],[10,20]);
+obj.PrintList(new Array("A","B"), new Array(10,40));
+
+- You can define a function with array parameter along with other type of parameters. The is no order dependency in declaring.
+
+Ex:
+class Demo {
+  public PrintList(strList:string[], count:number):void {
+        for(var s of strList) {
+            console.log(s);
+        }
+        console.log(`Total No of Items :${count}`);
+    }
+}
+let obj = new Demo();
+let products:string[] = ["TV","Mobile","Shoe"];
+obj.PrintList(products,products.length);
+
+Rest Parameters
+==============
+- A rest parameter is a single parameter which will allow multiple values.
+- Rest parameter is defined by using "..."
+- Every function can have only one rest parameter.
+- You can define other parameters along with rest parameter but , rest parameter must be the last parameter in formal parameters list.
+
+Ex:
+class Demo {
+    public PrintList(count:number,...list:string[]):void {
+        for(var item of list) {
+            console.log(item);
+        }
+        console.log(`Total Count=${count}`);
+    }
+}
+let obj = new Demo();
+obj.PrintList(4,"TV","Shoe","Mobile","Watch");
+
+
+Function with Return Type	
