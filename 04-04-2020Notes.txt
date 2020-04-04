@@ -1,0 +1,102 @@
+ Function with Return Type
+ ======================
+- A function can be defined to return value.
+- It Evalueates any expression and returns a value by using the return keyword.
+- A return type must be defined it is returning a value.
+
+  public functionName(param) : dataType  {
+     return value;
+  }
+
+- Intention of a function with return value is to store and reuse the value across any number of requests.
+
+- It can return the same value or a different value for every request. But the type of value will be same, un less the type is defined as "any".
+
+Ex:
+class Demo {
+  public Hello(uname:string):string {
+     return "Hello ! " + uname;
+  }
+  public Captcha():string {
+      var a = Math.random() * 10;
+      var b = Math.random() * 10;
+      var c = Math.random() * 10;
+      var d = Math.random() * 10;
+      var e = Math.random() * 10;
+      var code = `${Math.round(a)} ${Math.round(b)} ${Math.round(c)} ${Math.round(d)} ${Math.round(e)}`;
+      return code;
+  }
+}
+let obj = new Demo();
+console.log(obj.Hello("John"));
+console.log("OTP: " + obj.Captcha());
+console.log("OTP: " + obj.Captcha());
+console.log("OTP: " + obj.Captcha());
+
+- Can a function with return type defined will be able to return different types of values.
+- Yes. But it must be defined with "any" type or you have to use Union of Types.
+
+Ex:
+class Demo {
+    public Page(pageName:string) : number|string {
+        if(pageName=="home") {
+           return "Home Page is Loading..";
+        } else {
+           return 404;
+        }
+    }
+}
+let obj = new Demo();
+console.log("Page Status : " + obj.Page("home"));
+
+Default Values for Parameters in Function:
+===================================
+- Parameters in a function can be initialized with value.
+- When values are initialized into a parameter then it can't be optional i.e you can't use "?" null reference character.
+- Initialized values can be overwritten i.e re-asign new value.
+
+Ex:
+class Demo {
+    public Page(pageName:string="home") : number|string {
+        if(pageName==undefined) {
+            return "Page Name not Provided";
+        } else {
+            if(pageName=="home") {
+                return "Home Page is Loading..";
+             } else {
+                return 404;
+             }
+        }
+    }
+}
+let obj = new Demo();
+console.log("Page Status : " + obj.Page());
+
+Function Recursion:
+- Recursion is a technique of iterating over an operation by having a function call within the context.
+- A function is called within the context (same function).
+- Recursion is used for creating Batch Programs.
+- Batch Program Execute repeatedly n - number of time with having a loop or iteration defined.
+
+Ex:
+class Demo {
+  public Fact(n:number):number {
+      if(n<=0) {
+          return 1;
+      } else {
+          return (n * this.Fact(n - 1));
+      }
+  }   
+}
+let obj = new Demo();
+console.log("Factorial :" + obj.Fact(6));
+
+
+
+
+
+
+
+
+
+
