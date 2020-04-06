@@ -1,0 +1,102 @@
+Anonymous Functions:
+- A function defined without name.
+- It is configured by using "function" keyword.
+	function() {
+
+	}
+Ex:
+class Demo {
+   public print = function() {
+       console.log("Anonymous Function");
+   } 
+}
+let obj = new Demo();
+obj.print();
+
+- Usually anonymous functions are used in callback mechanism.
+- Anonymous function executes according to the state you need not to call anonymous function.
+
+Ex:
+class Database {
+    public Connect(dbName:string, success?:any, failure?:any) {
+          console.log(dbName);
+          if(dbName=="oracle" || dbName=="mysql") {
+            success();
+          }
+          else {
+          failure();
+          }
+    }
+}
+let db = new Database();
+db.Connect("mongodb",function(){
+    console.log("Connected..");
+},function(){
+    console.log("Failed - You can connect to Oralce or MySql");
+});
+
+
+FAQ: How to call an anonymous function?
+A. We can call anonymous function by using "()"
+
+     function() {}();       // invalid / it is valid in callback
+     (function(){})();      //  valid - not in callback
+
+Ex:
+class Database {
+    public Connect(dbName:string, success?:any, failure?:any) {
+         console.log(dbName);
+    }
+}
+let db = new Database();
+db.Connect("mongodb",function(){
+    console.log("Connected..");
+}(),function(){
+    console.log("Failed - You can connect to Oralce or MySql");
+}());
+
+
+
+
+Function Constructor:
+==================
+- Typescript supports creating a function using "Function" constructor.
+- It is used to dynamically construct a function.
+- It is also used to transport a function encoded into string format.
+ 
+Syntax:
+      var ref = new Function("...args[]");
+
+Ex:
+class Demo {
+    public Addition = new Function("a", "b", "return a + b");
+}
+let obj = new Demo();
+console.log(obj.Addition(10,50));
+
+Lambda Functions:
+================
+- It refers to anonymous function is programming written in short hand way.
+- It used to minify the code.
+- These functions also know as Arrow functions.
+
+Syntax:
+            ( ) => { statement };
+
+            () → It is a function declaration
+            =>{} It is function definition with return value.
+
+            write: (params) => { statement } 
+            
+            generates:
+            function(params) {
+	statement;
+            }
+Ex:
+class Demo {
+  public add = (a:number, b:number)=>{return a+b};
+  public hello =()=>{console.log("Hello")};    
+}
+let obj = new Demo();
+console.log(obj.add(10,20));
+obj.hello();
