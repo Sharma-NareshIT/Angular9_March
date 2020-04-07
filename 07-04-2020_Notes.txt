@@ -1,0 +1,96 @@
+Code Re-usability:
+- It is one of the key feature of OOP.
+- It is a technique of reusing the code in various components without re-writing.
+- In OOP we can handle code reusability by using 2 techniques
+	a) Aggregation [Has-A-Relation]
+	b) Inheritence  [Is-A-Relation]
+
+Aggregation: 
+ - It is a technique of reusing the content of one component in another component without defining any relationship between components.
+ - It is defined by using Object-To-Object communication.
+ - Technically it is refered as "Has-A-Relation"
+
+Ex:
+class SuperClass {
+  public Print():void {
+    console.log("Super Class Print Method");
+  }
+}
+class DerivedClass {
+   public Print():void {
+       let obj = new SuperClass();
+       obj.Print();
+       console.log("Derived Class Print Method");
+   }
+}
+let obj = new DerivedClass();
+obj.Print();
+
+Inheritence:
+- It is a technique used for extending the functionality of component without disturbing the component core.
+- You can extend any component by using Inheritence.
+- In order to extend any component you have define a relationship between components.
+- When components are having relation then the member of one component can be re-used in another component.
+- Without object to object communication you can access members of one component in another.
+- This type of relation is know as
+	"Is-A-Relation"
+- You can extend a component by using "extends" keyword.
+   [component : class, enum, interface]
+- The existing component is know as "Super" and newly created component that extends existing is know as "Derived".
+- The members of Super component are accessible to the derived by using "super" keyword.
+
+Ex:
+class SuperClass {
+  public Print():void {
+    console.log("Super Class Print Method");
+  }
+}
+class DerivedClass extends SuperClass {
+   public Print():void {
+       super.Print();
+       console.log("Derived Class Print Method");
+   }
+}
+let obj = new DerivedClass();
+obj.Print();
+
+Extensibility can be defined in several hierarchies:
+=========================================
+1. Single
+2. Multi Level
+3. Multiple
+
+Single Inheritence Hierarchy:
+- A super class is extended only once.
+- It will have one super class and one derived class
+
+Syntax:
+   class Super {
+   }
+   class Derived extends Super {
+   }
+
+Multi Level Inheritence Hierarchy:
+- A derived class can be extended.
+- If a derived class is extened by another derived class then it is reffered as "Multi Level Hierarchy".
+- We want every component seperated with functionality according to requirement but are inter connected to each other.
+
+Ex:
+class Hardware {
+    public Camera:string = "45px";
+    public RAM:string = "34GB";
+}
+class Software extends Hardware {
+    public OS:string = "Android";
+}
+class Mobile extends Software {
+    public Name:string = "Samsung";
+    public Model:string = "J8";
+}
+let mob = new Mobile();
+console.log(`Name=${mob.Name}\nModel=${mob.Model}\nOS=${mob.OS}\nCamera=${mob.Camera}\nMemory=${mob.RAM}`);
+
+Multiple Hierarchy of Inheritence:
+- Single dervied component can extend multiple super components.
+- It is not possible in case of classes.
+- It is possible for Interfaces.
