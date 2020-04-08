@@ -1,0 +1,60 @@
+Multiple Inheritence
+- Single derived component can extend multiple super components.
+- It is supported only for Interface i.e contracts.
+- It is not supported for classes.
+
+FAQ : Why Multiple Inheritence not supported for classes?
+A: It is due to "Dead Locks" caused by constructor.
+
+- In OOP everytime first super class constructor is called then followed by derived class constructor. It is mandatory to do so.
+  Error:
+ "Constructors for derived classes must contain a 'super' call"
+
+- You can call the super class constructor before the derived class constructor by using "super()" inside derived class constructor.
+
+Ex:
+class Super {
+    constructor(){
+        console.log("Super Class Constructor");
+    }
+}
+class Derived extends Super {
+    constructor(){ 
+        super();	// call for super class constructor
+        console.log("Dervied Class Constructor");
+    }
+}
+let obj = new Derived();
+
+- You can't extend classes using multiple hierarchy.
+
+ Syntax:
+    class  super1 {
+    }
+   class super2 { 
+    }
+   class derived extends super1, super2 {  // invalid
+   }
+
+- You can implement classes using multiple hierarchy.
+
+ Syntax:
+    class  super1 {
+    }
+   class super2 { 
+    }
+   class derived implements super1, super2 {  // valid
+   }
+
+- Implementing  is configuring the rules hence a class can implement multiple contracts. but can't extend.
+
+What is inheritence and what is implementation?
+- inheritence is extensibility.        [extends]
+- implementation is adaptability. [implements]
+
+Multiple hierarchy of extensibility is not supported for class. 
+Multiple hierarchy of adaptibility is supported for class.
+
+Poly
+
+
