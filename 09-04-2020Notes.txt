@@ -1,0 +1,59 @@
+	              Polymorphism
+- Poly means Many
+- Morphos means Forms
+- It is the ability of a component to serve for different purpose.
+- One component can have multiple behaviors and can handle different functionalities.
+
+How Ploymorphism is given for component in OOP?
+- Polymorphism in computer programming is the process of allocating different types of memory for single component. so that it can handle different behaviors and functionalities.
+
+- Polymorphism is the process where a single base class object uses the memory of multiple derived classes.
+
+
+Ex:
+class Employee {
+    public FirstName:string;
+    public LastName:string;
+    public Designation:string;
+    public Print():void {
+        console.log(`${this.FirstName} ${this.LastName} - ${this.Designation}`);
+    }
+}
+class Developer extends Employee {
+    public Print():void {
+        super.FirstName = "Raj";
+        super.LastName = "Kumar";
+        super.Designation = "Developer";
+        super.Print();
+    }
+}
+class Consultant extends Employee {
+    public Print():void {
+        super.FirstName = "Kiran";
+        super.LastName = "Rao";
+        super.Designation= "Consultant";
+        super.Print();
+    }
+}
+class Manager extends Employee {
+    public Print():void {
+        super.FirstName = "Tom";
+        super.LastName = "Hanks";
+        super.Designation= "Manager";
+        super.Print();
+    }
+}
+let employees:Employee[] = [new Developer(), new Consultant(), new Manager()];
+for(var employee of employees) {
+    employee.Print();
+}
+		 (or)
+let employees:Employee[] = [];
+employees[0] = new Developer();
+employees[1] = new Consultant();
+employees[2] = new Manager();
+
+for(var emp of employees) {
+    emp.Print();
+}
+
