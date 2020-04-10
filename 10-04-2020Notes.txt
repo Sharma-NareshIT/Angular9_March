@@ -1,0 +1,79 @@
+Polymorphism
+Task : 
+- Create a method that can accept parameters
+	Method() { printing value }
+	Method(a, b) { addition of values } 
+- Create a Method that single can perform all mathematical operations like
+	add, sub, mul, div
+	Method(a,b,..)   add, sub, mul
+  you can pass parameter and operation type so that it will perform that operation on those parameters.
+	Method(10,20, add) { } 
+
+	       Templates in OOP
+- Template comprises of sample design with some sample data which you can customize according to your requirements.
+- A developer needs to design templates for client so that he can implement according his requirements.
+- What is a template in software development, how templates are designed? 
+- Abstract Class
+- Abstract class is a class that comprises of functionalities both implemented and not-implemented i.e just defined.
+- Technically a class should have all members functionality implemented.
+- It any functionality is not-implemented then it should be designated as "Abstract Class".
+- Abstract classes are defined by using "abstract"
+- Abstract class can contain both incomplete and complete methods.
+- The incomplete methods must be defined as "abstract".
+- You can create an object for incomplete classes i.e you can create an object for abstract class.
+- You have to create a new class where you can implement the pending functionality.
+- You can "implement" an abstract class and define all the funcitonalities or You can "extend" an abstract class where you can define and extend functionalities.
+- If any member in the class is abstract then it is mandatory to define the class as abstract class.
+
+What is difference between a contract and template?
+- Contract is Interface
+- Contract can contain only declaration not definition.
+- You can't define access sepcifiers for contract members.
+
+- Template is Abstract Class
+- Template can contain both declaration and definition.
+- Template contains both empty method without definition and methods with definition.
+- You can define access specifiers.
+
+- Can we have private method in abstract class?
+  Yes but you can access only within the class it is not suitable for extensibility.
+
+- When you are using abstract members in a class the implementation details are hidden from the user. only functionality will be provided through an implemented class. The mechanism of hiding the members in a class and providing implementation for those members is known as "Abstraction"
+
+- Abstraction can be acheived in OOP by using "Abstract classes and Interfaces".
+
+Ex:
+abstract class Product {
+    public Id:number;
+    public Name:string;
+    public Price:number;
+    public Qty:number;
+    public abstract Total():number;
+    public Print():void {
+        console.log(`Id=${this.Id}\nName=${this.Name}\n${this.Price}\nQty=${this.Qty}\nTotal=${this.Total()}`);
+    }
+}
+class TV extends Product {
+    public Id:number = 1;
+    public Name:string = "Samsung TV";
+    public Price:number = 45000.55;
+    public Qty:number = 4;
+    public Total():number {
+        return this.Qty * this.Price;
+    }
+    public Print():void {
+        super.Print();
+    }
+}
+let tv = new TV();
+tv.Print();
+
+
+		Modules
+		Namespaces
+
+
+
+
+
+                  
