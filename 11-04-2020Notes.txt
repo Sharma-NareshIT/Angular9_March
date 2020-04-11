@@ -1,0 +1,98 @@
+	                   Modules
+- Modules were introduced into JavaScript from ES5
+- Module is a collection of components like interfaces, classes, enums and other members.
+- A module is libary of components.
+- Module enables code seperation and extensibility.
+- The commonly used module systems for JavaScript are "CommonJS", "require.js", "AMD" systems etc..
+- Contracts, Templates, Factories, Services
+
+
+Contracts		- Rules
+Templates		- Implementation of functions
+Factory		- It is collection of functions
+		  [related type of functions]
+Service		- It is a collection of factories.
+
+- Any component or member you declared for a module system is accessible only within the file. 
+
+- In Module system if you want any component to be accessed outside the context [file], then you have to declare it as "export".
+
+- You can't access the members of another file into the current file directly. You have to import the library by using "import"
+
+EX:
+1. Add a new folder into project by name
+	          "Modules"
+
+2. Add following sub folders into modules
+	- Contracts
+	- Templates
+	- Library
+	- Apps
+3. Goto Contracts folder and add a new File
+		"IProduct.ts"
+export interface IProductContract 
+{
+ ProductId:number;
+ Name:string;
+ Price:number;
+ Qty:number;
+ Total():number;
+ Print():void;
+}
+4. Goto Templates folder and add a new file
+		"TProduct.ts"
+import { IProductContract } from '../Contracts/IProduct';
+
+export abstract class ProductTemplate implements IProductContract
+{
+   public ProductId:number = 0;
+   public Name:string ="";
+   public Price:number = 0;
+   public Qty:number = 0;
+   public abstract Total():number;
+   public Print():void {
+       console.log(`Id=${this.ProductId}\nName=${this.Name}\nPrice=${this.Price}\nQty=${this.Qty}\nTotal=${this.Total()}`);
+   }
+}
+5. Goto Library folder and add a new file
+		"Product.ts"
+import { ProductTemplate } from "../Templates/TProduct";
+
+export class Product extends ProductTemplate {
+    public ProductId:number = 1;
+    public Name:string = "Samsung TV";
+    public Price:number = 45000.55
+    public Qty:number = 2;
+    public Total():number {
+        return this.Qty * this.Price;
+    }
+    public Print():void {
+        super.Print();
+    }
+}
+
+6. Goto "Apps" folder and add a new file
+		"MyApp.ts"
+
+import { Product } from '../Library/Product';
+
+let tv = new Product();
+tv.Print();
+console.log(`----------------`);
+let mobile = new Product();
+mobile.ProductId=2;
+mobile.Name="LG Mobile";
+mobile.Price= 12000.30;
+mobile.Qty=2;
+mobile.Print();
+
+7. Compile MyApp.ts
+
+	> tsc myapp.ts
+	> node myapp.js
+
+	             Namespace
+import {class1, class2 } from 'file';
+import {class1, class2 } from 'file';
+
+
