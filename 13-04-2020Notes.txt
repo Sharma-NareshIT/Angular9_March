@@ -1,0 +1,116 @@
+		Namespace
+- A namespace is a collection of related types of classes or sub namespace.
+- Instead of module you can use a namespace.
+- You can design library for your application, which you can import from any location and re-use in the application.
+- Namespace is defined by using "namespace" keyword.
+- The members defines in a namespace are accessible outside the declaration only by marking as "export".
+- You can import the library from any file by using
+	 ///  <reference path="" /> 
+   It is a directive to import any files and access its members.
+- In order to compile the imported library file by extracting its code you have to use the command
+	> tsc  --outFile  target.js  source.ts
+
+
+Ex:
+1. Add a new folder into project by name 
+	   "Namespaces"
+2. Add following sub folders
+	- Contracts
+	- Templates
+	- Library
+	- Apps
+3. Goto Contracts and add a new file
+	"ProductCategoryContract.ts"
+namespace Project 
+{
+    export interface IProduct {
+        Name:string;
+        Price:number;
+        Print():void;
+    }
+    export interface ICategory {
+        CategoryName:string;
+    }
+}
+
+4. Goto Templates and add a new file
+	"ProductCategoryTemplate.ts"
+/// <reference path="../Contracts/ProductCategoryContract.ts" />
+
+namespace Project {
+    export abstract class ProductCategoryTemplate implements IProduct, ICategory {
+        public Name:string = "";
+        public Price:number = 0;
+        public CategoryName = "";
+        public abstract Print():void;
+    }
+}
+
+5. Goto Library and add a new file
+	 	"Product.ts"
+/// <reference path="../Templates/ProductCategoryTemplate.ts" />
+
+namespace Project {
+    export class Product extends ProductCategoryTemplate {
+        public Name:string = "Samsung TV";
+        public Price:number = 40000.55;
+        public CategoryName:string = "Electronics";
+        public Print():void {
+            console.log(`Name=${this.Name}\nPrice=${this.Price}\nCategory=${this.CategoryName}`);
+        }
+    }
+}
+
+6. Goto "Apps" folder and add a new file
+	           "MyApp.ts"
+/// <reference path="../Library/Product.ts" />
+
+let tv = new Project.Product();
+tv.Print();
+
+console.log(`..................`);
+
+let shoe = new Project.Product();
+shoe.Name= "Nike Casuals"
+shoe.Price = 4500.50;
+shoe.CategoryName = "Footwear";
+shoe.Print();
+
+7. Compile
+	>tsc  --outFile  MyApp.js   MyApp.ts
+	> node MyApp.js
+
+Ex:
+1. Add a new file
+	"Demo.ts"
+namespace NareshIT 
+{
+    export namespace Facutly {
+        export class Class1 {
+            public Print():void {
+                console.log("Faculty Class-1");
+            }
+        }
+    }
+    export namespace Student {
+        export class Class1 {
+            public Print():void {
+                console.log("Student Class-1");
+            }
+        }
+    }
+}
+2. Add new file  "app.ts"
+
+/// <reference path="demo.ts" />
+
+let facultyObj = new NareshIT.Facutly.Class1();
+let studentObj = new NareshIT.Student.Class1();
+
+facultyObj.Print();
+studentObj.Print();
+
+3. Compile
+        > tsc --outFile  app.js  app.ts
+        > node app.js
+
