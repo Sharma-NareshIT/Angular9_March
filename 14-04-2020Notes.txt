@@ -1,0 +1,72 @@
+		Angular  9
+March 25, 2020  : 9.1.0
+April 7 , 2020      : 9.1.1 
+April 8 , 2020      : 10.0.0  [Pre]
+
+        Angular Google Team and Community
+	 [LTS - Long Term Support]
+
+Version	           Status	Active Ends
+---------------------------------------------------------------------------
+7.0.0	           LTS		Apr 18 2019
+8.0.0	           LTS		Nov 28 2019
+9.0.0	           Active	Aug 06, 2020
+
+Note: Angular Version 4,5, and 6 are no longer under support.
+
+	        Angular  9.1.1 Stable
+1. Angular now integrated with default Ivy compiler
+   - Faster mobile apps
+   - Better debugging
+   - Improved Type Checking
+   - Faster Testing
+   - Improved CSS classes and Style Binding
+   - Improved build errors 
+   - Enable the AOT compiler by default
+   - Improved Globalization or Internationalization
+
+2. Angular 9 supports typescript 3.7 [current 3.8]
+3. Module with Providers support
+4. Changes in Angular Forms
+5. Changes in Dependency Injection
+6. Enchancement in Language Services
+7. Service worker updates
+8. API Extractor updates
+9. Angular Component Updates
+10. Angular CLI updates 
+
+Prerequisites :
+1. HTML
+2. CSS
+3. JavaScript 
+4. TypeScript
+
+Setup Environment for Angular
+--------------------------------------------
+1. Download and Install Node JS [ for NPM ]
+        https://nodejs.org/en/download/
+
+    C:\> node -v
+    C:\> npm -v
+
+2. Install TypeScript
+ 
+    C:\> npm install -g typescript@latest
+    C:\> tsc -v
+
+3. Install Angular CLI  [Command Line Tool]
+
+    C:\> npm install -g @angular/cli@latest
+    C:\> ng version
+
+Note: Packages related details you can get from the official "npmjs.org"
+
+If you already have an older version of Angular installed in your PC:
+
+1. Un-install existing angular CLI
+        > npm uninstall  -g @angular/cli
+2. Run the commands
+        > npm cache clear
+        > npm cache verfiy
+
+
