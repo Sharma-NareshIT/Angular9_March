@@ -1,0 +1,62 @@
+1. Install Node JS
+2. Install TypeScript
+3. Angular CLI 
+      >npm install -g @angular/cli@latest
+      >ng  version
+
+	       Angular Architecture 
+	       [High Level Design]
+
+- Angular is a platform and framework for building single-page and progressive client-applications using HTML and TypeScript.
+
+- Angular is written in TypeScript
+
+- Angular Architecture completly relies on the following components.
+	a) Modules
+	b) Services
+	c) Template
+	d) Component
+	e) Metadata
+	f) Directive
+
+Modules:
+- Angular uses "NgModules" 
+- NgModule declares compilation context for a set of components.
+- Module comprises of related types of classes
+- Class comprises of data and logic.
+- NgModule is the root module for Angular.
+- Several Predefined modules are provided by angular library
+	@angular/core
+	@angular/forms
+	@angular/route
+	@angular/animations etc..
+Injector:
+- Injector injects the modules into service.
+
+Service:
+- Service is a pre-defined business logic
+- It is a set of related type of factory functions.
+- Service uses a "Singleton" pattern.
+
+Component:
+- Components are building blocks for angular application
+- Component is injected with functions from services.
+- Component can be defined with custom functions.
+- Component comprises of HTML , CSS and Logic in typescript.
+
+Tempate:
+- A template comprises of components
+- It manages functionalities like "Property" binding, Event Binding etc.
+- A template configure the components using meta data.
+
+Directive:
+- A directive refers to template
+- It is responsible for Presentation and Making presentation dynamic.
+- The templates are accessed and used in application with the help of directives.
+- A directive in angular can
+	a) return markup
+	b) extend markup
+	c) make markup more interactive
+
+
+Create a New Angular Application
