@@ -1,0 +1,76 @@
+Create a New Angular 9 Application
+1. Open You PC in exporer
+2. Create a new folder
+	 C:
+	  |_ Angular9Projects [folder]
+	     |_shopping [sub folder]
+
+3. Change to the folder in command prompt
+ 				    optional
+   C:\Angular9Projects\shopping> ng  new  [Amazon]
+
+	ng  	- angular cli
+	new 	- creating a new project
+
+ What name you want for workspace... ? Amazon
+ Would you like to add Angular routing? (y/N)  N
+ Which stylesheet format would you like to use? CSS
+
+                "Project Created Successfully"
+
+
+4. Open "Shopping\Amazon" folder in Visual Studio Code
+
+5. Run the project
+    - Open Terminal   [ Ctrl + ` ]
+    - Type the following command
+	> ng serve
+    - Project starts on local server with address
+	http://localhost:4200
+    - Open Browser and type the URL
+	http://localhost:4200
+
+  To start project directly in browser after compiling
+	> ng serve --open
+	> ng s --o
+
+Q: How to know the library version for Angular Project?
+A.  Goto your Project "package.json" file and see the dependencies version
+	
+	"dependencies": {
+	 "@angular/core": "~9.1.1",
+                     .................................
+                   }
+
+Q. How to update to New Version?
+A. 
+    step1 : UnInstall Pervious version CLI
+                > npm uninstall -g @angular/cli
+                > npm clear cache
+                > npm cache verify
+
+    step2 : Install New version CLI
+                > npm install -g @angular/cli@latest
+
+    step3 : Update to new Version
+                -Open You angular project in VS Code
+                -Open Terminal
+	     > ng update @angular/core
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
