@@ -1,0 +1,110 @@
+	   Angular Project Infrastructure
+	  =========================
+
+Component	Description
+----------------------------------------------------------------------------
+e2e [end-2-end]	Contains source files for a set of
+		end to end tests.
+
+node_modules	It contains the library installed
+		from NPM [Node Package 		Manager]. It includes bootstrap,
+		angular core, jquery, mongodb
+		etc..
+
+src		It contains source files for the
+		root-level application project.
+
+
+.editorconfig	Configuration for code editors.
+		[Visual Studio Code]. It contains
+		the coding rules that developers
+		have to follow while coding.
+
+.gitignore		Specifies intentionally untracked
+		files that Git should ignore.
+
+
+angular.json	CLI configuration for all projects
+		in your workspace.  It includes
+		configuration for servers, test
+		tools, other framework related
+		contents.
+
+browserlist	Configures sharing of target
+		browser and Node.js version
+		for front end tools.
+
+
+karma.conf.js	Application-specific Karma
+		configuration file. It is a testing
+		framework provided for Angular.
+
+package.json	Configures npm package
+		dependencies that are 
+		available to all project in the
+		workspace. [Angular Native]
+
+package-lock.json	Provides version information
+		for all package, that are
+		installed to node_modules by	
+		using npm client.
+
+README.md	Introductory documentation for
+		the application. [Hep document]
+
+tsconfig.json	Default TypeScript configuration
+		for projects. [all projects in 
+		workspace]
+
+tsconfig.spec.json	It configures testing 				envirionment for tsconfig file.
+
+tslint.json		Default TSlint configuration file.
+		[typescript errors, rules etc..]
+
+tsconfig.app.json	Application specific TypeScript
+		configuration file.
+
+
+Note: All project related resources are present in
+          the folder "src".
+
+
+	Components in "SRC" folder
+
+Component	Description
+-----------------------------------------------------------------------------
+ app		Contains the component files
+		in which your application
+		logic and data are defined.
+
+assets		Contains non-dynamic files like
+		text files, pdf documents, images
+	
+
+environments	Contains build configuration
+		options for a particular 		environment like, development
+		testing, production etc.
+
+favicon.ico	It is a favorite icon for website.
+		It is used for bookmarking.
+
+index.html	The main HTML page that is 		served when any client visits
+		your site. [application]
+
+maint.ts		The main entry point for your
+		application. Compiles the 
+		application with JIT compiler
+		and bootstraps the application
+		[static DOM into dynamic DOM]
+
+polyfills.ts	Provides pollyfill scripts for
+		browser support. Modern 		browsers and Legacy browsers.
+		script classified according to
+		the browser support.
+
+styles.css		global styles used for 		application.
+
+test.ts		The main entry point for your
+		unit tests. loading testing 
+		environment, starting test etc.
+
