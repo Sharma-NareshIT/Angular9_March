@@ -1,0 +1,76 @@
+- Angular Application starts with "Index.html" 
+- Index.html is defined in "src" folder.
+- Index page is injected with components.
+- Index page will display the startup component that you have defined.
+
+	        Angular Component
+-  Components are building-blocks for angular application.
+- Component comprises of 
+	a) User Interface (UI)
+	b) Logic
+	c) Styles
+- UI is designed with HTML
+- Logic is defined with TypeScript
+- Styles are defined with CSS
+- Every component of Angular is built with 3 files and tested with 1 file i.e a component comprises of following files
+     a)  component.html	[ UI ]
+     b)  component.ts      	[ TypeScript Logic]
+     c)  component.css   	[ Styles ]
+     d)  component.spec.ts  	[Specification-testing]
+			    for unit testing
+- Angular component can designed by using 2 techniques:
+	1. Inline documentation technique
+	2. Code behind technique	
+
+- Inline documentation technique is an approach where UI, Logic and styles all are kept in one file. That file will have the extention ".ts".
+
+- Code Behind Technique is an approach where UI, Logic and styles are separated for each other. It is easy for extensibility, reusability, mantainability, testablility.
+		a) HTML
+		b) CSS
+		c) TS
+
+Note: If several number of files are used for a single component request then it will take more time to load.
+
+- Technically a component is a TypeScript class.
+- Every component requires a set or properties and methods which are derived from "Component" base class defined in "@angular/core" library.
+
+ Syntax:
+   import  {  Component } from  '@angular/core';
+
+   export class HomeComponent
+   {
+
+   }
+
+Note: Any application can understand and use your component with the help of "MetaData".
+
+- Every component requires meta data.
+- Meta data is used by angular application to understand your component, compile and process.
+- Component Metadata is defined by using
+	@Component({ 
+
+	})
+
+Syntax for Component:
+===================
+	        home.component.ts
+  import { Component } from '@angular/core';
+  @Component({
+       // metadata here..
+   })
+  export class HomeComponent 
+  {
+      // logic here..
+  } 
+
+- Every component must be designed and stored in "src/app" folder.
+
+- After designing the component you have to register the component.
+
+Note: Every Module, Service, Pipe, component that you design for angular application can't be used directly. You have to register them in the "app.module.ts" present in "src\app" folder.
+
+
+
+
+
+
