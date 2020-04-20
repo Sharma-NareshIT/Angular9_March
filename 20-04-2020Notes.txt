@@ -1,0 +1,148 @@
+		app.module.ts
+- It is global application module file.
+- It is used to configure components, services, pipes, modules for application.
+- Every angular application can use only the components that are defined in "app.module.ts".
+- The basic configuration in "app.module.ts" contains
+
+Configuration Property	Description
+============================================
+declarations : [ ]	  The components are registered
+		  in declarations.
+
+imports: [ ]	  The modules are registered in
+		   imports.
+
+providers:[] 	  The services are registered in
+		   providers.
+
+bootstrap:[]	  It specifies the startup
+		  component.
+
+
+Note: The process of loading static DOM into page and converting the static DOM into dynamic DOM is known as "Bootstrapping"
+           The component you defined in bootstrap should be the same to use in "index.html".
+
+	     "app.module.ts"
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [HomeComponent]
+})
+export class AppModule { }
+
+Adding a Component using "In-line" technique:
+=======================================
+
+1.  Goto "src/app" folder
+2.  Add a new file "login.component.ts"
+
+import {Component} from '@angular/core';
+
+@Component({
+    selector: 'app-login',
+    template: `
+        <form>
+        <h2> {{title}} </h2>
+        <dl>
+            <dt>User Name </dt>
+            <dd><input type="text"></dd>
+            <dt>Password </dt>
+            <dd><input type="password"></dd>
+        </dl>
+        <button>Login</button>
+        <button>Cancel</button>
+        </form>
+    `
+})
+
+export class LoginComponent {
+    public title = 'User Login';
+}
+
+3. Goto "app.module.ts" and register login component.
+
+import { LoginComponent } from './login.component';
+
+declarations: [
+                 ............................. ,
+                 LoginComponent
+  	]
+
+4. Defined the component in bootstrap
+	 "app.module.ts"
+ 
+         bootstrap: [LoginComponent]
+
+5. Goto "index.html" in "src" folder and inject the component into body section as element by using its selector
+
+<body>
+   <app-login></app-login>
+</body>
+
+6. Run your project
+	> ng s --o
+
+Adding Styles to Elements:
+======================
+import {Component} from '@angular/core';
+
+@Component({
+    selector: 'app-login',
+    template: `
+        <form>
+        <h2> {{title}} </h2>
+        <dl>
+            <dt>User Name </dt>
+            <dd><input type="text"></dd>
+            <dt>Password </dt>
+            <dd><input type="password"></dd>
+        </dl>
+        <button>Login</button>
+        <button>Cancel</button>
+        </form>
+    `,
+    styles: ['form{width:300px; padding:20px; border:2px solid darkcyan; border-radius:10px}','button{background-color:yellow}','input{border-radius:4px; border:1px solid darkcyan}']
+})
+
+export class LoginComponent {
+    public title = 'Admin Login';
+}
+
+
+Component Meta Data for Inline Technique contains following properties:
+
+1. selector       : It specifies the element name used
+	         to access any component in HTML.
+
+2. template      : It specifies the markup to render.
+
+3. styles	       :  It defines the style attributes to 
+	          apply for elements in template.
+
+Syntax:
+  @Component({
+	selector : 'app-name',
+	template: `<markup> </markup>`,
+	styles: ['selector {attribute: value;}', ' ', ...]
+      })
+
+
+
+
+
+
+
+
+
