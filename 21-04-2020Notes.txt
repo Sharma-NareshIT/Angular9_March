@@ -1,0 +1,121 @@
+Adding Component By using Code Behind Technique
+============================================
+- In this technique UI, Logic and Styles are configured in separate files.
+- Reusability, Extensibility, Mantainability and Testability.
+- Every component comprises of 4 files
+	a)  component.html	- UI
+	b)  component.ts	- Logic
+	c)  component.css	- Styles
+	d)  component.spec.ts - Testing
+- The component meta data in code-behind technique comprises of following properties
+
+Property	Type	Description
+===========================================
+selector	string	It specifies the directive name
+		used to access the component.
+
+templateUrl  stirng	It specifies the virtual path of
+		the file that contains markup
+		for component. [.html]
+
+styleUrls	string[]	It specifies a collection of
+		virtual paths for CSS files used
+		in the component.
+
+Ex:
+1. Add a new folder into project  "src/app"
+	         "Register"
+
+2. Add following files into Register folder
+	- register.component.ts
+	- register.component.html
+	- register.component.css
+
+3.  Goto "register.component.ts"
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-register',
+    templateUrl: 'register.component.html',
+    styleUrls: ['register.component.css']
+})
+
+export class RegisterComponent
+{
+    public title = 'Register User';
+}
+
+4. Goto "register.component.html"
+
+<div class="registerForm">
+    <h2>{{title}}</h2>
+    <dl>
+        <dt>User Name</dt>
+        <dd><input type="text"></dd>
+        <dt>Password</dt>
+        <dd><input type="password"></dd>
+        <dt>Email</dt>
+        <dd><input type="email"></dd>
+    </dl>
+    <button>Register</button>
+</div>
+
+5. Goto "register.component.css"
+
+.registerForm {
+    width: 300px;
+    border:2px solid darkcyan;
+    box-shadow: 2px 2px 4px darkcyan;
+    padding: 30px;
+    border-radius: 5px;
+}
+button {
+    background-color: darkcyan;
+    color:white;
+}
+
+6. Goto "app.module.ts"
+
+import { RegisterComponent } from './register/register.component';
+
+    declarations: [
+	  RegisterComponent
+     ],
+   bootstrap: [RegisterComponent]
+
+Add Component by using Angular CLI Command:
+========================================
+Angular component can be generated automatically by using CLI commands. 
+
+The command will create your component and registers it in app.module.ts.
+
+  > ng generate component  name
+  > ng g c  name
+
+Command	Description
+-------------------------------------------------------------------------     
+ng g c name	Generates a component with
+		all 4 files in its own folder.
+		.ts, .html, .css, .spec.ts
+
+ng g c name --inlineTemplate=true   Only in-line.
+
+ng g c name --inlineStyle=true	  Style will be inline
+
+ng g c name --flat=true	Files are not added 
+			into folder. All files
+			are added into "app".
+
+ng g c name --skipTests=true   It all not add test file.
+
+
+Ex:
+> ng g c about  --skipTests=true
+
+
+
+
+
+
+	
