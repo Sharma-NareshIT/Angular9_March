@@ -1,0 +1,69 @@
+	          Angular Data Binding
+- Data Binding is a technique that specifies how angular application binds data to UI, and how it can access data and manipulate data.
+
+- Angular implements Architectural Patterns like "MVC, MVP and MVVM" client side.
+
+	             What is MVC
+	             ===========
+- OOP started in early 1960's
+- Johan Olay, Kristian Nygaard OOP - SIMULA 67
+- Code Reusability Concerns
+- 1970's  Trygve introduced MVC as a part of "Small Talk".
+- Code Separation Concerns
+- MVC separates application into 3 components
+	a) Model		- Data
+	b) View		- UI
+	c) Controller	- Application Logic
+- The major features of MVC framework
+	a) Code reusability
+	b) Code separation
+	c) Extensibility
+	d) Loosely coupled
+	e) Testability - Unit Testing
+- Serveral Technologies are using "MVC" framework
+
+	Techology   MVC Framework Name
+	==================================
+	Java	- Spring
+	PHP	- Cake PHP, Code Igniter
+	Perl	- Catalyst, Dancer
+	Python	- Django, Flask
+	Ruby	- Ruby on Rails
+	JavaScript- Angular JS, SPINE
+	.NET	- ASP.NET MVC 
+	
+Model: 
+- Represents the data we are working with
+- It defines business specific logic
+- It comprises of Business objects known as "POJO"  [Plain Old JavaScript Objects].
+- It is data in general
+- Model can't directly send data to view or can't accept data from view.
+
+View:
+- It represents application UI
+- It is a template that renders HTML
+- It presents the data.
+- It is markup in general
+- In angular application View represent "component.html".
+
+Controller:
+- It is core MVC component
+- It controlls the overall application flow
+- It handles communication between view and model.
+- It contains application specific logic.
+- In angular application controller represents
+	"component.ts"
+
+	                  MVVM
+	      [Model-View- ViewModel]
+- In MVVM framework a "ViewModel" is responsible  for handling the overall communication.
+- ViewModel comprises of logic that is required to handle communication between Model and View.
+- In this framework Model can update directly to View and View and update to Model.
+
+
+
+
+
+
+
+
