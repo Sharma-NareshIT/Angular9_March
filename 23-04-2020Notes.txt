@@ -1,0 +1,100 @@
+	         Angular Data Binding
+-Angular uses MVC and MVVM framework to handle databinding.
+-Angular Application MVC components are
+	a) Service - Provides Data
+	b) Controller [.ts] - Collects Data and Binds
+		               to View.
+	c) View  [.html] - Presents the data.
+
+Various methods of Binding Data to View:
+
+I. Interpolation {{ }}
+
+    - It is a data binding technique used by angular to bind the model data to view.
+    - It uses a data binding expression "{{ }}"
+    - It can dynamically evaluate an expression and
+      return value, which is presented in the UI.
+    - Expression is handled in View level not controller level. This will reduce burden on Controller.
+
+Ex:
+1. Add a new folder in "src/app"
+	  "databinding"
+2. Add following files
+	- databinding.component.ts
+	- databinding.component.html
+	- databinding.component.css
+
+3. Goto "databinding.component.ts"
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-databinding',
+    templateUrl: 'databinding.component.html',
+    styleUrls: ['databinding.component.css']
+})
+
+export class DataBindingComponent {
+   public product = {
+       Name: 'Samsung TV',
+       Price: 45000.53,
+       IsInStock: false,
+       Photo: 'assets/tv.jpg'
+   };
+}
+
+4. Goto "databinding.component.html"
+
+<div class="box">
+<h2> Product Details </h2>
+<dl>
+    <dt>Name</dt>
+    <dd>{{product.Name}}</dd>
+    <dt>Price</dt>
+    <dd>{{product.Price}}</dd>
+    <dt>Stock</dt>
+    <dd>{{(product.IsInStock==true)?"Available":"Out of Stock"}}</dd>
+    <dt>Preview</dt>
+    <dd>
+        <img src="{{product.Photo}}" width="100" height="100">
+    </dd>
+</dl>
+</div>
+	   
+5. Goto "databinding.component.css"
+
+.box {
+    border:2px solid darkcyan;
+    border-radius: 5px;
+    padding:20px;
+    width: 300px;
+}
+dt {
+    background-color: lightgray;
+    font-weight: bold;
+}
+
+II. Bind to Attribute
+III. Bind to Property
+
+<img>  Tag  HTML
+Image()  in JavaScript
+
+ var  pic = new Image();	
+ pic.src=""	]
+ pic.width=""	]    Properties
+ pic.height=""	]
+
+ <img src=""  width="" height="" border="" align="" alt="">  Attributes
+
+ HTML is a collection of Elements
+ Elements are presented by using Tags
+
+
+
+
+
+
+
+
+
