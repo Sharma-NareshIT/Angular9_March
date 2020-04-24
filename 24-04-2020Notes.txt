@@ -1,0 +1,63 @@
+	Property and Attributte Binding
+- Attributes are associated with Tags
+- Properties are associated with Elements.
+- HTML is a collection of Elements.
+- Elements are presented statically by using tags.
+
+	    <img src="">
+	      src → attribute
+
+- Elements are presented dynamically by using built-in objects [ classes ].
+
+	    var pic  = new Image();
+	    pic.src = " ";
+
+	    src → property
+
+- Every attribute of HTML tag doesn't have relative property.
+                  <table>  can use  "colspan" attribute
+		          but
+	 Dynamically there is no colspan property
+
+- Angular allows to bind data to the properties directly, which is know as "Property Binding".
+
+- HTML properties are defined in "[ ]" so that angular can identify the properties and bind a value.
+
+Syntax:
+	     public  username = "John";
+	     <input type="text" [value]="username">
+	     <h2 [innerHTML]="username"> </h2>
+
+- Angular can't bind values dynamically to attributes directly, it can bind to properties only.
+
+Syntax:
+	public mergeCount = 2;
+	
+	<th [colspan]="mergeCount">  // invalid
+
+	colspan → isn't a known property of "th" 
+
+- Angular allows any dynamic value to be binded with an attribute by using the prefix "attr".
+           
+Syntax:
+	public mergeCount = 2;
+
+	<th [attr.colspan]="mergeCount">  //valid
+
+- Angular 7+  versions provide built-in dynamic properties for HTML elements, which you can use for databinding.
+
+Syntax:
+	public mergeCount = 2;
+
+	<th [colSpan]="mergeCount">  //valid
+
+	colSpan → is an angular property
+
+
+	Angular Data Binding Techniques 	
+	===========================
+- Client Side MVC and MVVM frameworks will provide 2 types of Data Binding Techniques
+	1. One Way Binding
+	2. Two Way Binding
+
+	
