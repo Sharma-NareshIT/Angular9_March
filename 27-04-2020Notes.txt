@@ -1,0 +1,160 @@
+		Two Way Binding
+1. Goto "app.module.ts"
+
+import { FormsModule } from '@angular/forms';
+
+ imports: [
+    BrowserModule,
+    FormsModule
+  ],
+
+2. Add a new folder
+	"twowaybinding"
+
+3. Add following files into folder
+	- twowaybinding.component.ts
+	- twowaybinding.component.html
+	- twowaybinding.component.css
+
+4. ".ts" file code
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-twoway',
+    templateUrl: 'twowaybinding.component.html',
+    styleUrls: ['twowaybinding.component.css']
+})
+
+export class TwoWayBindingComponent {
+  public Name = 'Samsung TV';
+  public Price = 45000.53;
+  public ShippedTo = 'Hyderabad';
+  public IsInStock = true;
+}
+
+5. ".html" file code
+
+<div class="container">
+ <div class="box">
+   <h2>Register Product</h2>
+   <dl>
+       <dt>Name</dt>
+       <dd><input type="text" [(ngModel)]="Name" ></dd>
+       <dt>Price</dt>
+       <dd><input type="text" [(ngModel)]="Price" ></dd>
+       <dt>Shipped To</dt>
+       <dd>
+           <select [(ngModel)]="ShippedTo">
+               <option value="Delhi">Delhi</option>
+               <option value="Hyderabad">Hyderabad</option>
+           </select>
+       </dd>
+       <dt>Is In Stock</dt>
+       <dd>
+           <input type="checkbox" [(ngModel)]="IsInStock"> Yes 
+   </dl>
+ </div>
+ <div class="box">
+   <h2>Product Details</h2>
+   <table width="300" border="1">
+       <colgroup span="1" style="background-color: yellow;"></colgroup>
+    <tr>
+        <td>Name</td>
+        <td>{{Name}}</td>
+    </tr>
+    <tr>
+        <td>Price</td>
+        <td>{{Price}}</td>
+    </tr>
+    <tr>
+        <td>Shipped To</td>
+        <td>{{ShippedTo}}</td>
+    </tr>
+    <tr>
+        <td>Stock</td>
+        <td>{{(IsInStock==true)?"Available":"Out of Stock"}}</td>
+    </tr>
+   </table>
+ </div>
+</div>
+
+
+6. ".css" file code
+
+.container {
+    width: 90%;
+}
+.box {
+    float: left;
+    margin:20px;
+    padding:30px;
+    border:2px solid darkcyan;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px darkcyan;
+    height: 300px;
+    width: 300px;
+}
+dt{ 
+    font-weight: bold;
+}
+
+ Configure Bootstrap Styles for Angular Application
+ ==========================================
+ 
+1. Open Your Project
+2. Open your project location in Terminal
+3. Install bootstrap
+
+           > npm install bootstrap
+
+4. The bootstrap library will be downloaded into
+	            "node_modules"
+	              |_bootstrap
+	                 |_dist
+	                    |_css
+	                    |   |_bootstrap.css
+	                    |_js
+	                        |_bootstrap.js
+
+5. Enable bootstrap for your project
+
+    - Goto "src/styles.css" file  and import the styles
+  
+	          "styles.css"
+ @import "../node_modules/bootstrap/dist/css/bootstrap.css";
+
+  Ex:
+    <input type="text" class="form-control">
+    <button class="btn btn-primary"> Submit </button>
+
+
+	          Angular Directives
+	         ================
+- Directive is a function which is used to make static DOM element into a Dynamic DOM element.
+- Angular Directive can perform various tasks like
+	1. It can return markup
+	2. It can extend markup
+	3. It can make markup more interactive
+	    and responsive.
+- Angular provides several pre-defined directives and also allows to create custom directives.
+- Angular directives are categorized into 3 Groups
+	1. Component Directives
+	2. Structrual Directive
+	3. Attribute Directive
+
+Component Directives:
+- The component directive are the most common used directives for building angular application.
+- A component directive comprises of 
+	a) UI in HTML
+	b) Logic in TS
+	c) Styles in CSS
+- It is used to for rendering HTML dynamically.
+
+Ex:     <app-login> </app-login>  → Directive
+          login.component.html
+          login.component.ts
+          login.component.css
+
+
+Structural Directives
