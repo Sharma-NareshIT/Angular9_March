@@ -1,0 +1,154 @@
+1. Component Directives
+2. Structural Directives
+3. Attribute Directives
+
+	         "Structural Directives"
+
+- The structural directives are responsible for handling HTML DOM layout.
+- They can shape or reshape the DOM structure.
+- Structural directives are used for adding, removing and manipulating DOM elements.
+- Structural directives of Angular are
+	a) ngIf
+	b) ngSwitch
+	c) ngFor
+- Structural directives are applied to DOM elements by using an "asterisk [*]"
+	
+	 <div  *ngIf="">
+	 <tr *ngFor="">
+
+- Directive class name is defined in library in UpperCamelCase
+	            
+	 "NgIf, NgFor, NgSwitch"
+
+- You can implement in page by using "camelCase"
+
+	   ngIf, ngFor, ngSwitch
+
+- Angular provides a container which you can use to configure structrual directives over HTML.
+	
+	      "<ng-template>"
+
+- A container is like a <div> or <span> , <p> etc..
+
+- Angular  "ng-template" allows to configure directives as properties.
+
+	      <ng-template  [ngIf]="">
+	      <div  *ngIf="">
+
+- Angular will not allow multiple structrual directives binding to single element.
+
+	<div  *ngFor=""   *ngIf="">   // Invalid
+Syntax:	
+	<tbody>
+	<tr *ngFor="">
+	  <ng-template *ng-If="">
+	  <td>
+
+	  </td>
+	  </ng-template>
+	</tr>
+	</tbody>
+
+
+
+          	 	"NgIF Directive"
+		----------------------
+- It is a structural directive.
+- It is used to conditionally add or remove any element from DOM.
+- It is not display or hiding element, it is appending and removing element from DOM.
+- It uses a boolean value "true/false"
+
+if() decision making in logic -controller [.ts]
+ngIf  manipulating DOM elements in UI. [.html]
+
+Syntax: Simple Condition
+
+	<div  *ngIf="booleanValue"> </div>
+	<ng-template [ngIf]="booleanValue">
+	</ng-template>
+
+Ex:
+1. Add a new folder into "app"  by name
+	      "ifdemo"
+
+2. Add following files
+		-ifdemo.component.ts
+		-ifdemo.component.html
+		-ifdemo.component.css
+
+3. component.ts code
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-ifdemo',
+    templateUrl: 'ifdemo.component.html',
+    styleUrls: ['ifdemo.component.css']
+})
+
+export class IfDemoComponent {
+    public checkBoxChecked = false;
+}
+
+4. component.html code
+
+<div class="container">
+ <h2>If Demo</h2>
+ <div class="form-group">
+   <input type="checkbox" [(ngModel)]="checkBoxChecked" > Show Product
+ </div>
+<div class="form-group" *ngIf="checkBoxChecked" >
+   <img src="assets/shoe.jpg" width="100" height="100">
+ </div>
+</div>
+
+
+Note: You can replace the <div> container with 
+           Angular container
+
+<ng-template class="form-group" [ngIf]="checkBoxChecked" >
+   <img src="assets/shoe.jpg" width="100" height="100">
+ </ng-template>
+
+Attributes used with "ngIf" are
+	a) else
+	b) then
+
+ "then" → comprises of content to display when 
+	condition is true.
+ "else"  → comprises of content to display when 
+	condition is false.
+
+	 Legacy Syntax:
+	
+	  if  condition  then
+	  statement if true;
+	  else
+	  statement if false;
+
+ Syntax:
+  <div  *ngIf="true;  then thenBlock else elseBlock">
+  </div>
+  <ng-template  #thenBlock>
+        --- if true ---
+  </ng-template>
+  <ng-template #elseBlock>
+        --- if false---
+  </ng-template>
+
+Ex:
+ <div class="form-group">
+    <div *ngIf="true; then thenBlock else elseBlock">
+    </div>
+    <ng-template #thenBlock>Statement if true</ng-template>
+    <ng-template #elseBlock>Statement if false</ng-template>
+ </div>
+
+
+
+	
+
+
+
+	
+
