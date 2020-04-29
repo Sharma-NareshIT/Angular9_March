@@ -1,0 +1,97 @@
+	        ngSwitch Directive
+	        ================
+- It is an angular structural directive used to handle multiple conditions in the UI and display only the block of template that matches the given condition.
+- Switch is used to interrupt the execution flow
+- Switch is a selector that selects and executes only the block that matches given condition.
+- The directives used to configure switch are
+	 a) ngSwitch
+	 b) ngSwitchCase
+	 c) ngSwitchDefault
+- Switch defines the main condition
+- Case defines the content to display when condition matches.
+- Default defines the content to display when case is not matching with condition.
+
+Syntax:
+      <main-container  [ngSwitch]="condition">
+             <child-container *ngSwitchCase="">
+             </child-container>
+             <child-container *ngSwitchDefault>
+             </child-container>
+      </main-container>
+
+- ngSwitch is used in UI to conditionally switch between views.
+- It removes the other views from DOM hierarchy, which are not matching with the condition.
+
+Ex:
+<div class="form-group">
+   <div [ngSwitch]=" 'one' ">
+     <div *ngSwitchCase=" 'one' ">One</div>
+     <div *ngSwitchCase=" 'two' ">Two</div>
+     <div *ngSwitchDefault>Some other</div>
+   </div>
+ </div>
+
+
+Ex:
+1. Add a new Component folder
+	 "switchdemo"
+2. Add following files
+	switchdemo.component.ts
+	switchdemo.component.html
+	switchdemo.component.css
+
+3. .ts code
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-switchdemo',
+    templateUrl: 'switchdemo.component.html',
+    styleUrls: ['switchdemo.component.css']
+})
+
+export class SwitchDemoComponent {
+   public selectedView = 'Details';
+   public ChangeView(obj) {
+       this.selectedView = obj.target.value;
+   }
+}
+
+4. .html code
+
+<div class="container">
+  <h2>Product Info</h2>
+  <ul class="nav bg-primary">
+      <li class="nav-item">
+          <button value="Details" (click)="ChangeView($event)" class="btn btn-primary">Details</button>
+      </li>
+      <li class="nav-item">
+          <button value="Features" (click)="ChangeView($event)" class="btn btn-primary">Features</button>
+      </li>
+      <li class="nav-item">
+        <button value="Preview" (click)="ChangeView($event)" class="btn btn-primary">Preview</button>
+      </li>
+  </ul>
+  <div class="form-group" [ngSwitch]="selectedView">
+      <div *ngSwitchCase="'Details'">
+          <dl>
+              <dt>Name</dt>
+              <dd>Nike Casuals</dd>
+              <dt>Price</dt>
+              <dd>&#8377; 5300.55</dd>
+              <dt>Stock</dt>
+              <dd>Out of Stock</dd>
+          </dl>
+      </div>
+      <div *ngSwitchCase="'Features'">
+          <ol>
+              <li>Feature-1</li>
+              <li>Feature-2</li>
+              <li>Feature-3</li>
+          </ol>
+      </div>
+      <div *ngSwitchCase="'Preview'">
+          <img src="assets/shoe.jpg" width="100" height="100">
+      </div>
+  </div>
+</div>  
