@@ -1,0 +1,97 @@
+	            NgFor -  Members
+	         [Properties / Methods]
+
+Member	Type	Description
+-----------------------------------------------------------------------------
+index	number	It returns iterator element index
+		number starting with 0.
+
+first	boolean	It returns true if element in 
+		iteration is first item.
+
+last	boolean	It returns true if element in	
+		iteration is last item.
+
+even	boolean	It returns true if element is 
+		at even occurance.
+
+odd	boolean	It returns true if element is at
+		odd occurance
+
+trackBy	function	It uses a call back function which
+		identifies the change occured in
+		iteration. And It will add only
+		the change into iteration 		elements. It will not iterate all
+		elements every time when 
+		change occurred.
+
+Syntax:
+ <tr *ngFor="let item of collection; let i=index; let e=even; let o=odd; let f=first; let l=last; trackBy:functionName">
+</tr>
+ 
+   public functionName(index, item) {
+               return index;
+	   (or)
+               return item.Property;
+   }
+
+Ex:
+1. Goto fordemo.component.ts and add
+
+export class ForDemoComponent {
+    ........
+   public products = [
+       {Id: 1, Name: 'TV', Price: 45000.55},
+       {Id: 2, Name: 'Mobile', Price: 12000.40},
+       {Id: 3, Name: 'Nike Shoe', Price: 4000.54},
+       {Id: 4, Name: 'Watch', Price: 2300.44}
+   ];
+   public AddNewProduct() {
+        this.products = [
+            {Id: 1, Name: 'TV', Price: 45000.55},
+            {Id: 2, Name: 'Mobile', Price: 12000.40},
+            {Id: 3, Name: 'Nike Shoe', Price: 4000.54},
+            {Id: 4, Name: 'Watch', Price: 2300.44},
+            {Id: 5, Name: 'Sunglasses', Price: 4500.55}
+        ];
+   }
+   public TrackChange(index, item) {
+        return item.Id;
+   }
+}
+
+2. fordemo.component.html
+
+<div class="container">
+  <h2>Iteration Properties</h2>
+  <button (click)="AddNewProduct()" class="btn btn-primary">Add Product</button>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Index</th>
+        <th>First</th>
+        <th>Last</th>
+        <th>Even</th>
+        <th>Odd</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of products; let i=index; let odd=odd; let even=even; let first=first; let last=last; trackBy:TrackChange">
+        <td>{{item.Id}}</td>
+        <td>{{item.Name}}</td>
+        <td>{{item.Price}}</td>
+        <td>{{i}}</td>
+        <td>{{first}}</td>
+        <td>{{last}}</td>
+        <td>{{even}}</td>
+        <td>{{odd}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
