@@ -1,3 +1,57 @@
+B.	ngFor directive: -
+-	it is an angular directive used to repeat any DOM element based on the specified iteration.
+-	The iteration for the directive are defined by using “of” operator 
+-	Syntax:-
+<div *ngFor="let item of collection">
+    {{item}}
+</div>
+Fordemo
+1.	Add a new Component 
+	ng g c fordemo  - -spec=false
+2.	Goto “fordemo.Component.ts ”
+export class FordemoComponent  {
+  public product = ['Samsung tv','Mobile','Nike casual']
+}
+3.	Goto “fordemo.Component.html ”
+<div>
+<h2>Product List</h2>
+<ol>
+<li *ngFor="let product of product">{{product}}</li>
+</ol>
+</div>
+4.	Output 
+ 
+Ex.7: - ngForNested 
+1.	Add a new Component 
+	ng g c ngfornested  - -spec=false
+2.	Goto “ngfornested.Component.ts ”
+export class NgfornestedComponent  {
+    public data = [
+      {  category : 'Electronic',
+        product : ['samsung Tv', 'mobile']
+      },
+      { category : 'Shoes',
+        product : ['Nike casual','Lee chopper']
+      }
+    ];
+}
+3.	Goto “ngfornested.Component.html”
+<div>
+    <h2>Product List</h2>
+    <ol>
+        <li *ngFor="let item of data">
+            {{item.category}}
+            <ol type="a">
+                <li *ngFor="let product of item.product">{{product}}
+                    
+                </li>
+            </ol>
+        </li>
+    </ol>
+</div>
+
+
+
 import { Component } from '@angular/core';
 
 @Component({
