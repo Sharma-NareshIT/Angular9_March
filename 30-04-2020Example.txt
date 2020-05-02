@@ -1,0 +1,114 @@
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-fordemo',
+    templateUrl: 'fordemo.component.html',
+    styleUrls: ['fordemo.component.css']
+})
+
+export class ForDemoComponent {
+   public menu = [
+       {Category: 'Electronics', Products: ['Televisions', 'Mobiles']},
+       {Category: 'Footwear', Products: ['Casuals', 'Boots']},
+       {Category: 'Fashion', Products: ['T-Shirts', 'Jeans']}
+   ];
+   public products = [
+       {Id: 1, Name: 'TV', Price: 45000.55},
+       {Id: 2, Name: 'Mobile', Price: 12000.40},
+       {Id: 3, Name: 'Nike Shoe', Price: 4000.54},
+       {Id: 4, Name: 'Watch', Price: 2300.44}
+   ];
+   public AddNewProduct() {
+        this.products = [
+            {Id: 1, Name: 'TV', Price: 45000.55},
+            {Id: 2, Name: 'Mobile', Price: 12000.40},
+            {Id: 3, Name: 'Nike Shoe', Price: 4000.54},
+            {Id: 4, Name: 'Watch', Price: 2300.44},
+            {Id: 5, Name: 'Sunglasses', Price: 4500.55}
+        ];
+   }
+   public TrackChange(index, item) {
+        return item.Id;
+   }
+}
+
+
+<h2 class="text-center">Amazon Shopping</h2>
+<div class="container">
+  <h2>Iteration Properties</h2>
+  <button (click)="AddNewProduct()" class="btn btn-primary">Add Product</button>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Index</th>
+        <th>First</th>
+        <th>Last</th>
+        <th>Even</th>
+        <th>Odd</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of products; let i=index; let odd=odd; let even=even; let first=first; let last=last; trackBy:TrackChange">
+        <td>{{item.Id}}</td>
+        <td>{{item.Name}}</td>
+        <td>{{item.Price}}</td>
+        <td>{{i}}</td>
+        <td>{{first}}</td>
+        <td>{{last}}</td>
+        <td>{{even}}</td>
+        <td>{{odd}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="container">
+  <div>
+    <ol>
+      <li *ngFor="let item of menu">
+        <a href="#">{{item.Category}}</a>
+        <ol type="a">
+            <li *ngFor="let product of item.Products">
+                <a href="#">{{product}}</a>
+            </li>
+        </ol>
+      </li>
+    </ol>
+  </div>
+  <div>
+      <div *ngFor="let item of menu">
+        <details>
+            <summary>{{item.Category}}</summary>
+            <ul>
+                <li *ngFor="let product of item.Products">
+                    <a href="#">{{product}}</a>
+                </li>
+            </ul>
+        </details>
+    </div>
+  </div>
+  <div>
+      <select class="form-control">
+          <optgroup *ngFor="let item of menu" label="{{item.Category}}">
+              <option *ngFor="let product of item.Products">
+                {{product}}
+              </option>
+          </optgroup>
+      </select>
+  </div>
+</div>
+
+
+.container > div {
+    border:2px solid darkcyan;
+    border-radius: 5px;
+    width: auto;
+    padding:20px;
+    font-size: 20px;
+    margin-left: 30px;
+}
+.container {
+    display:flex;
+}
