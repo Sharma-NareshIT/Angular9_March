@@ -1,0 +1,114 @@
+Ex: Iterator - Index 
+
+1. Add component folder
+	IteratorIndex
+
+2. IteratorIndex.component.ts
+
+import {Component} from '@angular/core';
+
+@Component({
+    selector: 'app-iteratorindex',
+    templateUrl: 'iteratorindex.component.html',
+    styleUrls: ['iteratorindex.component.css']
+})
+
+export class IteratorIndexComponent {
+   public products = [
+       {Name: 'Samsung TV', Price: 45000.55, InStock: true},
+       {Name: 'Nike Casuals', Price: 3500.52, InStock: false}
+   ];
+   public txtName = '';
+   public txtPrice = 0;
+   public optStock = false;
+
+   public newProduct = {
+       Name : '',
+       Price: 0,
+       InStock: false
+   };
+   public AddProduct(){
+       this.newProduct = {
+           Name: this.txtName,
+           Price: this.txtPrice,
+           InStock: this.optStock
+       };
+       this.products.push(this.newProduct);
+       alert('Record Inserted');
+       this.txtName = '';
+       this.txtPrice = 0;
+       this.optStock = false;
+   }
+   public DeleteProduct(index){
+        let c = confirm('Are you sure, Want to Delete?');
+        if(c==true) {
+            this.products.splice(index, 1);
+            alert('Record Deleted Successfully..');
+        }
+   }
+}
+
+3. Iteratorindex.component.html
+
+<h1 class="text-center">Iterator Index Demo</h1>
+<div class="container">
+  <div>
+    <h2>Register</h2>
+    <div class="form-group">
+        <label>Name</label>
+        <div>
+            <input type="text" class="form-control" [(ngModel)]="txtName" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Price</label>
+        <div>
+            <input type="text" class="form-control" [(ngModel)]="txtPrice" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Is In Stock</label>
+        <div>
+            <input type="checkbox" [(ngModel)]="optStock"> Yes
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary btn-block" (click)="AddProduct()" >Add Product</button>
+    </div>
+  </div>
+  <div>
+    <h2>Details</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products; let i=index">
+                <td>{{product.Name}}</td>
+                <td>{{product.Price}}</td>
+                <td>{{(product.InStock==true)?"Available":"Out of Stock"}}</td>
+                <td><button class="btn btn-danger" (click)="DeleteProduct(i)" >Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
+
+4. iteratorindex.component.css
+
+.container {
+    display: flex;
+}
+.container > div {
+    width: auto;
+    border:2px solid darkcyan;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 20px;
+    box-shadow: 2px 3px 3px darkcyan;
+}
