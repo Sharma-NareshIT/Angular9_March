@@ -1,0 +1,76 @@
+
+Install Fonts for Angular Project
+----------------------------------------------
+1. Goto Terminal and Install using NPM
+
+>npm install --save @fortawesome/fontawesome-free
+
+2. Goto "node_modules/@fortawesome/fontawesome-free"
+3. Copy all folders
+4. Create a new folder "fonts" in "node_modules" and paste the copied folders.
+
+	node_modules
+	|_fonts
+	   |_css
+	      |_all.css
+
+5. import into "style.css"
+
+@import "../node_modules/fonts/css/all.css";
+
+Ex:
+1. iterationdemo.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-iterationdemo',
+    templateUrl: 'iterationdemo.component.html',
+    styleUrls: ['iterationdemo.component.css']
+})
+
+export class IterationDemoComponent {
+   public products = [
+       {Name: 'Samsung TV', Photo: 'assets/tv.jpg', Likes: 0, Dislikes: 0 },
+       {Name: 'Nike Casuals', Photo: 'assets/shoe.jpg', Likes: 0, Dislikes: 0 },
+       {Name: 'Lee Boot', Photo: 'assets/shoe1.jpg', Likes: 0, Dislikes: 0 },
+       {Name: 'Shirt', Photo: 'assets/shirt.jpg', Likes: 0, Dislikes: 0 },
+   ];
+   public LikesCounter(product) {
+        product.Likes++;
+   }
+   public DislikesCounter(product) {
+        product.Dislikes++;
+   }
+}
+
+2. iterationdemo.component.html
+
+<div class="container">
+  <h2>Products Catalog</h2>
+  <div class="card-deck">
+    <div class="card" *ngFor="let product of products">
+        <div class="card-header bg-danger text-white">
+            <h2 class="card-title">{{product.Name}}</h2>
+        </div>
+        <div class="card-body">
+            <img src="{{product.Photo}}">
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-danger text-white" (click)="LikesCounter(product)" ><span class="badge badge-light">{{product.Likes}}</span>&nbsp;<span class="fa fa-thumbs-up"></span></button>
+            <button class="btn btn-danger text-white" (click)="DislikesCounter(product)" ><span class="badge badge-light">{{product.Dislikes}}</span>&nbsp;<span class="fa fa-thumbs-down"></span> </button>
+        </div>
+    </div>
+  </div>
+</div>
+
+3. iterationdemo.component.css
+img {
+    width:200px;
+    height:200px;
+}
+button {
+    margin-left: 10px;
+}
+
+
