@@ -1,0 +1,57 @@
+Iterations and Conditions
+- Conditions are defined by using "ngIF" 
+- Iterations are defined by using "ngFor"
+- Condition with in iterator is used for filtering the data.
+
+Ex:
+1. filtering folder
+2. filtering.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-filter',
+    templateUrl: 'filtering.component.html',
+    styleUrls: ['filtering.component.css']
+})
+
+export class FilteringComponent {
+    public products = [
+        {Name: 'Samsung TV', Price: 45000.55, Category: 'Electronics'},
+        {Name: 'Nike Casuals', Price: 2300.44, Category: 'Footwear'},
+        {Name: 'JBL Speaker', Price: 6300.44, Category: 'Electronics'},
+        {Name: 'Lee Cooper Boot', Price: 4600.44, Category: 'Footwear'},
+    ];
+    public selectedCategory = 'All';
+}
+
+3. filteringdemo.component.html
+
+<div class="container">
+ <div class="form-group">
+    <h2>Choose Category</h2>
+    <input type="radio" [(ngModel)]="selectedCategory" value="All" name="filter"> All
+    <input type="radio" [(ngModel)]="selectedCategory" value="Electronics" name="filter"> Electronics
+    <input type="radio" [(ngModel)]="selectedCategory" value="Footwear" name="filter"> Footwear
+ </div>
+ <div class="form-group">
+     <table class="table table-hover">
+        <thead>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products">
+                <ng-container *ngIf="selectedCategory=='All' || selectedCategory==product.Category">
+                    <td>{{product.Name}}</td>
+                    <td>{{product.Price}}</td>
+                    <td>{{product.Category}}</td>
+                </ng-container>
+            </tr>
+        </tbody>
+     </table>
+ </div>
+</div>
+
+Note:  "ng-container" is a dynamic container provided by angular, which can generate content and present dynamically without disturbing the HTML presentation.
