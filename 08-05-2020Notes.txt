@@ -1,0 +1,163 @@
+NgFor  attributes : even, odd, first, last
+================================
+- These are attributes used to know the occurance of iterating element.
+- These will return boolean true on :even, odd, first and last occurance.
+
+Note: You can turn ON or OFF any CSS class in Angular by using "class" property for element.
+ 
+Syntax:
+     <div  [class.className]="true">  
+      This will apply the class to current element.
+     <div  [class.className]="flase">  
+      This will turn off the class
+
+Ex:
+1. Goto "filtering.component.css"
+
+.odd {
+    background-color: lightgreen;
+}
+.even {
+    background-color: lightskyblue;
+}
+
+2. Goto "filtering.component.html"
+
+<tr [class.odd]="odd" [class.even]="even" *ngFor="let product of products; let odd=odd; let even=even">
+
+</tr> 
+
+You can apply any pre-define bootstrap class for odd and even occurances.
+
+<tr [class.bg-warning]="odd" [class.bg-info]="even" *ngFor="let product of products; let odd=odd; let even=even">
+
+</tr> 
+
+
+Structural Directives
+- ngIf
+- ngSwitch
+- ngFor
+
+	        Attribute Directives
+	        ================
+- Attribute directives are used to extend HTML Element and to make it more interactive and responsive.
+- Angular provides the following attribute directives
+	a) NgModel
+	b) NgStyle
+	c) NgClass
+
+NgModel : It adds two-way binding to an HTML form
+	 element.
+	 It can access the value of form element 	 and bind to a model reference.
+	 It updates the changes to model.
+	 It is defined in "FormsModules" of
+	 @angular/forms library.
+
+Syntax:
+         <input type="text" [(ngModel)]="txtName">
+
+NgStyle: It is an attribute directive used to apply
+               inline styles to any HTML element    
+               dynamically.
+               - Inline style is a technique where styles
+               are applied to HTML element by using
+               "style" attribute.
+
+              <div style="attribute:value"> </div>
+              <div  [ngStyle]="stylesFromObject">
+
+EX:
+1. styledemo.component.ts
+
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-styledemo',
+    templateUrl: 'styledemo.component.html',
+    styleUrls: ['styledemo.component.css']
+})
+
+export class StyleDemoComponent {
+     public styleObject = {
+         'background-color': 'darkcyan',
+         'color': 'white',
+         'text-align': 'center'
+     };
+     public bgcolor = '';
+     public forecolor = '';
+     public align = '';
+
+     public ApplyEffects() {
+         this.styleObject = {
+             'background-color' : this.bgcolor,
+             'color' : this.forecolor,
+             'text-align' : this.align
+         };
+     }
+}
+
+2. styledemo.component.html
+
+<div class="container">
+  <div class="form-group">
+    <h1>Select Effects</h1>
+    <div>
+        <dl>
+            <dt>Choose Background Color</dt>
+            <dd>
+                <select [(ngModel)]="bgcolor" class="form-control">
+                    <option value="red">Red</option>
+                    <option value="green">Green</option>
+                    <option value="blue">Blue</option>
+                </select>
+            </dd>
+            <dt>Choose Text Color</dt>
+            <dd>
+                <select [(ngModel)]="forecolor" class="form-control">
+                    <option value="yellow">Yellow</option>
+                    <option value="red">Red</option>
+                    <option value="white">White</option>
+                </select>
+            </dd>
+            <dt>Text Alignment</dt>
+            <dd>
+                <input [(ngModel)]="align" type="radio" name="align" value="left"> Left 
+                <input [(ngModel)]="align" type="radio" name="align" value="center"> Center
+                <input [(ngModel)]="align" type="radio" name="align" value="right"> Right
+            </dd>
+        </dl>
+        <button (click)="ApplyEffects()" class="btn btn-primary btn-block">Apply Effects</button>
+    </div>
+  </div>
+  <h1 [ngStyle]="styleObject" >Sample Text</h1>
+</div>
+
+3. styledemo.component.css
+
+.form-group {
+    width: 300px;
+    margin:auto;
+    border:2px solid darkcyan;
+    box-shadow: 2px 4px 4px darkcyan;
+    margin-bottom: 20px;
+    height: 350px;
+    padding: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
