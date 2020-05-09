@@ -1,0 +1,153 @@
+NgStyle	  ngStyle
+NgModel	  ngModel
+NgClass	  ngClass
+
+		NgClass
+- It is an attribute directive used to apply any CSS class dynamically to HTML element.
+- It allows to Change the class dynamically.
+
+Syntax:
+        <div  [ngClass]=" 'cssClassName' "> </div>
+
+- Generally this is also known as Class Binding
+- There are 3 types of reference styles for CSS clases to apply to any element:
+
+	a) String Reference
+	    - It is used to define any single class
+	    Syntax:
+	      [ngClass]=" 'className' "
+
+	b) Array Reference
+	    - It is used to define multiple classes
+	    Syntax:
+	     [ngClass]="['class1', 'class2', ... ]"
+
+	c) Object Reference
+	    - It is used to define classes, which you
+	      can turn-ON or OFF dynamically.
+	    Syntax:
+          [ngClass]="{className:false, className:true}"
+
+
+Ex: String Reference
+1. classdemo.component.css
+						.effects {
+    background-color: darkcyan;
+    color:white;
+    text-align: center;
+}
+
+2. classdemo.component.html
+
+<div class="container">
+  <h1 [ngClass]="'effects'">Sample Text</h1>
+</div>
+
+3. classdemo.component.ts
+
+import { Component } from '@angular/core';
+@Component({
+    selector: 'app-classdemo',
+    templateUrl: 'classdemo.component.html',
+    styleUrls : ['classdemo.component.css']
+})
+export class ClassDemoComponent {
+
+}
+
+Ex: Array Reference
+1. classdemo.component.css
+
+.backEffects {
+    background-color: darkcyan;
+}
+.textEffects {
+    color:white;
+    text-align: center;
+}
+.borderEffects {
+    border:2px dotted yellow;
+}
+
+2. classdemo.component.html
+
+<div class="container">
+  <h1 [ngClass]="['backEffects', 'textEffects', 'borderEffects']">Sample Text</h1>
+</div>
+
+
+Ex: Object Reference
+1. classdemo.component.ts
+
+import { Component } from '@angular/core';
+@Component({
+    selector: 'app-classdemo',
+    templateUrl: 'classdemo.component.html',
+    styleUrls : ['classdemo.component.css']
+})
+export class ClassDemoComponent {
+    public IsBackgroundSet = false;
+    public IsTextSet = false;
+    public IsBorderSet = false;
+}
+
+2. classdemo.component.css
+
+.backEffects {
+    background-color: yellow;
+}
+.textEffects {
+    color:red;
+    text-align: center;
+}
+.borderEffects {
+    border:4px dotted black;
+}
+
+3. classdemo.component.html
+
+<div class="container">
+  <div class="form-group">
+    <h2>Choose Effects</h2>
+    <ul class="list-unstyled">
+        <li><input [(ngModel)]="IsBackgroundSet" type="checkbox"> Background Effects </li>
+        <li><input [(ngModel)]="IsTextSet" type="checkbox"> Text Effects </li>
+        <li><input [(ngModel)]="IsBorderSet" type="checkbox"> Border Effects </li>
+    </ul>
+  </div>
+  <h1 [ngClass]="{backEffects:IsBackgroundSet, textEffects:IsTextSet, borderEffects:IsBorderSet}">Sample Text</h1>
+</div>
+
+Note: If class name is defined with special character like "-" then you have enclose the class name in single quotes.
+
+Syntax:
+
+<h1 [ngClass]="{'back-Effects':IsBackgroundSet, 'textEffects':IsTextSet, borderEffects:IsBorderSet}">Sample Text</h1>
+
+Ex: Dynamic Array 
+
+1. component.ts
+     public effects = [];
+2. component.html
+       
+<div class="container">
+  <div class="form-group">
+    <h2>Type Effects</h2>
+    <input type="text" [(ngModel)]="effects" class="form-control" placeholder="eg: back-Effects, textEffects, borderEffects">
+  </div>
+  <h1 [ngClass]="effects">Sample Text</h1>
+</div>
+
+3. component.css
+.back-Effects {
+    background-color: yellow;
+}
+.textEffects {
+    color:red;
+    text-align: center;
+}
+.borderEffects {
+    border:4px dotted black;
+}
+
+	            Event Binding
