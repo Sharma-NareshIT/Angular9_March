@@ -1,0 +1,76 @@
+	        Angular Event Binding
+- Event is a message sent by sender to its subscriber in order to notify the change.
+- Event follows a software design pattern called "Observer". It is a communication pattern, which comes under "Behavioral Patterns"
+- Event uses delegate mechanism. 
+	[ Delegate =  Function Pointer ]
+- Event uses an Event Handler that follows delagate mechanism.
+
+       <button  onclick="btnSubmit_Click()">
+
+       onclick		      → Event
+       onclick="btnSubmitClick()"     → Event Handler
+
+- Events in Angular are binded to any HTML element by using "()".
+	 ex:	Angular	JavaScript
+		(click)	onclick
+		(blur)	onblur
+		(submit)	onsubmit
+		(change)	onchange  etc..
+
+- Events are provided by window object, which is a browser object i.e events are related to browser.
+
+Syntax:
+		".ts"
+	  public  btnClick() {
+	        // some logic
+	  }
+	 	".html"
+	 <button  (click)="btnClick()">
+	 <select   (change)="btnClick()">
+	 <div  (mouseover)="btnClick()">
+
+- In general Every event is capable of handling 2 arguments
+	a) Argument related to Object
+	     - It is defined by using "this" keyword
+	     - It provides access to object related
+	       properties and methods.
+	b) Argument related to Event
+	     - It is defined by using "event" keyword
+	     - It provides access to event related
+	       properties and methods.
+
+- TypeScript event can handle only one Argument "$event", which can provide access to both event related and object related members.
+
+SyntaX:
+      		".ts"
+	public btnClick(obj)
+	{
+	  obj.EventMembers;
+	  obj.target.objectMembers; 
+	}
+	<button (click)="btnClick($event)">
+
+Ex:
+1. Goto "component.ts"
+
+    public xposition;
+    public buttonName;
+    public btnClick(obj) {
+        this.xposition = obj.clientX;
+        this.buttonName = obj.target.name;
+    }	   
+
+2. Goto "component.html"
+
+<div class="form-group">
+    <button (click)="btnClick($event)" type="button" name="btnSubmit" value="Submit" class="btn btn-primary btn-block">Submit</button>
+  </div>
+  <div class="form-group">
+       Button Name  : {{buttonName}} <br>
+       Clicked At X : {{xposition}}
+  </div>
+
+
+	
+
+
