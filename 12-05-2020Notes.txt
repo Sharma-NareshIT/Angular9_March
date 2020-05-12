@@ -1,0 +1,134 @@
+- Angular uses all JavaScript Browser Events
+- Usually the browser events are classified into several groups
+	a) Mouse Events
+		- mouseover
+		- mouseout
+		- mousedown
+		- mouseup
+		- mousemove
+	b) Key Events
+		- keyup
+		- keydown
+		- keypress
+	c) Miscelaneous Events
+		- click
+		- dblclick
+		- select
+		- selectstart
+		- change
+		- blur
+		- focus
+		- cut
+		- copy
+		- paste
+		- contextmenu etc..
+- Angular allows to create a custom event [ you can create your own events]
+- Angular events are handled by "EventEmitter" base class.
+
+	            Key Events
+- Key events define actions to perform while user is keying-in the characters into any input element.
+- Commonly used key events are
+
+Event			Description
+--------------------------------------------------------------------------
+a) keyup		It specifies actions to perform
+		when user release a key over
+		any element.
+b) keydown	Actions to perform when user
+		hold down the key.
+c) keypress	Actions to perform when user
+		finish with the current and 		moves to next key. It verifies
+		the code immediately not 
+		character.
+
+Key Event Properties:
+
+Property		Description
+-------------------------------------------------------------------------
+keyCode		It returns the actual key code
+		[A = 65]
+charCode		It returns the char code as per
+		UTF standards.
+which		It is similar to key code, but it
+		can be compatible to all types
+		of keyboard layouts.
+shiftKey	]
+altKey	]	Return true when used.
+ctrlKey	]
+
+
+Ex:
+1. keydemo.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-keydemo',
+    templateUrl: 'keydemo.component.html',
+    styleUrls: ['keydemo.component.css']
+})
+
+export class KeyDemoComponent {
+   public users = [
+       {UserName: 'john_nit'},
+       {UserName: 'john'},
+       {UserName: 'john123'},
+       {UserName: 'david'}
+   ];
+   public username = '';
+   public password = '';
+   public msg = '';
+   public warnDisplay = false;
+   public isValid = false;
+   public isInvalid = false;
+   public VerifyUserName() {
+       for(var user of this.users) {
+           if(user.UserName == this.username) {
+              this.msg = 'User Name Taken - Try Another';
+              this.isInvalid = true;
+              this.isValid = false;
+              break;
+           } else {
+               this.msg = 'User Name Available';
+               this.isValid = true;
+               this.isInvalid = false;
+           }
+        }
+   }
+   public VerifyPassword(e) {
+       if(e.keyCode>=65 && e.keyCode<=90) {
+           this.warnDisplay = true;
+       } else {
+           this.warnDisplay = false;
+       }
+   }
+}
+
+2. keydemo.component.html
+
+<div class="container">
+ <h2>Register User</h2>
+ <div class="form-group">
+  <label>User Name</label>
+  <div>
+      <input (keyup)="VerifyUserName()" [(ngModel)]="username" type="text" class="form-control">
+      <span [ngClass]="{'text-danger':isInvalid, 'text-success': isValid}">{{msg}}</span>
+  </div>
+ </div>
+ <div class="form-group">
+    <label>Password</label>
+    <div>
+        <input (keypress)="VerifyPassword($event)" type="text" class="form-control">
+        <span class="text-warning" *ngIf="warnDisplay" ><span class="fa fa-exclamation-triangle"></span>Capital letter Used</span>
+    </div>
+ </div>
+</div>
+
+		
+
+	         
+
+
+
+
+
