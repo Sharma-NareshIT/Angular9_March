@@ -1,0 +1,184 @@
+Ex: Regular Expression
+
+1. keydemo.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-keydemo',
+    templateUrl: 'keydemo.component.html',
+    styleUrls: ['keydemo.component.css']
+})
+
+export class KeyDemoComponent {
+   public users = [
+       {UserName: 'john_nit'},
+       {UserName: 'john'},
+       {UserName: 'john123'},
+       {UserName: 'david'}
+   ];
+   public username = '';
+   public password = '';
+   public msg = '';
+   public warnDisplay = false;
+   public isValid = false;
+   public isInvalid = false;
+   public regExp = /(?=.*[A-Z])\w{4,10}/;
+   public strengthMsg = '';
+   public VerifyUserName() {
+       for(var user of this.users) {
+           if(user.UserName == this.username) {
+              this.msg = 'User Name Taken - Try Another';
+              this.isInvalid = true;
+              this.isValid = false;
+              break;
+           } else {
+               this.msg = 'User Name Available';
+               this.isValid = true;
+               this.isInvalid = false;
+           }
+        }
+   }
+   public VerifyPassword(e) {
+       if(e.keyCode>=65 && e.keyCode<=90) {
+           this.warnDisplay = true;
+       } else {
+           this.warnDisplay = false;
+       }
+   }
+   public VerifyStrength() {
+        if(this.password.match(this.regExp)) {
+            this.strengthMsg = 'Strong Password';
+        } else {
+            if(this.password.length<4) {
+                this.strengthMsg = 'Poor Password';
+            } else {
+                this.strengthMsg = 'Weak Password';
+            }
+        }
+   }
+}
+
+2. keydemo.component.html
+<div class="container">
+ <h2>Register User</h2>
+ <div class="form-group">
+  <label>User Name</label>
+  <div>
+      <input (keyup)="VerifyUserName()" [(ngModel)]="username" type="text" class="form-control">
+      <span [ngClass]="{'text-danger':isInvalid, 'text-success': isValid}">{{msg}}</span>
+  </div>
+ </div>
+ <div class="form-group">
+    <label>Password</label>
+    <div>
+        <input (keyup)="VerifyStrength()" (keypress)="VerifyPassword($event)" type="password" [(ngModel)]="password" class="form-control">
+        <span class="text-warning" *ngIf="warnDisplay" ><span class="fa fa-exclamation-triangle"></span>Capital letter Used</span>
+        <span>{{strengthMsg}}</span>
+    </div>
+ </div>
+</div>
+
+	            Mouse Event Binding
+mouseover	: Actions to perform when mouse
+		  pointer is over the element.
+mouseout		: Actions to perform when 		 mouse pointer is moved out of
+		 element.
+mousedown	: Actions when mouse button is
+		  down over any element.
+mouseup		: Actions when mouse button is
+		  release over any element.
+mousemove	: Actions to perform when mouse
+		  pointer is moving over the 		  element.
+
+Ex: Mouse over and Mouse out
+
+1. mousedemo.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector : 'app-mousedemo',
+    templateUrl: 'mousedemo.component.html',
+    styleUrls: ['mousedemo.component.css']
+})
+
+export class MouseDemoComponent {
+
+    public pics = ['assets/shirt.jpg', 'assets/shoe.jpg', 'assets/shoe1.jpg', 'assets/earpods.jpg'];
+
+    public StopAnimation(e) {
+        e.target.stop();
+    }
+    public StartAnimation(e){
+        e.target.start();
+    }
+}
+
+2. mousedemo.component.html
+<div class="customcontainer">
+  <marquee (mouseover)="StopAnimation($event)" (mouseout)="StartAnimation($event)" scrollamount="10">
+    <span *ngFor="let pic of pics">
+        <img src="{{pic}}">
+    </span>    
+  </marquee>
+</div>
+
+3. mousedemo.component.css
+
+.customcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+img {
+    width:200px;
+    height: 200px;
+    opacity: 0.4;
+}
+img:hover {
+    transform: scale(2);
+    transition: 2s;
+    opacity: 1.0;
+}
+marquee {
+    background-color: lightgreen;
+}
+
+Ex: Mouse Move
+
+1. mousedemo.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector : 'app-mousedemo',
+    templateUrl: 'mousedemo.component.html',
+    styleUrls: ['mousedemo.component.css']
+})
+
+export class MouseDemoComponent {
+
+    public styleObj = {
+        'position': '',
+        'left': '',
+        'top': ''
+    }
+    public GetPosition(e) {
+        this.styleObj = {
+            'position': 'fixed',
+            'left': e.clientX + 'px',
+            'top':  e.clientY + 'px'
+        };
+    }
+}
+2. mousemove.component.html
+<div (mousemove)="GetPosition($event)">
+    <div style="height: 1000px;">
+        <h2>
+            X = {{styleObj.left}} <br>
+            Y = {{styleObj.top}}
+        </h2>
+    </div>
+    <img [ngStyle]="styleObj" src="assets/flag.gif" width="70" height="70">
+</div>
