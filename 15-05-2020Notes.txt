@@ -1,0 +1,214 @@
+1. shoppingcart.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-shoppingcart',
+    templateUrl: 'shoppingcart.component.html',
+    styleUrls: ['shoppingcart.component.css']
+})
+
+export class ShoppingCartComponent {
+    public selectedCategoryName = 'Select a Category';
+    public selectedProductName = 'Select a Product';
+
+    public categories = ['Select a Category', 'Electronics', 'Footwear', 'Fashion'];
+    public electronics = ['Select Electronics', 'Samsung TV', 'JBL Earpods'];
+    public footwear = ['Select Footwear', 'Nike Casuals', 'Lee Cooper Boot'];
+    public fashion = ['Select Fashion Wear', 'Jeans', 'Shirt'];
+    public products = [];
+    public searchResults = [];
+    public prodName = '';
+    public prodPrice = 0;
+    public prodMfd = new Date();
+    public prodPhoto = '';
+
+    public data = [
+        {Name: 'Samsung TV', Price: 45000.55, Mfd: new Date('2020/02/10'), Photo: 'assets/tv.jpg'},
+        {Name: 'JBL Earpods', Price: 5000.38, Mfd: new Date('2020/01/20'), Photo: 'assets/earpods.jpg'},
+        {Name: 'Nike Casuals', Price: 4000.55, Mfd: new Date('2020/03/17'), Photo: 'assets/nike.jpg'},
+        {Name: 'Lee Cooper Boot', Price: 6000.55, Mfd: new Date('2020/02/02'), Photo: 'assets/shoe1.jpg'},
+        {Name: 'Jeans', Price: 3000.55, Mfd: new Date('2020/01/22'), Photo: 'assets/jeans.jpg'},
+        {Name: 'Shirt', Price: 1000.55, Mfd: new Date('2020/02/15'), Photo: 'assets/shirt.jpg'},
+    ];
+    public shoppingCartItems = [];
+    public cartItemsCount = 0;
+    public showCart = false;
+    public showDetails = false;
+
+    public SelectedCategoryChanged(){
+        switch(this.selectedCategoryName) {
+            case 'Electronics':
+                this.products = this.electronics;
+                break;
+            case 'Footwear':
+                this.products = this.footwear;
+                break;
+            case 'Fashion':
+                this.products = this.fashion;
+                break;
+            default:
+                this.products = ['Please Choose Category'];
+                break;
+        }
+    }
+    public SelectedProductChanged() {
+         this.showDetails = true;
+         this.searchResults = this.data.filter(x=>x.Name==this.selectedProductName);
+         this.prodName = this.searchResults[0].Name;
+         this.prodPrice = this.searchResults[0].Price;
+         this.prodMfd = this.searchResults[0].Mfd;
+         this.prodPhoto = this.searchResults[0].Photo;
+    }
+    public AddToCartClick() {
+        this.shoppingCartItems.push({Name: this.prodName, Price: this.prodPrice, Mfd: this.prodMfd, Photo: this.prodPhoto});
+        alert('Item Added to Cart');
+        this.cartItemsCount = this.shoppingCartItems.length;
+    }
+    public DisplayCart() {
+        this.showCart = true;
+    }
+    public CloseCart() {
+        this.showCart = false;
+    }
+    public DeleteCartItem(index) {
+        let x  = confirm('Are You sure, want to Delete?');
+        if(x==true) {
+            this.shoppingCartItems.splice(index, 1);
+        }
+        this.cartItemsCount = this.shoppingCartItems.length;
+    }
+}
+
+2. shoppingcart.component.html
+
+<div class="container-fluid">
+  <div class="btn-toolbar bg-danger text-white justify-content-between" style="margin-top: 20px;">
+    <div class="btn-group">
+        <a href="#" class="btn btn-danger">Amazon Shopping</a>
+        <button class="btn btn-danger">Home</button>
+        <button class="btn btn-danger">Search</button>
+    </div>
+    <div class="btn-group">
+        <button (click)="DisplayCart()" class="btn btn-danger">
+            [{{cartItemsCount}}]
+            <span class="fa fa-shopping-cart"></span>
+            Your Cart Items
+        </button>
+    </div>
+  </div>
+  <div class="section" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-3">
+         <div style="margin-top: 50px;">
+          <div class="form-group">
+            <label>Select Category</label>
+            <div>
+                <select (change)="SelectedCategoryChanged()" [(ngModel)]="selectedCategoryName" class="form-control">
+                    <option *ngFor="let category of categories">
+                        {{category}}
+                    </option>
+                </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Select a Product</label>
+            <div>
+                <select (change)="SelectedProductChanged()" [(ngModel)]="selectedProductName" class="form-control">
+                    <option *ngFor="let product of products">
+                        {{product}}
+                    </option>
+                </select>
+            </div>
+          </div>
+         </div>
+        </div>
+        <div class="col-8" style="margin-left: 30px;">
+            <div class="box" *ngIf="showDetails">
+                <h3>Product Details</h3>
+               <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                      <h2> {{prodName}} </h2>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <img src="{{prodPhoto}}" width="200" height="200">
+                    <button (click)="AddToCartClick()" class="btn btn-success"><span class="fa fa-shopping-cart"></span>Add to Cart</button>
+                </div>
+                <div class="card-footer text-center">
+                    <div class="font-weight-bold">
+                        {{prodPrice |currency:'INR'}}
+                    </div>
+                    <div class="font-italic">
+                        {{prodMfd.toDateString()}}
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="box" *ngIf="showCart">
+                <h3>Your Cart Items</h3>
+                <button (click)="CloseCart()" type="button" class="close">x</button>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Photo</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of shoppingCartItems; let i=index">
+                            <td>{{item.Name}}</td>
+                            <td>{{item.Price}}</td>
+                            <td>
+                                <img src="{{item.Photo}}" width="50" height="50">
+                            </td>
+                            <td>
+                                <button (click)="DeleteCartItem(i)" class="btn">
+                                    <span class="fa fa-trash-alt text-danger"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+3. shoppingcart.component.css
+
+[class*="col-"] {
+    width: 90%;
+    height: 100%;
+}
+.container-fluid {
+    width: 100%;
+}
+.row {
+    height: 100%;
+}
+.section {
+    width: 90%;
+    margin:20px;
+}
+.card {
+    width: 100%;
+}
+img:hover{
+  transform: scale(2);
+  transition: 2s;
+}
+img {
+    transition: 2s;
+}
+.card-body {
+    overflow: hidden;
+}
+.box {
+    float: left;
+    margin-left: 20px;
+}
