@@ -1,0 +1,117 @@
+Event		Description
+==========================================
+dblclick		Specifies actions on double click
+cut		On Cut
+copy		On Copy
+paste		On Paste
+contextmenu	On Right Click
+select		On Select
+selectstart	On Select Drag
+blur		Lost focus
+focus		Get Focus
+
+Ex:
+1. evenibinding.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-eventbinding',
+    templateUrl: 'eventbinding.component.html',
+    styleUrls: ['eventbinding.component.css']
+})
+
+export class EventBindingComponent {
+    public showMsg = false;
+    public message = 'Please Enter Name in Block Letters';
+    public username = '';
+    public OnNameFocus() {
+        this.showMsg = true;
+    }
+    public OnNameBlur() {
+        this.showMsg = false;
+        this.username = this.username.toUpperCase();
+    }
+    public OnCopy() {
+        this.message = 'Text Copied to Clipboard';
+    }
+    public OnCut() {
+        this.message = 'Removed and Copied to Clipboard';
+    }
+    public OnPaste() { 
+        this.message = 'Inserted from Clipboard';
+    }
+    public OnDblClick() {
+        window.open('assets/earpods.jpg', 'Earpods', 'width=400 height=300');
+    }
+}
+
+2. eventdemo.component.html
+
+<div class="container">
+    <div class="form-group">
+        <label>User Name</label>
+        <div>
+            <input (focus)="OnNameFocus()" (blur)="OnNameBlur()" (cut)="OnCut()" (copy)="OnCopy()" (paste)="OnPaste()" type="text" [(ngModel)]="username" class="form-control" placeholder="Name in Block Letters">
+            <span *ngIf="showMsg" >{{message}}</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <img (dblclick)="OnDblClick()" src="assets/earpods.jpg" width="50" height="50">
+        <p>Double click to view large</p>
+    </div>
+</div>
+
+	          Submit Event
+- It specifies actions to perform when form is submitted.
+- Form can be submitted only by using "Submit" generic type button.
+	<input type="submit">      ]  Generic Button
+	<input type="reset">          ]
+- Submit button submits the form. Hence submit events works for "Form" with "Submit" button.
+
+       <form  (submit)="">
+             <input type="submit">
+             <input type="button"> it will not submit form.
+             <button>   It can submit form
+             <button type="button"> it will not submit.
+       </form>
+
+3 Button Types are used
+	a) button
+	b) submit
+	c) reset
+
+Ex:
+1.  .ts file
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-eventbinding',
+    templateUrl: 'eventbinding.component.html',
+    styleUrls: ['eventbinding.component.css']
+})
+
+export class EventBindingComponent {
+     public OnSubmit(){
+         alert('Form Submitted');
+     }
+}
+
+2.  .html
+
+<div class="container">
+  <h2>Submit Demo</h2>
+  <form (submit)="OnSubmit()">
+      <button class="btn btn-primary">Insert</button>
+      <button class="btn btn-danger" type="button">Delete</button>
+  </form>
+</div>
+
+FAQ: Can a form have multiple submit buttons?
+A. Yes
+
+FAQ: How form knows which submit clicked? And How it handles different functionaltiy for every button?
+
+
+
