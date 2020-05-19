@@ -1,0 +1,90 @@
+	        Conponent Hierarchy
+- Components are building blocks for Angular Application.
+- Every Angular application comprises of multiple components.
+- A component can be nested.
+- You can access and use a component within the context of another component.
+- It can exhibit  Parent-Child hierarchy.
+- Any component can be accessed into the context of existing component by using its selector.
+
+         <app-parent>
+	<app-child> </app-child>
+         </app-parent>
+
+Ex:
+1. Add 2 components
+	a) ParentComponent
+	b) ChildComponent
+
+2. Register the components into "app.module.ts"
+
+3. Bootstrap with ParentComponent
+
+4. child.component.html
+
+<div class="container bg-white text-danger">
+    <h3>Child Component</h3>
+</div>
+
+5. parent.component.html
+
+<div class="container bg-dark text-white" style="height: 200px;">
+    <h2>Parent Component</h2>
+    <app-child></app-child>
+</div>
+
+Note: Selector refers to the Markup, which you access from any location.
+           The properties and methods for one component are not directly accessible to another component.
+
+- If a parent component want to access any property of child component in order to input a value. Then the child component property must be marked with "@Input()".
+
+      @Input()  public  propertyName = "value";
+
+Ex:
+1. child.component.ts
+
+import { Component, Input } from '@angular/core';
+
+@Component({
+    selector: 'app-child',
+    templateUrl: 'child.component.html',
+    styleUrls: ['child.component.css']
+})
+
+export class ChildComponent {
+   @Input() public message = 'Message in Child Component';
+}
+
+2. child.component.html
+
+<div class="container bg-white text-danger">
+    <h3>Child Component</h3>
+    <p>{{message}}</p>
+</div>
+
+3. parent.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-parent',
+    templateUrl: 'parent.component.html',
+    styleUrls: ['parent.component.css']
+})
+
+export class ParentComponent {
+    public parentMessage = 'Hello ! from Parent Component';
+}
+
+4. parent.component.html
+
+<div class="container bg-dark text-white" style="height: 200px;">
+    <h2>Parent Component</h2>
+     <p>{{parentMessage}}</p>
+    <app-child [message]="parentMessage" ></app-child>
+</div>
+
+Methods in Child component must Emmit output, which is accessed and used in Parent component.
+
+                   "CustomEvents"
+
+
