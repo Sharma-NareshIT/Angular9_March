@@ -1,0 +1,143 @@
+To Create Custom Event:
+1. Declare the event object by implementing "EventEmitter" base.
+
+  - EventEmitter is member of '@angular/core'
+  - It is a Generic class
+  - It can return any type of value.
+  - In this  example it have to return string.
+  - EventEmitter type object can emit a value, which can be accessed and used in the component.
+  - If you wan the EventEmitter object to emit value outside the component, then you have to mark it as
+	"@Output()"
+
+2. You have to define when the value must be emitted.
+    - In our example value must be emitted on radio button changed.
+    - Hence you have to write "Change" event for radio
+
+3. Selected radio button value must be emitted on radio button change event by using "EventEmitter" object.
+
+
+
+Ex:
+1. Add 2 components
+	a) filterpanel
+	b) productsdata
+
+2. filterpanel.component.ts
+
+import {Component, Input, EventEmitter, Output} from '@angular/core';
+
+@Component({
+    selector: 'app-filterpanel',
+    templateUrl: 'filterpanel.component.html',
+    styleUrls: ['filterpanel.component.css']
+})
+
+export class FilterPanelComponent {
+ public SelectedRadioValue = 'All';
+ @Input() public AllCount = 0;
+ @Input() public ElectronicsCount = 0;
+ @Input() public FootwearCount = 0;
+
+ @Output() public FilterValueChanged: EventEmitter<string> = new EventEmitter<string>();
+
+ public RadioButtonChanged() {
+    this.FilterValueChanged.emit(this.SelectedRadioValue);
+ }
+}
+
+3. filterpanel.component.html
+
+<div class="panel">
+  <ul>
+      <li><input [(ngModel)]="SelectedRadioValue" (change)="RadioButtonChanged()" value="All" name="filter" type="radio">All [{{AllCount}}]</li>
+      <li><input [(ngModel)]="SelectedRadioValue" (change)="RadioButtonChanged()" value="Electronics" name="filter" type="radio"> <span class="fa fa-tv"></span> Electronics [{{ElectronicsCount}}]</li>
+      <li><input [(ngModel)]="SelectedRadioValue" (change)="RadioButtonChanged()" value="Footwear" name="filter" type="radio"> <span class="fa fa-shoe-prints"></span>Footwear [{{FootwearCount}}] </li>
+  </ul>
+</div>
+
+4. filterpanel.component.css
+
+.panel {
+    padding: 5px;
+    width:200px;
+    margin-top: 20px;
+}
+ul {
+    list-style-type: none;
+}
+ul li {
+    margin-top: 10px;
+}
+
+5. productsdata.component.ts
+
+import {Component} from '@angular/core';
+
+@Component({
+    selector: 'app-productsdata',
+    templateUrl: 'productsdata.component.html',
+    styleUrls: ['productsdata.component.css']
+})
+
+export class ProductsDataComponent {
+    public data = [
+        {Name: 'Samsung TV', Price: 45000.54, Category: 'Electronics', Photo: 'assets/tv.jpg'},
+        {Name: 'Nike Casuals', Price: 5000.54, Category: 'Footwear', Photo: 'assets/nike.jpg'},
+        {Name: 'Earpods', Price: 15000.54, Category: 'Electronics', Photo: 'assets/earpods.jpg'},
+        {Name: 'Lee Cooper Boot', Price: 6000.54, Category: 'Footwear', Photo: 'assets/shoe1.jpg'},
+    ];
+    public AllCount = this.data.length;
+    public ElectronicsCount = this.data.filter(x=>x.Category=='Electronics').length;
+    public FootwearCount = this.data.filter(x=>x.Category=='Footwear').length;
+    public CategoryName = 'All';
+    public CategoryChanged(categoryName){
+        this.CategoryName = categoryName;
+    }
+}
+
+6. productsdata.component.html
+
+<div class="container">
+   <aside>
+     <h2>Filter</h2>
+     <app-filterpanel (FilterValueChanged)="CategoryChanged($event)" [AllCount]="AllCount" [ElectronicsCount]="ElectronicsCount" [FootwearCount]="FootwearCount" ></app-filterpanel>
+   </aside>
+   <article>
+    <h2>Products Details</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Preview</th>
+            </tr>
+        </thead>
+        <tbody>
+           <ng-container *ngFor="let product of data">
+            <tr *ngIf="CategoryName=='All' || CategoryName==product.Category">
+                <td>{{product.Name}}</td>
+                <td>{{product.Price}}</td>
+                <td><img src="{{product.Photo}}" width="50" height="50"></td>
+            </tr>
+           </ng-container>
+        </tbody>
+    </table>
+   </article>
+</div>
+
+7. productsdata.component.css
+
+.container {
+    display:grid;
+    grid-template-columns: 1fr 3fr;
+    margin:2em auto;
+}
+aside {
+    border-right: 2px dotted darkcyan;
+    background-color: lightcyan;
+    padding: 10px;
+}
+article {
+    padding: 20px;
+}
+	        Component LifeCycle
