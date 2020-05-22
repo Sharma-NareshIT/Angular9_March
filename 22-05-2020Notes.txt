@@ -1,0 +1,63 @@
+	       Component Life Cycle
+- Component is the core feature for Angular application.
+- Components are building blocks for Angular App.
+- A component have specific life cycle, which is managed by Angular.
+- Life Cycle is the process that explains how a component start and end.
+- The basic component life cycle follows various phases.
+
+    1. Angular creates the component on request
+    2. It renders the component to the client.
+    3. It creates and renders the child components.
+    4. It verifies the changes of properties and values in a component.
+    5. It binds the changes to related elements.
+    6. It destroys the component and related memory before removing from DOM.
+
+- Angular Component LifeCycle is managed by an Interface that allow you to inspect into the stages , which includes several methods, which are known as "hook method".
+
+Hook Method	Description
+---------------------------------------------------------------------------
+ngOnInit		It specifies the actions to 		perform when component is
+		initialized.
+
+ngOnChange	It specifies the action to perform
+		when any change detected in the
+		component.
+
+ngDoCheck	It specifies the event, which is 
+		used to identify the changes
+		explicitly i.e the actions to 
+		perform explicitly when 		component changed.
+
+ngOnDestroy	It specifies the action to perform 
+		when component is removed 		from DOM hierarchy.
+
+
+
+Ex:
+1. lifecycle.component.ts
+
+import {Component, OnInit} from '@angular/core';
+
+@Component({
+    selector : 'app-lifecycle',
+    templateUrl: 'lifecycle.component.html',
+    styleUrls: ['lifecycle.component.css']
+})
+
+export class LifeCycleComponent implements OnInit{
+        public msg = '';
+        constructor() {
+            this.msg = 'Constructor Loaded-->';
+        }
+        ngOnInit(){
+            this.msg += 'Component Initialized Successfully -->';
+        }
+}
+
+2. lifecycle.component.html
+
+<div class="container">
+    <div class="bg-danger text-white">
+        {{msg}}
+    </div>
+</div>
