@@ -1,0 +1,71 @@
+        Angular Component Life Cycle Hooks
+
+ngOnChange : It verfies the previous and current values and identifies the changes occured in component. It can also track the changes and get the changes by using 
+	a) previousValue
+	b) currentValue
+These are the members of "SimpleChanges" object, which is firedup automatically when changed detected in component.
+
+Ex:
+1. goto "parent.component.ts"
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-parent',
+    templateUrl: 'parent.component.html',
+    styleUrls: ['parent.component.css']
+})
+
+export class ParentComponent {
+    public username = 'David';
+}
+
+2. goto "parent.component.html"
+
+<div class="container bg-dark text-white" style="height: 200px;">
+   <h2>Parent</h2>
+   <input type="text" [(ngModel)]="username" class="form-control" placeholder="Your Name">
+   <div style="margin-top: 30px;">
+       <app-child [username]="username"></app-child>
+   </div>
+</div>
+
+3. child.component.ts
+
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+
+@Component({
+    selector: 'app-child',
+    templateUrl: 'child.component.html',
+    styleUrls: ['child.component.css']
+})
+
+export class ChildComponent implements OnChanges {
+  @Input() public username;
+  public currentvalue;
+  public previousvalue;
+
+  ngOnChanges(changes: SimpleChanges) {
+      for(var property in changes) {
+         let change = changes[property]; //CurrentValue, PreviousValue
+         this.currentvalue = change.currentValue;
+         this.previousvalue = change.previousValue;
+      }
+  }
+}
+
+4. child.component.html
+
+<div class="container bg-white text-danger">
+    <h3>Child Component</h3>
+    <p>Hello ! {{username}}</p>
+    <dl>
+        <dt>Current Value</dt>
+        <dd>{{currentvalue}}</dd>
+        <dt>Previous Value</dt>
+        <dd>{{previousvalue}}</dd>
+    </dl>
+</div>
+
+	         Pipes and Services
+
