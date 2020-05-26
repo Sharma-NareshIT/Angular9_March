@@ -1,0 +1,92 @@
+	           Angular PIPES
+- Pipe is a function in angular used to format and filter the data dynamically.
+- Angular can transfrom the data by using "PipeTransform" base.
+- It is a base class which is responsible for defining functionality for pipe in angular.
+- All pipes in angular are derived from "PipeTransform" base.
+- This base class provides functionality that can transform your data in desirable format.
+- Angular provides several built-in pipes which you can use and apply to data.
+- Angular also allows to create your own pipes.
+
+	         "Angular Built-in Pipes"
+- AsyncPipe
+- CurrencyPipe
+- DatePipe
+- DecimalPipe
+- I18nPluralPipe
+- I18nSelectPipe
+- JsonPipe
+- KeyValuePipe
+- LowerCasePipe
+- UpperCasePipe
+- TitleCasePipe
+- PercentPipe
+- SlicePipe
+
+Angular pipes are applied to your data by using "|" pipe symbol.
+
+1. UpperCasePipe :  It converts all letters into Capital 		letters.
+
+ Syntax:
+	   {{ data | uppercase }}
+
+
+2. LowerCasePipe : It converts all letters into 			                lowercase letters.
+
+Syntax:
+	  {{ data | lowercase }}
+
+3. TitleCasePipe  : It converts every word first letter
+		to uppercase letter.
+
+Syntax:
+	 {{ data | titlecase }}
+
+
+4. DecimalPipe : It is used to display number with
+	           thousands separator and fractions.
+
+
+  Syntax:
+      {{data | number:{minIntergerDigits}.{minFractionDigits}-{maxFractionDigits}
+
+      {{ price | number: '5.2-4' }}
+
+
+5. CurrencyPipe : It is used to display numbers in a
+	              currency format with fractions and
+		currency symbol
+
+SyntaX:
+   {{data | currency:'Format':'digitsInfo' }}
+	
+   
+	Format : USD, INR,
+	you can also use HTML currency symbols
+
+	DigitsInfo : {minInteger}.{minFraction}-{maxFraction}
+
+
+Ex:
+{{product.Price | currency:'&#8377;'}}
+
+
+6. DatePipe : It is used for displaying date value with
+	     specified date format.
+
+   Predefined Formats:
+   - short
+   - medium
+   - long
+   - full
+   - shortDate
+   - mediumDate
+   - longDate
+   - fullDate
+   - shortTime
+   - mediumTime
+   - longTime
+   - fullTime
+
+Ex:
+{{product.Mfd | date:'fullDate'}}
+
