@@ -1,0 +1,124 @@
+- lowercase
+- uppercase
+- titlecase
+- decimal [number]
+- currency
+- date
+	MM	- Month number
+	MMM	- Month short form
+	MMMM	- Month full 
+	yy	- Year 2 digits
+	yyyy	- Year 4 digits
+	d	- one digit date
+	dd	- two digits date
+
+               {{product.Mfd | date:'dd-MMMM-yyyy'}}
+
+- PercentPipe
+	Transforms a number into a percentage string.
+
+             Syntax:
+	  {{ data | percent: 'digitsInfo' }}
+
+	  Sales: 0.259
+	  {{product.Sales|percent:'2.2-4'}} //  25.90%
+
+- SlicePipe
+	It creates a new Array or string containing a subset (slice) of the elements.
+
+
+ Syntax:
+	{{ collection | slice:startIndex:endIndex }}
+
+ Ex:
+ public products = ['TV', 'Mobile', 'Shoe', 'Watch'];
+
+ <ol>
+        <li *ngFor="let item of products | slice:1:3"> 
+            {{item}}
+        </li>
+  </ol>
+
+- JsonPipe : It is used to convert the data into JSON format.
+	    So that it can be transported accross requests.
+
+ Syntax:
+	 {{ data | json }}
+
+ Ex:
+  public product = {
+        Name: 'Samsung TV',
+        Price: 45000.50,
+        Mfd: new Date('2020/02/21'),
+        Sales: 0.259
+    };
+
+  <div>
+       <pre>
+        {{product | json}}
+       </pre>
+    </div>
+
+ O/p:
+     {
+  "Name": "Samsung TV",
+  "Price": 45000.5,
+  "Mfd": "2020-02-20T18:30:00.000Z",
+  "Sales": 0.259
+    }
+
+KeyValuePipe: It is used to transform an object or a map into an array of key and value pairs.
+
+Syntax:
+	{{data | keyvalue }}
+
+Ex:
+1. component.ts
+export class PipeDemoComponent {
+    product: {[key:number]:string} = {1:'TV', 2:'Mobile'};
+    public products = ['TV', 'Mobile', 'Shoe'];
+}
+
+2. component.html
+<div class="container">
+   <div *ngFor="let item of product | keyvalue">
+       {{item.key}} : {{item.value}}
+   </div>
+   <ul>
+       <li *ngFor="let item of products | keyvalue">
+           [{{item.key}}] - {{item.value}}
+       </li>
+   </ul>
+</div>
+
+
+- I18nSelectPipe
+	It is a Generic selector that can make decision dynamically according to state or value and define the result when the relative condition matches.
+
+       Syntax
+	{{value_expression | i18nSelect : mapping }}
+
+
+Ex:
+export class PipeDemoComponent {
+  statusMessage = {
+      'Hyderabad': 'Delivery in 2 days',
+      'Delhi': 'Delivery in 5 days',
+      'Mumbai': 'Not Deliverable'
+  };
+  productName = 'Samsung TV';
+  city = 'Mumbai';
+}
+
+<div class="container">
+   Name : {{productName}} <br>
+   City : {{city}} <br>
+   Status: {{city | i18nSelect:statusMessage}}
+</div>
+
+
+
+
+
+
+
