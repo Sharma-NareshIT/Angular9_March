@@ -1,0 +1,131 @@
+ {{city | i18nSelect:statusMessage}}
+
+
+Ex:
+1. pipedemo.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-pipedemo',
+    templateUrl: 'pipedemo.component.html',
+    styleUrls: ['pipedemo.component.css']
+})
+
+export class PipeDemoComponent {
+  statusMessage = {
+      'Hyderabad': 'Delivery in 2 days',
+      'Delhi': 'Delivery in 5 days',
+      'Mumbai': 'Not Deliverable'
+  };
+  public products = [
+    {Name: 'Samsung TV', City: 'Delhi'},
+    {Name: 'Nike Casuals', City: 'Delhi'},
+    {Name: 'Mobile', City:'Hyderabad'},
+    {Name: 'Watch', City: 'Mumbai'}
+  ];
+}
+
+2. pipedemo.component.html
+
+<div class="container">
+   <table class="table table-hover">
+      <thead>
+         <th>Name</th>
+         <th>City</th>
+         <th>Delivery Status</th>
+      </thead>
+      <tbody>
+         <tr *ngFor="let item of products">
+            <td>{{item.Name}}</td>
+            <td>{{item.City}}</td>
+            <td>{{item.City | i18nSelect:statusMessage}}</td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+		"I18PluralPipe"
+- As per coding standards you have define a plural name for collection.
+- The plural pipe can identify when values are multiple and can defined a plural name.
+- It can get the collection count and display messages according to the count defined in Messages Map or collection.
+
+  {{ collection.length | i18pluralpipe:keyValueCollection}
+
+Ex:
+1. component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-pipedemo',
+    templateUrl: 'pipedemo.component.html',
+    styleUrls: ['pipedemo.component.css']
+})
+
+export class PipeDemoComponent {
+   public notifications = ['Whatsup Updated', 'Memory Cleaned'];
+
+   public notificationMap: {[key:string]:string} = {
+     '=0': 'No Notifications', '=1': 'One Notification', 'other':'# Notifications.'
+   };
+   public display = [];
+   public ShowNotifications() {
+       this.display = this.notifications;
+   }
+}
+
+2. component.html
+
+<div class="container">
+   <button class="btn btn-primary" (click)="ShowNotifications()">
+      <span class="badge badge-light">
+         {{notifications.length | i18nPlural:notificationMap}}
+      </span>
+   </button>
+   <ol>
+      <li *ngFor="let item of display">
+         {{item}}
+      </li>
+   </ol>
+</div>
+
+	                Custom Pipe
+- You can create your own pipe
+- It is a class that implements "PipeTransform" base
+
+1. Add a new File intp "app" folder
+	"sentencecase.pipe.ts"
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+    name: 'sentencecase'
+})
+export class SentenceCasePipe implements PipeTransform {
+    transform(str) {
+        let firstChar = str.charAt(0);
+        let restChars = str.substring(1);
+        let sentence = firstChar.toUpperCase() +  restChars.toLowerCase();
+        return sentence;
+    }
+}
+
+2. Register Pipe "app.module.ts"
+	 
+    declarations: [
+	          SetenceCasePipe
+	 ]
+
+3. Apply to text
+	public title = "WELcomE to TypEscriPT"
+
+	{{title | sentencecase }}
+
+	
+	         Angular Services
+	        ===============
+
+	        Forms and Validations
+
+
