@@ -1,0 +1,117 @@
+	                  Angular Services
+- A service is a pre-define business logic which can be reused in the application by injecting into component.
+
+- Technically service is a collection of factories and A factory is collection of related type of functions.
+
+- Factories use single call mechanism. An object is initialized every time when a function is required.
+
+- Services use single ton mechanism. An object is initialized only for first request and will be used across all other requests.
+
+- Angular service is a class with set of functions that return any specific functionality.
+
+- Angular Service functions [methods] need to be implemented from the base "Injectable"
+
+- Injectable() allows service to use a single ton mechanism so that it can injected into any component.
+
+Syntax:
+	import  { Injectable } from '@angular/core'
+	@Injectable()
+	export class ServiceName {
+	    // services methods
+	}
+
+- Services need to be registered in "app.module.ts" at providers.
+
+Ex:
+1. Goto "app" folder and add a new file
+	        "Captcha.service.ts"
+import { Injectable } from '@angular/core';
+
+@Injectable()
+
+export class CaptchaService {
+    public GenerateCode() {
+        let a = Math.random() * 10;
+        let b = Math.random() * 10;
+        let c = Math.random() * 10;
+        let d = Math.random() * 10;
+        let e = Math.random() * 10;
+        let code = `${Math.round(a)} ${Math.round(b)} ${Math.round(c)} ${Math.round(d)} ${Math.round(e)}`;
+        return code;
+    }
+}
+
+2. Register Service in "app.module.ts"
+
+	providers: [CaptchaService],
+
+3. Goto 
+	Register.component.ts
+import { Component, OnInit } from '@angular/core';
+import { CaptchaService } from '../captcha.service';
+
+@Component({
+    selector: 'app-register',
+    templateUrl: 'register.component.html',
+    styleUrls: ['register.component.css']
+})
+
+export class RegisterComponent implements OnInit
+{
+    public code;
+    constructor(private captcha: CaptchaService) {
+
+    }
+    ngOnInit() {
+        this.code = this.captcha.GenerateCode();
+    }
+    public title = 'Register User';
+    public NewCode() {
+        this.ngOnInit();
+    }
+}
+
+4. Goto "register.component.html"
+
+<div class="registerForm">
+    <h2>{{title}}</h2>
+    <dl>
+        <dt>User Name</dt>
+        <dd><input type="text"></dd>
+        <dt>Password</dt>
+        <dd><input type="password"></dd>
+        <dt>Email</dt>
+        <dd><input type="email"></dd>
+        <dt>Verify Code</dt>
+        <dd>
+            <span style="width: 100px; height: 50px; border:1px solid darkcyan; padding: 5px;">
+                {{code}}
+            </span>
+        </dd>
+        <dd>
+            <button (click)="NewCode()" class="btn btn-primary">New Code</button>
+        </dd>
+    </dl>
+    <button>Register</button>
+</div>
+
+5. register.component.css
+
+.registerForm {
+    width: 300px;
+    border:2px solid darkcyan;
+    box-shadow: 2px 2px 4px darkcyan;
+    padding: 30px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 30px;
+}
+button {
+    background-color: darkcyan;
+    color:white;
+}
+
+		Angular Forms
+
