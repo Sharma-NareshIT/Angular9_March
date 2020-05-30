@@ -1,0 +1,148 @@
+Ex: Creating a Service for Data
+
+1. Add a new file into "app" folder
+	             "data.service.ts"
+
+import { Injectable } from '@angular/core';
+
+@Injectable()
+
+export class DataService {
+  GetProducts() {
+      return [
+        {Name: 'Samsung TV', Price: 45000.54, Category: 'Electronics', Photo: 'assets/tv.jpg'},
+        {Name: 'Nike Casuals', Price: 5000.54, Category: 'Footwear', Photo: 'assets/nike.jpg'},
+        {Name: 'Earpods', Price: 15000.54, Category: 'Electronics', Photo: 'assets/earpods.jpg'},
+        {Name: 'Lee Cooper Boot', Price: 6000.54, Category: 'Footwear', Photo: 'assets/shoe1.jpg'},
+    ];
+  }
+}
+2. Register data service
+	"app.module.ts"
+
+        providers: [CaptchaService, DataService],
+
+3. Inject into your component
+    -Goto "productsdata.component.ts"
+
+  import { DataService } from '../data.service';
+ 
+  export class ProductsDataComponent implements OnInit {
+
+    constructor(private productService: DataService){
+    }
+    public data = [];
+    ngOnInit() {
+        this.data = this.productService.GetProducts();
+    }
+     // your component logic...
+  }
+
+	               Angular Forms
+- Form is a container in HTML
+- It comprises of elements like textbox, checkbox, radio etc.
+- It handles interaction with user by managing input and output.
+- A form allows to view, input, edit and delete data.
+- Angular Form interactions are classified into 2 types
+	a) Template Driven Forms
+	b) Reactive forms or Model Driven Forms
+
+Template Driven Forms:
+- A template driven form is a dynamic form.
+- Most of the interactions are handled at UI level i.e in HTML page.
+- Form is configured in View level and its interactions also designed at View level.
+- This will reduce the burden on Controller and reduces the compile time.
+- The problem with Template driven is View becomes heavy and slow in rendering. As all interactions are handled at View Level only.
+- Hard to test and extend functionality.
+
+Configuring Form and Its Elements:
+==============================
+- In template driven approach form is configured by using
+	"ngForm" directive
+- The elements in the form are configured by using 	"ngModel" directive
+- ngForm directive provides all properties and methods that are used to handle a form at View level.
+- ngModel provides all properties and methods that are used to handle a form element like textbox, checkbox, dropdown etc..
+
+Syntax:
+<form  #frmRegister="ngForm">
+   <input type="text" #userName="ngModel" ngModel>
+</form>
+	frmRegister.value  → Submit all form elements
+	userName.value → submits element value
+
+- ngForm and ngModel  are defined in "FormsModule" of "@angular/forms"
+
+
+Ex:
+1. templateform.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-templateform',
+  templateUrl: 'templateform.component.html',
+  styleUrls: ['templateform.component.css']
+})
+export class TemplateFormComponent {
+    public RegisterClick(obj){
+        alert(obj.txtName);
+    }
+}
+
+2. templateform.component.html
+<div class="container-fluid">
+  <h2>Register Product</h2>
+  <form (submit)="RegisterClick(frmRegister.value)" #frmRegister="ngForm">
+     <div class="form-group">
+         <label>Name</label>
+         <div>
+             <input type="text" name="txtName" ngModel #txtName="ngModel"  class="form-control">
+         </div>
+     </div>
+     <div class="form-group">
+         <label>Price</label>
+        <div>
+            <input type="text" name="txtPrice" ngModel #txtPrice="ngModel"  class="form-control">
+        </div>
+     </div>
+     <div class="form-group">
+        <label>Quantity</label>
+       <div>
+           <input type="number" name="txtQty" ngModel #txtQty="ngModel"  class="form-control">
+       </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary">Register</button>
+    </div>
+  </form>
+  
+  <dl>
+    <h2>Product Details</h2>
+      <dt>Name</dt>
+      <dd>{{txtName.value}}</dd>
+      <dt>Price</dt>
+      <dd>{{txtPrice.value}}</dd>
+      <dt>Quantity</dt>
+      <dd>{{txtQty.value}}</dd>
+      <dt>Total</dt>
+      <dd>{{txtQty.value * txtPrice.value}}</dd>
+  </dl>
+</div>
+
+3. templateform.component.css
+form {
+  width: 300px;
+  float: left;
+}
+dl{
+    margin-left: 100px;
+    float: left;
+}
+
+
+
+
+
+
+
+
+
