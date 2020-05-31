@@ -1,0 +1,238 @@
+ngForm General Properties
+value	: It returns an object that contains collection of
+	  control name and their values.
+	  The controls in a form are accessible by using
+	  "value" object.
+	  Control Names are defined as Keys and their
+	  values are acessible with key reference.
+
+	  Syntax:   formName.value.controlName
+	  Ex:	frmRegister.value.txtName
+
+ngForm Validation Properties:
+  These are set of properties used to verify whether form is having valid data or not. These properties are also used for handling form interactions.
+
+	        Angular Form Validation
+	       =====================
+- Validation is the process of verifying user input.
+- Validation is required to ensure that contradictionary and unauthorized data is not get stored into database.
+- In Angular Forms validations are handled by using a set of Validation Services.
+- The validation services are categorized into 2 groups
+	1. Form State Validation
+	2. Input State Validation
+
+Form State Validation Services:
+- These are the services used to verify all controls in a form simultaneously at the same time.
+- You can identify that form have a problem, but you can't identify where the problem exists.
+- Angular uses HTML properties for verifying the controls.
+- Angular Form state validation services are defined by "NgForm" reference and the services are:
+
+Service		Property		Description
+===============================================
+ngPristine	pristine	It returns true when no 
+			modification detected in the
+			form elements.
+			[No Changes detected]
+
+ngDirty		dirty	It returns true when any one
+			control in the form modified.
+			[Changes detected]
+
+ngValid		valid	It returns true when all 			controls in the form are valid.
+
+ngInValid		invalid	It returns true when any
+			one control int the form is
+			invalid.
+
+ngSubmitted	submitted It returns true when form
+			 is sumitted.
+----------------------------------------------------------------------------------------
+
+Syntax:
+	frmRegister.pristine
+	frmRegister.valid
+	frmRegister.invalid
+
+Ex:
+1. templateform.component.html
+<div class="container-fluid">
+  <h2>Register Product</h2>
+  <form (submit)="RegisterClick(frmRegister.value)" #frmRegister="ngForm">
+     <div class="form-group">
+         <label>Name</label>
+         <div>
+             <input type="text" name="txtName" ngModel #txtName="ngModel" minlength="4" maxlength="10"  class="form-control">
+         </div>
+     </div>
+     <div class="form-group">
+         <label>Price</label>
+        <div>
+            <input type="text" required name="txtPrice" ngModel #txtPrice="ngModel"  class="form-control">
+        </div>
+     </div>
+     <div class="form-group">
+        <label>Quantity</label>
+       <div>
+           <input type="number" name="txtQty" ngModel #txtQty="ngModel"  class="form-control">
+       </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="frmRegister.invalid" class="btn btn-primary">Register</button>
+        <button [disabled]="frmRegister.pristine" class="btn btn-success">Save</button>
+    </div>
+  </form>
+  
+  <dl>
+    <h2>Product Details</h2>
+      <dt>Name</dt>
+      <dd>{{txtName.value}}</dd>
+      <dt>Price</dt>
+      <dd>{{txtPrice.value}}</dd>
+      <dt>Quantity</dt>
+      <dd>{{txtQty.value}}</dd>
+      <dt>Total</dt>
+      <dd>{{txtQty.value * txtPrice.value}}</dd>
+      <dd>{{frmRegister.value.txtName}}</dd>
+  </dl>
+  <dl>
+      <h2>Validation Services</h2>
+      <dt>Pristine[Form not Modified]</dt>
+      <dd>{{frmRegister.pristine}}</dd>
+      <dt>Dirty[Form Modified]</dt>
+      <dd>{{frmRegister.dirty}}</dd>
+      <dt>Valid</dt>
+      <dd>{{frmRegister.valid}}</dd>
+      <dt>Invalid</dt>
+      <dd>{{frmRegister.invalid}}</dd>
+      <dt>Submitted</dt>
+      <dd>{{frmRegister.submitted}}</dd>
+  </dl>
+</div>
+
+	  Input State Validation Services
+	  ==========================
+- These are the angular validation services used to verify every control in the form individually.
+- These services are accessible by using "NgModel" which is binded to form controls.
+- Angular input state validation services are:
+
+Service		Property		Description
+==================================================
+ngPristine	pristine	It returns true when a form
+			element is not modified.
+ngDirty		dirty	Element is modified
+ngValid		valid	Element is valid
+ngInvalid		invalid	Element is invalid
+ngTouched	touched    It returns true if control get
+			focus and blured.
+ngUntouched	untouched  Element not touched.
+errors		errors	It is used to verify specific
+			error in control, which 
+			includes requried, pattern	
+			email, etc..
+			
+			Syntax:
+			txtName.errors.required
+			txtName.errors.pattern
+
+Syntax:
+<input type="text" name="txtName" ngModel #txtName="ngModel" class="form-control" required>
+
+<span *ngIf="frmRegister.submitted && txtName.invalid" class="text-danger">Name Required</span>
+		(or)
+<span *ngIf="txtName.touched && txtName.invalid" class="text-danger">Name Required</span>
+
+Note: If a control is having multiple validations then "invalid" can't identify which validation error occured.
+
+        <input type="text" required  minlength="4" maxlength="20" #txtName="ngModel" ngModel>
+
+             txtName.invalid
+
+        You have to use the validation service "errors", which is used to identify specific validation in the element when it returns invalid.
+
+ <div *ngIf="txtName.invalid">
+ <span *ngIf="txtName.errors.required"> Required </span>
+ <span *ngIf="txtName.error.minlength> MinLength Problem </span>
+ <span> Maxlength Problem </span>
+ </div> 
+
+
+Ex: inputvalidation.component.html
+
+<div class="container-fluid">
+ <form #frmRegister="ngForm">
+    <h2>Register User</h2>
+    <div class="form-group">
+        <label>User Name</label>
+        <div>
+            <input type="text" name="txtName" ngModel #txtName="ngModel" class="form-control" required>
+            <span *ngIf="txtName.touched && txtName.invalid" class="text-danger">Name Required</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Mobile</label>
+        <div>
+            <input type="text" name="txtMobile" ngModel #txtMobile="ngModel" class="form-control" required pattern="\+91[0-9]{10}">
+            <div *ngIf="txtMobile.touched && txtMobile.invalid">
+                <span *ngIf="txtMobile.errors.required" class="text-danger">Mobile Required</span>
+                <span *ngIf="txtMobile.errors.pattern" class="text-danger">Invalid Mobile</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary btn-block">Submit</button>
+    </div>
+ </form>
+</div>
+
+	
+Dynamically apply CSS effects for validation
+=====================================
+- You can defined CSS classes for validation errors.
+- You can dynamically change the colors and display effects by using "ngClass"
+
+
+Ex:
+1. inputvalidation.component.css
+
+form{ 
+    width: 300px;
+    margin:auto;
+}
+.valid-style {
+    border: 2px solid green;
+    box-shadow: 2px 2px 3px green;
+}
+.invalid-style {
+    border:2px solid red;
+    box-shadow: 2px 2px 3px red;
+}
+
+2. inputvalidation.component.html
+
+<div class="container-fluid">
+ <form #frmRegister="ngForm">
+    <h2>Register User</h2>
+    <div class="form-group">
+        <label>User Name</label>
+        <div>
+            <input [ngClass]="{'valid-style':txtName.valid, 'invalid-style':txtName.invalid}" type="text" name="txtName" ngModel #txtName="ngModel" class="form-control" required>
+            <span *ngIf="txtName.touched && txtName.invalid" class="text-danger">Name Required</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Mobile</label>
+        <div>
+            <input [ngClass]="{'valid-style':txtMobile.valid, 'invalid-style':txtMobile.invalid}" type="text" name="txtMobile" ngModel #txtMobile="ngModel" class="form-control" required pattern="\+91[0-9]{10}">
+            <div *ngIf="txtMobile.touched && txtMobile.invalid">
+                <span *ngIf="txtMobile.errors.required" class="text-danger">Mobile Required</span>
+                <span *ngIf="txtMobile.errors.pattern" class="text-danger">Invalid Mobile</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary btn-block">Submit</button>
+    </div>
+ </form>
+</div>	
+		Custom Validations
+	
