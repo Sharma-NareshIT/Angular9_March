@@ -1,0 +1,129 @@
+- You have to manually verify the state valid or invalid and apply the effects using [ngClass].
+
+Syntax:
+	.valid-style {
+	}
+	
+  <input type="text" [ngClass]="{'valid-style':txtName.valid}">
+
+	    Angular Validation CSS Classes
+	  =============================
+- The Angular validation css classes have the ability to verify the validation state of your form elements and can apply effects automatically.
+
+Class Name	Description
+-------------------------------------------------------------
+.ng-valid		Apply effects when input is valid
+.ng-invalid	Apply effects when input is invalid
+.ng-dirty		Apply effect when modified
+.ng-pristine	Apply effects when not-modified
+.ng-touched	Apply effect when touched 
+.ng-untouched	Apply effect when untouched
+
+Note: Classes are available but effects how to display you have to configure as developer.
+
+		.css
+	input.ng-valid {
+
+	}
+	input.ng-invalid {
+
+	}
+
+	.ng-valid	→ Apply for all i.e form and elements
+	form.ng-valid → Apply only for form.
+	input.ng-valid → Apply only for input elements.
+
+	          Custom Validation in Angular
+- HTML provides a limited set of validation properties like required, min length, max length, email etc.
+- You have to create your own validation functions to verify the input value in various occassion.
+
+Ex:
+1. inputvalidation.component.ts
+
+import {Component} from '@angular/core';
+
+@Component({
+    selector: 'app-inputvalidation',
+    templateUrl: 'inputvalidation.component.html',
+    styleUrls: ['inputvalidation.component.css']
+})
+export class InputValidationComponent {
+   public showCityError = false;
+   public showEvenError = false;
+   public CityChanged(val){
+      if(val=='nocity') {
+          this.showCityError = true;
+      } else {
+          this.showCityError = false;
+      }
+   }
+   public VerifyEvenNumber(val){
+       if(val%2==0) {
+           this.showEvenError = false;
+       } else {
+           this.showEvenError = true;
+       }
+   }
+}
+
+2. inputvalidation.component.html
+
+<div class="container-fluid">
+ <form #frmRegister="ngForm">
+    <h2>Register User</h2>
+    <div class="form-group">
+        <label>User Name</label>
+        <div>
+            <input  type="text" name="txtName" ngModel #txtName="ngModel" class="form-control" required>
+            <span *ngIf="txtName.touched && txtName.invalid" class="text-danger">Name Required</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Mobile</label>
+        <div>
+            <input  type="text" name="txtMobile" ngModel #txtMobile="ngModel" class="form-control" required pattern="\+91[0-9]{10}">
+            <div *ngIf="txtMobile.touched && txtMobile.invalid">
+                <span *ngIf="txtMobile.errors.required" class="text-danger">Mobile Required</span>
+                <span *ngIf="txtMobile.errors.pattern" class="text-danger">Invalid Mobile</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Select City</label>
+        <div>
+            <select (change)="CityChanged(lstCities.value)" name="lstCities"  #lstCities="ngModel" ngModel class="form-control">
+                <option value="nocity">Select Your City</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Hyderabad">Hyderabad</option>
+            </select>
+            <span *ngIf="showCityError" class="text-danger">Please Select a City</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Enter Even Number</label>
+        <div>
+            <input (blur)="VerifyEvenNumber(txtEven.value)" type="text" required name="txtEven" ngModel #txtEven="ngModel" class="form-control">
+            <span *ngIf="showEvenError" class="text-danger">Not an Even Number</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary btn-block">Submit</button>
+    </div>
+ </form>
+</div>
+
+3. inpuvalidation.component.css
+
+form{ 
+    width: 300px;
+    margin:auto;
+}
+input.ng-valid {
+    border: 2px solid green;
+    box-shadow: 2px 2px 3px green;
+}
+input.ng-invalid {
+    border:2px solid red;
+    box-shadow: 2px 2px 3px red;
+}
+
