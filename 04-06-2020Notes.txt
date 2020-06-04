@@ -1,0 +1,156 @@
+		Reactive Forms
+	           [Model Driven Forms]
+- Angular supports MVC and MVVM framework where data is represented and handled by a Model.
+- In Template driven forms are not bound to model hence all interactions are managed at View level.
+- Reactive forms provide a "Model Driven" approach to handle form input.
+- The form is bound to model and any changes in view are update to Model.
+- Reactive form allow extensibility.
+- You can add controls into form dynamically.
+- Reactive form supports "asynchronous" [Ajax] approach where only a portion of form can be submitted.
+- It enables "Partial Post Back".
+- The library required for designing reactive forms "@angular/form"  and  "ReactiveFormsModule".
+
+	Creating a new Form Control
+	========================
+1. You can create a form control dynamically by using "FormControl" class.
+
+    Syntax:
+        public txtName = new FormControl('value');
+
+2. Form control is binded with input or form elements by using the property "formControl".
+
+    Syntax:
+     <input type="text" [formControl]="txtName">
+
+3. You can access the form control value in UI by using binding techniques
+	  {{ txtName.value }}
+	
+4. You can dynamically set a value into form control by using
+	 "setValue()"
+
+Ex:
+1. Goto "app.module.ts"
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+ imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+
+2. Add a new component
+	"reactivedemo"
+
+3. reactivedemo.component.ts
+
+import {Component} from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+@Component({
+    selector: 'app-reactivedemo',
+    templateUrl: 'reactivedemo.component.html',
+    styleUrls: ['reactivedemo.component.css']
+})
+export class ReactiveDemoComponent {
+    public txtName = new FormControl('John');
+    public lstCities = new FormControl('Delhi');
+    public Update() {
+        this.txtName.setValue('Sanjay');
+        this.lstCities.setValue('Hyderabad');
+    }
+}
+          
+4. reactivedemo.component.html
+
+<div class="container">
+  <h2>Reactive Form</h2>
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" [formControl]="txtName" class="form-control" >
+  </div>
+  <div class="form-group">
+    <label>Select City</label>
+    <div>
+        <select [formControl]="lstCities" class="form-control" >
+            <option>Hyderabad</option>
+            <option>Delhi</option>
+            <option>Chennai</option>
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <button (click)="Update()" class="btn btn-block btn-primary">Update Details</button>
+  </div>
+  <h3>Details</h3>
+  <dl>
+      <dt>Name</dt>
+      <dd>{{txtName.value}}</dd>
+      <dt>City</dt>
+      <dd>{{lstCities.value}}</dd>
+  </dl>
+</div>
+
+
+	    Create a From with FormControls
+- You can design form dynamically by using "FormGroup" class.
+- It is a collection of FormControls.
+
+   public  formName = new FormGroup({
+           controlName : new FormControl(),
+           controlName : new FormControl()
+     });
+
+- You can bind Form and Form controls by using
+	<form  [fromGroup]="formName">
+	   <input  type="text" formControlName="controlName">
+	</form>
+
+Ex:
+1. reactivedemo.component.ts
+
+import {Component} from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
+@Component({
+    selector: 'app-reactivedemo',
+    templateUrl: 'reactivedemo.component.html',
+    styleUrls: ['reactivedemo.component.css']
+})
+export class ReactiveDemoComponent {
+    public frmRegister = new FormGroup({
+        txtName: new FormControl('John'),
+        lstCities: new FormControl('Hyd')
+    });
+}
+
+2. reactivedemo.component.html
+
+<div class="container">
+  <h2>Reactive Form</h2>
+  <form [formGroup]="frmRegister">
+    <div class="form-group">
+        <label>Name</label>
+        <div>
+            <input type="text" formControlName="txtName" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Select City</label>
+        <div>
+            <select formControlName="lstCities" class="form-control">
+                <option>Delhi</option>
+                <option>Hyd</option>
+            </select>
+        </div>
+    </div>
+  </form>
+  <h2>Details</h2>
+   Name : {{frmRegister.value.txtName}} <br>
+   City : {{frmRegister.value.lstCities}}
+</div>
+
+		Nested Forms
+
+
+
