@@ -1,0 +1,131 @@
+FormControl
+FormGroup
+		Nested Forms
+- A formgroup can be defined within another formgroup.
+- It allows asynchronous posting.
+- Only a portion of form can be submitted.
+
+Syntax:
+
+public parentForm = new FormGroup({
+	control: new FormControl(),
+	childForm: new FormGroup({
+                         control:new FormControl()
+	   }) 
+	});
+
+- Parent form is binded to <form> element by using [formGroup] attribute.
+
+- Child forms are binded to any container by using the property "FormGroupName".
+
+<body>
+  <form [formGroup]="parentForm">
+      <div formGroupName="childForm>
+      </div>
+  </form>
+</body>
+
+- Controls in parent or child form are defined by using "formControlName".
+
+- You can dynamically update the child form using form method "patchValue()"
+
+
+Ex:
+1. reactivedemo.component.ts
+
+import {Component} from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
+@Component({
+    selector: 'app-reactivedemo',
+    templateUrl: 'reactivedemo.component.html',
+    styleUrls: ['reactivedemo.component.css']
+})
+export class ReactiveDemoComponent {
+   public frmRegister = new FormGroup({
+       Name: new FormControl(''),
+       Price: new FormControl(''),
+       frmDetails: new FormGroup({
+           City: new FormControl(''),
+           IsInStock: new FormControl('')
+       })
+   });
+   public UpdateForm() {
+       this.frmRegister.patchValue({
+           Name: 'Nike Casuals',
+           frmDetails: {
+               City: 'Delhi',
+               IsInStock: true
+           }
+       });
+   }
+}
+
+2. reactivedemo.component.html
+
+<div class="container">
+    <h2>Nested Forms</h2>
+    <form [formGroup]="frmRegister">
+        <fieldset>
+            <legend>Basic Info</legend>
+            <div class="form-group">
+                <label>Name</label>
+                <div>
+                    <input type="text" formControlName="Name" class="form-control" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Price</label>
+                <div>
+                    <input type="text" formControlName="Price" class="form-control">
+                </div>
+            </div>
+            <fieldset>
+                <legend>Stock Details</legend>
+                <div formGroupName="frmDetails">
+                    <div class="form-group">
+                        <label>Select City</label>
+                        <div>
+                            <select class="form-control" formControlName="City" >
+                                <option>Delhi</option>
+                                <option>Hyderabad</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Is in Stock</label>
+                        <div>
+                           <input type="checkbox" formControlName="IsInStock"> Yes
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </fieldset>
+        <div class="form-group">
+            <button (click)="UpdateForm()" class="btn btn-info">Update Form</button>
+        </div>
+    </form>
+</div>
+<div class="container">
+  <h2>Product Details</h2>
+  <dl>
+      <dt>Name</dt>
+      <dd>{{frmRegister.value.Name}}</dd>
+      <dt>Price</dt>
+      <dd>{{frmRegister.value.Price}}</dd>
+      <dt>City</dt>
+      <dd>{{frmRegister.value.frmDetails.City}}</dd>
+      <dt>Stock</dt>
+      <dd>{{(frmRegister.value.frmDetails.IsInStock==true)?"Available":"Out of Stock"}}</dd>
+  </dl>
+</div>
+
+3. reactivedemo.component.css
+
+.container {
+    float: left;
+    width: 300px;
+    margin-left: 40px;
+}
+
+		FormBuilder
