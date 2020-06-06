@@ -1,0 +1,204 @@
+		FormBuilder
+- FormBuilder is a service provided by angular.
+- It allows to configure the form and its elements using "Single Ton" pattern.
+- The form builder service inject a set of functions that allow to configure the form
+	a) group()
+	b) control()
+	c) array()
+- group()  configures a "FormGroup"
+- control() configure a FormControl
+- array() configures a set of controls that are dynamically    
+              handled in a form group.
+
+Ex:
+1. Add a new component
+	> ng g c formbuilderdemo
+
+2. goto "formbuilderdemo.component.ts
+
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+
+@Component({
+  selector: 'app-formbuilderdemo',
+  templateUrl: './formbuilderdemo.component.html',
+  styleUrls: ['./formbuilderdemo.component.css']
+})
+export class FormbuilderdemoComponent implements OnInit {
+
+  constructor(private fb: FormBuilder) { }
+  public frmRegister = this.fb.group({
+    Name: [''],
+    Price: [''],
+    frmDetails: this.fb.group({
+      City: [''],
+      IsInStock: ['']
+    })
+  });
+  ngOnInit(): void {
+  }
+}
+
+
+3. goto "formbuilderdemo.component.html
+
+<div class="container">
+  <h2>Register</h2>
+  <form [formGroup]="frmRegister">
+     <dl>
+         <dt>Name</dt>
+         <dd><input type="text" formControlName="Name" class="form-control" ></dd>
+         <dt>Price</dt>
+         <dd><input type="text" formControlName="Price" class="form-control" ></dd>
+         <dt style="background-color: lightblue;">Stock Details</dt>
+         <dd>
+             <div formGroupName="frmDetails" >
+                <dl>
+                    <dt>Shipped To</dt>
+                    <dd>
+                        <select class="form-control" formControlName="City">
+                            <option>Delhi</option>
+                            <option>Hyd</option>
+                        </select>
+                    </dd>
+                    <dt>Is In Stock</dt>
+                    <dd>
+                        <input  formControlName="IsInStock" type="checkbox"> Yes
+                    </dd>
+                </dl>
+             </div>
+         </dd>
+     </dl>
+  </form>
+</div>
+<div class="container">
+ <h2>Details</h2>
+ <dl>
+     <dt>Name</dt>
+     <dd>{{frmRegister.value.Name}}</dd>
+     <dt>Price</dt>
+     <dd>{{frmRegister.value.Price}}</dd>
+     <dt>City</dt>
+     <dd>{{frmRegister.value.frmDetails.City}}</dd>
+     <dt>Stock</dt>
+     <dd>{{(frmRegister.value.frmDetails.IsInStock==true)?"Avialable":"Out of Stock"}}</dd>
+ </dl>
+</div>
+
+4. goto "formbuilderdemo.component.css
+
+.container {
+    width: 300px;
+    float: left;
+    margin-left: 50px;
+}
+
+		FormArray
+- Angular FormArray is a service that allows to add or remove controls dynamically into form.
+- It uses a from builder function "array()", which can create a controll dynamically and add to form.
+- You can manipulate controls by using array method.
+	a) push(),
+	b) pop()	
+	c) shift()
+	d) unshift()
+	e) removeAt()  - remove control at specified index
+
+Syntax:
+ this.formArray.push(this.fb.control(' '));
+ this.formArray.removeAt(index);
+
+
+Ex:
+1. .ts 
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormArray } from '@angular/forms';
+
+@Component({
+  selector: 'app-formbuilderdemo',
+  templateUrl: './formbuilderdemo.component.html',
+  styleUrls: ['./formbuilderdemo.component.css']
+})
+export class FormbuilderdemoComponent implements OnInit {
+
+  constructor(private fb: FormBuilder) { }
+  public frmRegister = this.fb.group({
+    Name: [''],
+    Price: [''],
+    frmDetails: this.fb.group({
+      City: [''],
+      IsInStock: ['']
+    }),
+    newControls: this.fb.array([
+      this.fb.control('')
+    ])
+  });
+  ngOnInit(): void {
+  }
+  get newControls() {
+    return this.frmRegister.get('newControls') as FormArray;
+  }
+  public AddPhoto() {
+    this.newControls.push(this.fb.control(''));
+  }
+  public RemovePhoto(i) {
+    this.newControls.removeAt(i);
+  }
+}
+
+2. .html
+<div class="container">
+  <h2>Register</h2>
+  <form [formGroup]="frmRegister">
+     <dl>
+         <dt>Name</dt>
+         <dd><input type="text" formControlName="Name" class="form-control" ></dd>
+         <dt>Price</dt>
+         <dd><input type="text" formControlName="Price" class="form-control" ></dd>
+         <dt style="background-color: lightblue;">Stock Details</dt>
+         <dd>
+             <div formGroupName="frmDetails" >
+                <dl>
+                    <dt>Shipped To</dt>
+                    <dd>
+                        <select class="form-control" formControlName="City">
+                            <option>Delhi</option>
+                            <option>Hyd</option>
+                        </select>
+                    </dd>
+                    <dt>Is In Stock</dt>
+                    <dd>
+                        <input  formControlName="IsInStock" type="checkbox"> Yes
+                    </dd>
+                </dl>
+             </div>
+         </dd>
+         <dd>
+             <button (click)="AddPhoto()" class="btn btn-primary">Upload More..</button>
+         </dd>
+         <dd>
+             <div *ngFor="let c of newControls.controls; let i=index">
+                <label>Photo</label>
+                <div>
+                    <input type="file" formControlName="i">
+                    <button (click)="RemovePhoto(i)" class="btn btn-link">Remove</button>
+                </div>
+             </div>
+         </dd>
+     </dl>
+  </form>
+</div>
+<div class="container">
+ <h2>Details</h2>
+ <dl>
+     <dt>Name</dt>
+     <dd>{{frmRegister.value.Name}}</dd>
+     <dt>Price</dt>
+     <dd>{{frmRegister.value.Price}}</dd>
+     <dt>City</dt>
+     <dd>{{frmRegister.value.frmDetails.City}}</dd>
+     <dt>Stock</dt>
+     <dd>{{(frmRegister.value.frmDetails.IsInStock==true)?"Avialable":"Out of Stock"}}</dd>
+ </dl>
+</div>
