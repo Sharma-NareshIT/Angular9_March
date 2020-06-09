@@ -1,0 +1,40 @@
+
+		  Angular Routing
+- Routing a Technique used in web application to configure User and SEO friendly URL's
+- It enable user to get access to everything from one page.
+- New details are added to page without reloading the complete page.
+- It uses asynchronous updates with AJAX.
+- Routing is managed by a "RouteEngine"
+- It refers to routing table for accessing the resource.
+- The angular route configuration properties and method are defined in
+	"@angular/route"  library
+- The classes that are used to configure routes are
+	a) Route
+	b) RouterModule
+
+- The routing for angular application is configured in
+	     "app-routing.module.ts"
+
+    import { NgModule } form '@angular/core';
+    import { Routes, RouterModule } from '@angular/router';
+
+      const routes: Routes = [ ];
+
+    @NgModule({
+          imports: [RouterModule.forRoot(routes)],
+          exports: [RouterModule]
+      })
+
+    export class AppRoutingModule { } 
+
+- "Routes" is a collection of routes for your application.
+- Every route inside collection comprises of following properties
+
+ Route Property		Description
+ ----------------------------------------------------------------------------------
+ path
+ component
+ redirectTo
+ data
+ pathMatch
+ outlet
