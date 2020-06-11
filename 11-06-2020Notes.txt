@@ -1,0 +1,216 @@
+Route Properties:
+
+Property		Description
+==================================================
+path	       It specifies the routename with is used by
+	       client in order to access any component
+	       from URL.
+
+	        http://localhost:4200/home 
+		→ "home" is path
+
+component     It specifies the component name, which is
+	       accessed and rendered when a path is 
+	       requested by client.
+
+	       Request Path :   /home
+	       Component    :   HomeComponent
+
+redirectTo	       It specifies the default used for redirection,
+	       automatically uses a path to redirect.
+
+pathMatch       It is used to match an existing path instead
+	        of writing it again. So that you can redirect
+	        to specified path.
+
+outlet	        It specifies the outlet name. Outlet is the 
+	        location where the result will be rendered.
+
+data	        It allows to pass additional information to
+	       route, which include path name, outlet name
+	       etc..
+
+- "routerLink" is used for navigation to specific route path
+          <a routerLink="routePath"> Home </a>
+
+- <router-outlet> specifies where to render the result.
+
+Ex:
+1. Create a new Angular Project
+	> ng new flipkart
+	> Add Routing ? Yes
+	
+2. Goto Project and add following components
+	> ng g c home	  --skipTests=true
+	> ng g c electronics
+	> ng g c footwear
+	> ng g c fashion
+	> ng g c notfound
+
+3. home.component.html
+<h2>
+  Flipkart | Shopping Online
+</h2>
+<p>Browse all our products..</p>
+
+3. electronics.component.html
+
+<div class="container">
+  <h2>Electronics</h2>
+  <img src="assets/jblspeaker.jpg" width="100" height="100">
+  <img src="assets/earpods.jpg" width="100" height="100">
+</div>
+
+4. similarly design other categories ".html"
+
+5. notfound.component.html
+
+<h2>The Page you requested : NotFound</h2>
+
+6. Goto "app-routing.module.ts"  in "app" folder
+
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { HomeComponent } from './home/home.component';
+import { ElectronicsComponent } from './electronics/electronics.component';
+import { FootwearComponent } from './footwear/footwear.component';
+import { FashionComponent } from './fashion/fashion.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+
+
+const routes: Routes = [
+  {path: 'home', component: HomeComponent},
+  {path: 'electronics', component: ElectronicsComponent},
+  {path: 'footwear', component: FootwearComponent},
+  {path: 'fashion', component: FashionComponent},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: '**', component: NotfoundComponent}
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+7. Goto "app.component.html"
+
+<div class="container-fluid">
+  <h2 class="text-primary">Shopping Online</h2>
+ <div class="btn-toolbar bg-danger text-white">
+   <div class="btn-group">
+    <a routerLink="home" class="btn btn-danger"><span class="fa fa-home"></span>Home</a>
+    <a routerLink="electronics" class="btn btn-danger"><span class="fa fa-tv"></span>Electronics</a>
+    <a routerLink="fashion" class="btn btn-danger"><span class="fa fa-tshirt"></span>Fashion</a>
+    <a routerLink="footwear" class="btn btn-danger"><span class="fa fa-shoe-prints"></span>Footwear</a>
+   </div>
+ </div>
+ <div style="height: 300px; margin-top: 50px;">
+     <router-outlet></router-outlet>
+ </div>
+ <div class="bg-danger text-white text-center">
+    &copy; Copyright 2020
+ </div>
+</div>
+
+8. Install bootstrap and fontawesome library
+9. Define "AppComponent" in bootstrap
+10. Start "index.html"
+
+      <body>
+        <app-root> </app-root>
+     </body>
+
+		"Route Parameters"
+- Angular uses route parameter to transfer data from one component to another.
+- Generally web applications use "QueryStrings"
+	
+      http://localhost:4200/electronics?category=mobiles
+
+- These QueryString are now reffered as "RouteParameters"
+
+      http://localhost:4200/electronics/mobiles
+
+- Every route parameter in Angular can be configured by using "ActivatedRoute" module
+
+- Route parameter comprises of Key and Value collection
+
+Syntax:
+        <a routerLink="path/param1/param2"> </a>
+      
+  private  route: ActivatedRoute;
+  
+  this.route.snapshot.paramMap.get('key');
+  this.route.snapshot.paramMap.getAll(' ');
+  this.route.snapshot.paramMap.keys(' ');
+
+- The parameters are configured in the route path by using
+	"/:paramName"
+
+ Syntax: app-routing.module.ts
+
+      { path='electronics/:paramKey/:paramKey' }
+
+
+EX:
+1. Add a new component
+	> ng g c search  --skipTests=true
+
+2. Goto " app-routing.module.ts "
+
+ {path: 'search/:id/:name/:price', component: SearchComponent},
+
+3. Goto "app.component.html" and add following into "btn-toolbar"
+  <div  class="btn-toolbar  justify-content-between">
+  <div class="btn-group">
+     <a routerLink="search/1/Mobile/34000" class="btn btn-danger"><span class="fa fa-search"></span> Search</a>
+   </div>
+  </div>
+
+4. Goto "search.component.ts"
+
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
+})
+export class SearchComponent implements OnInit {
+
+  constructor(private route: ActivatedRoute) { }
+
+  public id;
+  public name;
+  public price;
+  ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.name = this.route.snapshot.paramMap.get('name');
+    this.price = this.route.snapshot.paramMap.get('price');
+  }
+
+}
+
+
+5. Goto "search.component.html"
+
+<h2>Product Details</h2>
+<dl>
+    <dt>Product Id</dt>
+    <dd>{{id}}</dd>
+    <dt>Name</dt>
+    <dd>{{name}}</dd>
+    <dt>Price</dt>
+    <dd>{{price}}</dd>
+</dl>
+
+Note: You can request search directly from URL
+
+       http://localhost:4200/search/4/TV/46000
+
+
+
+	       
