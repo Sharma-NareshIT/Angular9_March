@@ -1,0 +1,234 @@
+1. Add a new Component 
+	> ng g c categories
+	> ng g c productslist
+	> ng g c productdetails --skipTests=true
+
+2. Goto "app-routing.module.ts"
+
+  {path: 'categories', component: CategorieslistComponent},
+  {path: 'categories/:id', component: ProductslistComponent, 
+      children:[
+        {path: 'details/:id', component: ProductdetailsComponent}]
+  },
+
+3. Add a new Service
+	> ng g s  data  --skipTests=true
+
+4. Goto
+	"data.service.ts"
+
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class DataService {
+  constructor() { }
+  public GetCategories(){
+    return [
+      {CategoryId: 1, CategoryName: 'Electronics'},
+      {CategoryId: 2, CategoryName: 'Footwear'}
+    ];
+  }
+  public GetProducts(){
+    return [
+      {ProductId: 1, Name: 'Samsung TV', Price: 45000.55, CategoryId: 1},
+      {ProductId: 2, Name: 'Earpods', Price: 7000.55, CategoryId: 1},
+      {ProductId: 3, Name: 'Nike Casuals', Price: 8000.55, CategoryId: 2},
+      {ProductId: 4, Name: 'Nike Sports', Price: 3000.55, CategoryId: 2},
+    ];
+  }
+}
+
+5. Register Data Services in "app.module.ts"
+
+providers: [DataService],
+
+6. Goto 
+	"categorieslist.component.ts"
+
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+
+@Component({
+  selector: 'app-categorieslist',
+  templateUrl: './categorieslist.component.html',
+  styleUrls: ['./categorieslist.component.css']
+})
+export class CategorieslistComponent implements OnInit {
+
+  constructor(private data: DataService) { }
+  public categories;
+  ngOnInit(): void {
+    this.categories = this.data.GetCategories();
+  }
+
+}
+
+7. Goto "categories.component.html"
+
+<div class="container">
+    <h2>Categories List</h2>
+    <ol>
+        <li *ngFor="let item of categories">
+            <a routerLink="{{item.CategoryId}}">{{item.CategoryName}}</a>
+        </li>
+    </ol>
+</div>
+
+8. Goto "productslist.component.ts"
+
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
+@Component({
+  selector: 'app-productslist',
+  templateUrl: './productslist.component.html',
+  styleUrls: ['./productslist.component.css']
+})
+export class ProductslistComponent implements OnInit {
+
+  constructor(private data: DataService, private route: ActivatedRoute, private router: Router) { }
+  public products = [];
+  public categoryId;
+  ngOnInit(): void {
+    this.categoryId = this.route.snapshot.paramMap.get('id');
+    this.products = this.data.GetProducts().filter(x=>x.CategoryId==this.categoryId);
+  }
+  public DetailsClick(item) {
+     this.router.navigate(['details', item.ProductId],{relativeTo:this.route});
+  }
+}
+
+9. productslist.component.html
+
+<h2>Products List</h2>
+<div class="row">
+    <div class="col-3">
+        <ol>
+            <li *ngFor="let item of products">
+               <button (click)="DetailsClick(item)" class="btn btn-link">
+                {{item.Name}}
+               </button>
+            </li>
+        </ol>
+    </div>
+    <div class="col-9">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+10. productsdetails.componet.ts
+
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { DataService } from '../data.service';
+
+@Component({
+  selector: 'app-productdetails',
+  templateUrl: './productdetails.component.html',
+  styleUrls: ['./productdetails.component.css']
+})
+export class ProductdetailsComponent implements OnInit {
+
+  constructor(private route: ActivatedRoute, private data: DataService) { }
+  public productId;
+  public products = [];
+  public prodid;
+  public prodname;
+  public prodprice;
+  ngOnInit(): void {
+    this.productId = this.route.snapshot.paramMap.get('id');
+    for(var i=0; i<this.data.GetProducts().length; i++) {
+       if(this.data.GetProducts()[i].ProductId==this.productId) {
+          this.prodname = this.data.GetProducts()[i].Name;
+          this.prodprice = this.data.GetProducts()[i].Price;
+       }
+    }
+  }
+
+}
+
+11. productdetails.component.html
+
+<div style="margin-left: 30px;">
+  <dl>
+      <dt>Name</dt>
+      <dd>{{prodname}}</dd>
+      <dt>Price</dt>
+      <dd>{{prodprice}}</dd>
+  </dl>
+</div>
+
+
+12. Add a Link in "app.component.html"
+
+<a routerLink="categories" class="btn btn-danger">Categories</a>
+
+	End to End Intergration in Angular
+	 	  [MEAN]
+M	- MongoDb  for Database
+E	- Express    for Middleware
+A	- Angular     for Client Side
+N	- Node Js	   for Server Side
+
+		 MongoDb
+- Install MongoDb on your PC
+
+https://www.mongodb.com/try/download/community
+
+- Start MongoDb Server for Services
+
+	* Goto Windows Run option
+	* Type "services.msc"
+	* Right Click on "MongoDb Server"
+	* Select Start
+
+- Start MongoDb Client [create, query database]
+
+   	* Open Command Prompt
+	* Change to following path
+
+C:\Program Files\MongoDB\Server\4.0\bin>mongo.exe
+
+ >  mongo terminal for commands
+
+Mongo Commands:
+ > show dbs	→ View list of database
+ > db		→ View the current active database
+ > use 		→ Creating and using database
+
+Step-1: Create a new Database in MongoDb
+
+	> use  databaseName
+	> use  angular9db
+	> show dbs
+
+Note: Database will be display in list only when it contains tables. In MongoDb Tables are known as Collections.
+
+
+Step-2: Create Tables [ Collections ]
+
+	>db.createCollection("tblcategories");
+	>db.createCollection("tblproducts");
+
+Step-3: Insert Records into Tables
+
+> db.tblcategories.insert([{CategoryId:1, CategoryName:"Electronics"},{CategoryId:2, CategoryName:"Footwear"},{CategoryId:3, CategoryName:"Fasion"}])
+
+>db.tblproducts.insert([
+      {ProductId: 1, Name: 'Samsung TV', Price: 45000.55, CategoryId: 1},
+      {ProductId: 2, Name: 'Earpods', Price: 7000.55, CategoryId: 1},
+      {ProductId: 3, Name: 'Nike Casuals', Price: 8000.55, CategoryId: 2},
+      {ProductId: 4, Name: 'TShirt', Price: 2000.55, CategoryId: 3},
+    ])
+
+4. Read Records
+	>db.tblcategories.find().pretty()
+	>db.tblproducts.find().pretty()
+
+
+
+
+
+
+
