@@ -1,0 +1,275 @@
+	M	- MongoDb
+	E	- Express
+	A	- Angular
+	N	- Node JS
+
+		MongoDb DataBase
+>use angular9db
+
+>db.createCollection("tblcategories")
+>db.createCollection("tblproducts")
+
+>db.tblcategories.insert([{CategoryId:1, CategoryName:"Electronics"}, { }...])
+>db.tblproducts.insert([{ProductId:1, Name:"Samsung TV", Price:45000.55, CategoryId:1}, { }...])
+
+>db.tblcategories.find().pretty()
+
+
+		       Node JS
+	               [Server Side Scripting]
+- Create a new folder into Project folder by name
+	     "ServerSide"
+- Open Terminal and Install following packages
+
+ >npm install mongodb  → library to connect with mongodb
+ >npm install body-parser → converts data into JSON
+ >npm install express        → It is middleware for creating
+			APIs
+
+- Add a new JavaScript file into "ServerSide" folder
+
+	   "BusinessLayer.js"
+
+//import library
+var mongoClient = require("mongodb").MongoClient;
+var express = require("express");
+var bodyParser = require("body-parser");
+
+//Configure connection string
+
+var url = "mongodb://127.0.0.1/27017";
+
+//configure Middleware
+var app = express();
+
+//Configure Body Parser
+app.use(bodyParser.urlencoded({
+    extended:true
+}));
+app.use(bodyParser.json());
+
+//Configure CORS [Cross Origin Resource Sharing]
+app.use(function(req, res, next){
+  res.header("Access-Control-Allow-Origin","*");
+  res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods","GET","POST","PUT");
+  next();
+});
+
+// Create API requests
+app.get("/getproducts",function(req, res){
+    mongoClient.connect(url,function(err, client){
+        if(!err){
+            var database = client.db("angular9db");
+            database.collection("tblproducts").find({}).toArray(function(err, documents){
+                if(!err) {
+                    res.send(documents);
+                } else {
+                    console.log(err);
+                }
+            })
+        } else {
+            console.log(err);
+        }
+    })
+})
+app.post("/addproducts", function(req, res){
+    mongoClient.connect(url, function(err, client){
+        if(!err) {
+            var database = client.db("angular9db");
+            var data = {
+                ProductId: req.body.ProductId,
+                Name:req.body.Name,
+                Price:req.body.Price,
+                CategoryId:req.body.CategoryId
+            };
+            database.collection("tblproducts").insert(data,function(err, result){
+                if(!err) {
+                    console.log("Record Inserted");
+                } else {
+                    console.log(err);
+                }
+            })
+        }
+    })
+})
+app.listen(8080);
+console.log("Server Started : http://127.0.0.1:8080");
+
+
+
+- Open Terminal and Compile/Run
+
+       > node businesslayer.js
+          Server Started : http://127.0.0.1:8080
+
+- Open Any Browser and Request
+
+	http://127.0.0.1:8080/getproducts
+
+		Consume in Angular
+	                 =================
+HttpClientModule - It provides a set of properties and methods that are used to make an HttpRequest from client application to any server side API.
+
+Syntax:
+	private http:HttpClient;
+
+	this.http.get();
+	this.http.post();
+
+HttpErrorResponse - It tracks the activities performent through HttpRequest and catch the error response. 
+
+	error: HttpErrorResponse;
+	error.statusCode	- 404
+	error.statusText	- NotFound
+
+RxJS Library - It Reactive Extention JavaScript Library, it is used to configure Asynchronous calls from your client app.
+
+ Observable : It identifies the data returned on request .
+ Subscribe: It executes the async method.
+ catchError  ]  rxJs operators
+ throwError ] 
+
+1. Add a Contract into "app" folder
+	           "IProduct.ts"
+interface IProduct {
+    ProductId;
+    Name;
+    Price;
+    CategoryId;
+}
+
+2. Add a new Service
+	>ng g c apidata --skipTest=true
+
+3. Goto "apidata.service.ts"
+
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable  } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import {  throwError } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ApidataService {
+  public geturl = 'http://127.0.0.1:8080/getproducts';
+  public posturl = 'http://127.0.0.1:8080/addproducts';
+
+  constructor(private http: HttpClient) { }
+  public GetProducts(): Observable<IProduct[]>{
+    return this.http.get<IProduct[]>(this.geturl);
+  }
+  public AddProduct(data) {
+    return this.http.post<any>(this.posturl, data).pipe(catchError(this.CatchError));
+  }
+  public CatchError(error: HttpErrorResponse) {
+    return throwError(error.statusText);
+  }
+}
+
+4. Register Service in "app.module.ts"
+
+providers: [DataService, ApidataService],
+
+5. Import HttpClient Modules into "app.module.ts"
+
+import { HttpClientModule } from '@angular/common/http';
+
+ imports: [
+ HttpClientModule,
+ ]
+
+6. Add a new Component
+	> ng g c  consumedata  --skipTests=true
+
+7. Goto consumedata.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { ApidataService } from '../apidata.service';
+
+@Component({
+  selector: 'app-consumedata',
+  templateUrl: './consumedata.component.html',
+  styleUrls: ['./consumedata.component.css']
+})
+export class ConsumedataComponent implements OnInit {
+
+  constructor(private data: ApidataService) { }
+  public products = [];
+  ngOnInit(): void {
+    this.data.GetProducts().subscribe(data=>this.products=data);
+  }
+  public RegisterProduct(data){
+    this.data.AddProduct(data).subscribe(error=>console.log('something went wrong'));
+    alert('Record Inserted');
+    location.reload();
+  }
+}
+
+8. consumedata.component.html
+
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+        <h3>Register Product</h3>
+        <div class="form-group">
+            <form #frmRegister="ngForm" method="POST" (submit)="RegisterProduct(frmRegister.value)">
+                <dl>
+                    <dt>Product Id</dt>
+                    <dd>
+                        <input type="number" name="ProductId" ngModel #ProductId="ngModel" class="form-control" >
+                    </dd>
+                    <dt>Name</dt>
+                    <dd>
+                        <input type="text" name="Name" ngModel #Name="ngModel" class="form-control" >
+                    </dd>
+                    <dt>Price</dt>
+                    <dd>
+                        <input type="text" name="Price" ngModel #Price="ngModel" class="form-control" >
+                    </dd>
+                    <dt>CategoryId</dt>
+                    <dd>
+                        <input type="number" name="CategoryId" ngModel #CategoryId="ngModel" class="form-control" >
+                    </dd>
+                </dl>
+                <button class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-9">
+        <h2>Products List</h2>
+  <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Product Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of products">
+            <td>{{item.ProductId}}</td>
+            <td>{{item.Name}}</td>
+            <td>{{item.Price}}</td>
+            <td>{{item.CategoryId}}</td>
+        </tr>
+    </tbody>
+  </table>
+    </div>
+  </div>
+</div>
+
+
+Angular Materials   [ Bootstrap ]
+Angular Animations 
+3rd Party
+
+sharmanareshit@gmail.com
+
+
+
+
+
